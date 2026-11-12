@@ -1,0 +1,200 @@
+/* ============================================================
+   ACEBEAM — Cart Page Styles
+   购物车页独有样式：步骤条 / 条目列表 / 汇总卡片
+   ============================================================ */
+
+.cart-section { background: var(--ac-mist); min-height: 55vh; }
+
+/* ---------- Checkout steps ----------
+   箭头形分段进度条被 cart / checkout / checkout-completed 共用，
+   基样式已下沉到 common.css 第 23 节（硬约束：2 个以上页面用到的组件基样式放 common.css）。
+   本文件只保留 cart 场景的紧凑覆盖。 */
+.checkout-steps .steps { --step-gap: 4px; }
+
+/* ---------- Cart items ---------- */
+.cart-items {
+  background: #fff; border: 1px solid var(--ac-line);
+  border-radius: var(--radius-lg); overflow: hidden;
+}
+.cart-head {
+  grid-template-columns: minmax(0, 3fr) 1fr 1fr 1fr 90px;
+  gap: 1.2rem; padding: .9rem 1.4rem;
+  background: var(--ac-navy); color: rgba(255,255,255,.85);
+  font-family: var(--font-display); font-size: .72rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+}
+.cart-head .ch-qty, .cart-item .ci-qty { justify-self: start; }
+.cart-head .ch-price, .cart-item .ci-price { justify-self: end; }
+.cart-head .ch-total, .cart-item .ci-total { justify-self: end; }
+.cart-item {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) 1fr 1fr 1fr 90px;
+  gap: 1.2rem; align-items: center;
+  padding: 1.2rem 1.4rem;
+  border-top: 1px solid var(--ac-line);
+  transition: background .16s ease, opacity .25s ease, transform .25s ease;
+}
+.cart-item:hover { background: #fffaf5; }
+.ci-product { display: flex; gap: 1rem; align-items: center; min-width: 0; }
+.ci-thumb {
+  flex: none; width: 78px; height: 78px; border-radius: 10px;
+  overflow: hidden; background: var(--ac-mist);
+  border: 1px solid var(--ac-line);
+}
+.ci-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.ci-name { font-size: .92rem; font-weight: 700; margin: 0 0 .2rem; line-height: 1.35; }
+.ci-name a { color: var(--ac-ink); }
+.ci-name a:hover { color: var(--ac-beacon-text); }
+.ci-sku { font-size: .72rem; color: var(--ac-slate); letter-spacing: .04em; }
+.ci-option { font-size: .78rem; color: var(--ac-slate); }
+.ci-price, .ci-total { font-family: var(--font-display); font-weight: 700; color: var(--ac-ink); }
+.ci-total { color: var(--ac-beacon-text); }
+.ci-actions { display: flex; gap: .4rem; align-items: center; }
+.ci-edit {
+  border: none; background: none; color: var(--ac-slate);
+  font-size: .8rem; text-decoration: underline; text-underline-offset: 3px;
+  padding: .2rem .3rem;
+}
+.ci-edit:hover { color: var(--ac-beacon-text); }
+.ci-remove {
+  width: 32px; height: 32px; border-radius: 8px;
+  border: 1px solid var(--ac-line); background: #fff; color: var(--ac-slate);
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: all .15s ease;
+}
+.ci-remove:hover { border-color: var(--ac-red); color: var(--ac-red); background: #fdf0f0; }
+
+/* 购物车内数量控制：紧凑版（基样式见 common.css 第 22 节） */
+.cart-item .qty-btn { width: 34px; height: 38px; }
+.cart-item .qty-btn::before { width: 12px; }
+.cart-item .qty-btn::after { width: 2px; height: 12px; }
+.cart-item .qty-input { width: 46px; font-size: .88rem; }
+
+/* 提示文字 */
+.cart-note {
+  background: var(--ac-beacon-soft);
+  border: 1px dashed var(--ac-beacon);
+  color: #8a4a12; border-radius: var(--radius);
+  padding: .9rem 1.1rem; font-size: .8rem; line-height: 1.6;
+}
+
+/* 优惠券 */
+.coupon-form { max-width: 400px; width: 100%; }
+.coupon-form .form-control {
+  border-radius: 999px; border-color: var(--ac-line); font-size: .85rem;
+}
+.coupon-form .form-control:focus { border-color: var(--ac-beacon-text); box-shadow: 0 0 0 .2rem rgba(230,83,0,.12); }
+.coupon-form .btn { white-space: nowrap; }
+
+/* ---------- Summary ---------- */
+.summary-card {
+  background: #fff; border: 1px solid var(--ac-line);
+  border-radius: var(--radius-lg); padding: 1.6rem 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+.summary-title {
+  font-size: 1rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .1em; margin-bottom: 1.2rem;
+  padding-bottom: .9rem; border-bottom: 2px solid var(--ac-beacon);
+}
+.summary-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .45rem 0; font-size: .92rem; color: var(--ac-ink);
+}
+.summary-row.total {
+  margin-top: .6rem; padding-top: 1rem;
+  border-top: 1px dashed var(--ac-line);
+  font-size: 1.15rem; font-weight: 800; color: var(--ac-beacon-text);
+  font-family: var(--font-display);
+}
+.terms-check {
+  display: flex; gap: .55rem; align-items: flex-start;
+  font-size: .8rem; color: var(--ac-slate); line-height: 1.5;
+}
+.terms-check input { margin-top: .22rem; accent-color: var(--ac-beacon-text); }
+/* .secure-note 已提级到 common.css §17.1：9 页在用，其中 8 个结账页只加载 account.css */
+.payments-box {
+  margin-top: 1.2rem; text-align: center;
+  background: #fff; border: 1px solid var(--ac-line);
+  border-radius: var(--radius-lg); padding: .9rem;
+}
+.payments-box img { max-height: 30px; }
+
+/* ---------- 下单常见问题：左右两列（左 FAQ / 右「下单后流程」卡） ---------- */
+/* faq-block 基样式在 common.css 限宽 900px（单列居中用）；此处放宽到整列 */
+.cart-faq-grid .faq-block { max-width: none; }
+
+.order-next {
+  height: 100%;
+  display: flex; flex-direction: column;
+  background: var(--ac-navy);
+  border-radius: var(--radius-lg);
+  padding: 1.6rem 1.5rem;
+  color: rgba(255, 255, 255, .78);
+  box-shadow: var(--shadow-md);
+}
+.order-next h3 {
+  color: #fff; font-size: 1rem; font-weight: 800;
+  letter-spacing: .04em; text-transform: uppercase; margin: 0 0 .55rem;
+}
+.order-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: .85rem; }
+.order-steps li { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: .8rem; align-items: start; }
+.os-num {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--ac-beacon-text); color: #fff;
+  font-family: var(--font-display); font-size: .82rem; font-weight: 800;
+}
+.order-steps strong { display: block; color: #fff; font-size: .88rem; margin-bottom: .15rem; }
+.order-steps p { font-size: .82rem; line-height: 1.6; margin: 0; }
+
+.order-next-foot { margin-top: auto; padding-top: 1.3rem; }
+.order-next-foot::before {
+  content: ""; display: block; height: 1px;
+  background: rgba(255, 255, 255, .16); margin-bottom: 1.1rem;
+}
+.order-next-foot p { font-size: .82rem; line-height: 1.65; margin: 0 0 .9rem; }
+.order-next-foot .btn { width: 100%; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 767.98px) {
+  .step-name { display: none; }
+  .steps { justify-content: space-around; }
+  .cart-item {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "product product"
+      "qty     total"
+      "qty     each";
+    gap: .55rem .8rem;
+    align-items: center;
+  }
+  .cart-head { display: none !important; }
+  .ci-product { grid-area: product; }
+  .ci-qty { grid-area: qty; display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .55rem; }
+  .ci-qty::before {
+    content: "Quantity";
+    font-family: var(--font-display); font-size: .72rem;
+    font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ac-slate);
+  }
+  /* 手机端不隐藏金额：列头没了，就用行内标签把「单价 / 行合计」说清楚 */
+  .ci-price, .ci-total {
+    display: flex; flex-direction: column; align-items: flex-end; gap: .05rem;
+  }
+  .ci-total { grid-area: total; justify-self: end; }
+  .ci-price { grid-area: each; justify-self: end; color: var(--ac-slate); }
+  .ci-price::before, .ci-total::before {
+    content: "Each";
+    font-family: var(--font-display); font-size: .68rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ac-slate);
+  }
+  .ci-total::before { content: "Total"; }
+  /* 行尾那组按钮只在 ≥768px 用；手机端用的是 .ci-info 里那组，两边同时显示会重复出 Edit/Remove */
+  .cart-item > .ci-actions { display: none !important; }
+  /* 手机端把步进器放大到 44px 触控目标，避免误触 */
+  .ci-qty .qty-btn { width: 44px; height: 44px; }
+  .ci-qty .qty-btn::before { width: 14px; }
+  .ci-qty .qty-btn::after { width: 2px; height: 14px; }
+  .ci-qty .qty-input { width: 56px; font-size: .95rem; }
+}

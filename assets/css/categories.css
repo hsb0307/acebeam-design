@@ -1,0 +1,114 @@
+/* ============================================================
+   ACEBEAM — Categories (hub) / All-Products (catalogue) Styles
+   分类中心页与全商品页共用样式
+   ============================================================ */
+
+.catalog-section { background: var(--ac-mist); min-height: 60vh; }
+.hub-section { background: #fff; }
+
+/* ---------- 侧边栏吸附（桌面） ---------- */
+@media (min-width: 992px) {
+  .catalog-section .col-lg-3 {
+    position: sticky;
+    top: 84px;
+    align-self: flex-start;
+    max-height: calc(100vh - 104px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #c9d2dd transparent;
+    padding-right: 4px;
+  }
+}
+
+/* 侧边栏图标占位背景（小图更协调） */
+.side-list a .icon {
+  border-radius: 6px;
+  background: var(--ac-mist);
+  padding: 2px;
+  object-fit: cover;
+}
+
+/* ---------- 商品网格 ---------- */
+.products-view .row { --bs-gutter-y: var(--sp-4); }
+
+/* 列表视图细节（统一在 common.css 的基础卡片布局上叠加） */
+.products-view.list-view .product-card { flex-direction: row; align-items: stretch; }
+.products-view.list-view .card-media { width: 210px; flex: none; }
+.products-view.list-view .card-body { align-content: center; }
+.products-view.list-view .prod-name { -webkit-line-clamp: 1; }
+@media (max-width: 575.98px) {
+  .products-view.list-view .product-card { flex-direction: column; }
+  .products-view.list-view .card-media { width: 100%; aspect-ratio: 16 / 10; }
+}
+
+/* ---------- 工具栏 ---------- */
+@media (max-width: 767.98px) {
+  .list-toolbar { flex-direction: column; align-items: flex-start; }
+  .list-toolbar .d-flex { width: 100%; justify-content: space-between; }
+}
+
+/* ============================================================
+   分类中心页（categories.html）：分类瓦片 + 内容区块
+   ============================================================ */
+
+.hub-grid {
+  display: grid; gap: 1.15rem;
+  grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
+}
+/* 阵列节奏（D8）：8 张等大瓦片缺层次 —— 旗舰类目（每页第一张 .hub-tile-lg）占两列，
+   形成「主角 / 配角」分组节奏。
+   ≥992px 改用显式 3 列：8 张 + 首张跨 2 = 9 格，恰好 3 整行、无空洞；
+   窄屏维持 auto-fit 单列堆叠，不做跨度（避免手机端半宽瓦片）。 */
+@media (min-width: 992px) {
+  .hub-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .hub-tile-lg { grid-column: span 2; }
+  .hub-tile-lg .hub-media { aspect-ratio: 5 / 2; }
+  .hub-tile-lg .hub-body h3 { font-size: 1.15rem; }
+}
+.hub-tile {
+  position: relative; display: flex; flex-direction: column;
+  background: #fff; border: 1px solid var(--ac-line);
+  border-radius: var(--radius-lg); overflow: hidden;
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  height: 100%;
+}
+.hub-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(230, 83, 0, .45);
+}
+.hub-media { display: block; aspect-ratio: 16 / 10; overflow: hidden; background: var(--ac-mist); }
+.hub-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .45s ease; }
+.hub-tile:hover .hub-media img { transform: scale(1.05); }
+.hub-body { padding: 1.15rem 1.3rem 1.35rem; display: flex; flex-direction: column; flex: 1; }
+.hub-body h3 {
+  font-size: 1rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .05em; margin: 0 0 .4rem;
+}
+.hub-body h3 a { color: var(--ac-ink); }
+.hub-body h3 a:hover { color: var(--ac-beacon-text); }
+.hub-body p { font-size: .85rem; color: var(--ac-slate); margin: 0 0 .75rem; line-height: 1.68; }
+.hub-meta {
+  margin-top: auto; display: flex; align-items: center; justify-content: space-between;
+  gap: .75rem; padding-top: .85rem; border-top: 1px solid var(--ac-line);
+}
+.hub-count {
+  font-family: var(--font-display); font-size: .68rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--ac-beacon-text);
+}
+.hub-more {
+  font-family: var(--font-display); font-size: .7rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--ac-slate);
+  display: inline-flex; align-items: center; gap: .35rem;
+  transition: gap .18s ease, color .18s ease;
+}
+.hub-tile:hover .hub-more { gap: .6rem; color: var(--ac-beacon-text); }
+
+/* 选购路径（use case） */
+.usecase-list { display: grid; gap: var(--sp-3); grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.usecase-item {
+  background: var(--ac-mist); border: 1px solid var(--ac-line);
+  border-radius: var(--radius); padding: 1.1rem 1.2rem;
+}
+.usecase-item h3 { font-size: .86rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; margin: 0 0 .35rem; }
+.usecase-item p { font-size: .84rem; color: var(--ac-slate); margin: 0; line-height: 1.65; }

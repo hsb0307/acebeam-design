@@ -1,0 +1,408 @@
+/* ============================================================
+   ACEBEAM — Home Page Styles
+   首页独有样式：Hero / 服务条 / 分类探索 / 特色商品 / 技术区 / 新闻 / 博客 / 评价 / 分销商
+   ============================================================ */
+
+/* ---------- Hero (Swiper) ---------- */
+.hero-slider {
+  position: relative;
+  background: var(--ac-navy);
+  overflow: hidden;
+}
+.hero-slider .swiper {
+  width: 100%;
+  /* dvh 跟随移动端地址栏收放；不支持的老浏览器整条失效、退化为内容撑开高度 */
+  height: clamp(540px, 76dvh, 700px);
+}
+.hero-slide {
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  /* 罩层只护左侧文字区，右侧全透保住照片通透度——半透明暗层罩亮照片正是「灰蒙蒙」的来源 */
+  background:
+    linear-gradient(100deg, rgba(5, 28, 44, .92) 0%, rgba(5, 28, 44, .6) 42%, rgba(5, 28, 44, 0) 70%),
+    var(--slide-bg) center / cover no-repeat;
+}
+.hero-slide .container { width: 100%; }
+@media (max-width: 991.98px) {
+  /* 窄屏 cover 裁切后 slider02 的光束会落进文字区，罩层加重保 AA */
+  .hero-slide {
+    background:
+      linear-gradient(100deg, rgba(5, 28, 44, .95) 0%, rgba(5, 28, 44, .92) 60%, rgba(5, 28, 44, .6) 100%),
+      var(--slide-bg) center / cover no-repeat;
+  }
+}
+.hero-caption {
+  max-width: 660px;
+  padding-block: clamp(3.2rem, 6vw, 5.2rem);
+  /* 覆盖 Bootstrap .container 的 margin-inline:auto 居中 → 靠左
+     （hero-slide 背景为「左深右透」渐变，文字应落在左侧深色区，README 待办 #2） */
+  margin-left: 1.75rem;
+  margin-right: auto;
+}
+/* 576px 起 Swiper 箭头才显示，圆钮占 28–78px；文字必须让开这条通道，
+   否则加宽留白只是把标题从「贴边」推成「压钮」。 */
+@media (min-width: 576px) {
+  .hero-caption { margin-left: clamp(5.5rem, 11vw, 8rem); }
+}
+/* 992px 以下没有余量同时容纳 660px 文案列和右侧箭头，先收窄文案列 */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .hero-caption { margin-right: max(5.5rem, 9vw); }
+}
+/* 轮播文字入场动画（fade 切换时配合） */
+.hero-slider .swiper-slide-active .hero-caption {
+  animation: heroReveal .8s ease-out both;
+}
+@keyframes heroReveal {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- 轮播文字只跟随活动项（修掉淡入淡出时的「重影文字」） ----------
+   产生原因：effect:fade + crossFade:true 时，Swiper 对每张 slide 计算
+     opacity = max(1 - |slide.progress|, 0)
+   过渡途中两张 slide 的 progress 同时在 (0,1) 区间插值，于是**两张 slide
+   各以约 50% 的不透明度同时参与渲染**（Chromium 实测：次高 alpha 峰值
+   0.485，约 528ms；其中 >0.30 持续 144ms）。图片交叉淡入是想要的观感，
+   但两段标题叠在一起，就成了「当前项里出现其他项的文字」。
+   鼠标按住拖动 fade 轮播时同样会残留（实测下一项文字 alpha 0.208）。
+   注意：非 crossFade 的方案更糟 —— 已有 slide 会保持 opacity:1，
+   重叠时长反而从 1.2s 涨到 4.4s，故不改 effect，只改文字可见性。
+
+   作用域用 .swiper-horizontal（Swiper 初始化时才添加该 class）：
+   禁 JS 时规则不生效，hero 文字依然可见，不会整块消失。
+   非活动项的文字立即归零；活动项由 heroReveal 负责淡入。 */
+.hero-slider .swiper-horizontal .hero-slide .hero-caption { opacity: 0; }
+.hero-slider .swiper-horizontal .hero-slide.swiper-slide-active .hero-caption { opacity: 1; }
+
+.hero-award {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--font-display);
+  font-size: .72rem; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--ac-beacon);
+  /* 实底深蓝：半透明橙底会抬高背景亮度，橙字实测掉到 4.3；navy 底橙字 4.63 全场景达标 */
+  background: var(--ac-navy);
+  border: 1px solid rgba(230, 83, 0, .5);
+  padding: .45rem 1rem; border-radius: 999px;
+  margin-bottom: 1.4rem;
+}
+.hero h1,
+.hero-slide-title {
+  font-size: clamp(2.4rem, 6.4vw, 4.6rem);
+  font-weight: 900; letter-spacing: .02em; line-height: 1.04;
+  text-transform: uppercase; color: #fff; margin-bottom: .2rem;
+}
+/* 强调不用斜体：Archivo/Source Sans 3 无真斜体面，font-style:italic 只会得到
+   浏览器合成的廉价倾斜（site-audit §假斜体）。铭牌体系的强调 = 色彩 + 字重。 */
+.hero h1 em,
+.hero-slide-title em { font-style: normal; color: var(--ac-beacon); }
+/* H1 关键词副题（视觉上从属主标题，同时承载品牌品类词） */
+.hero-h1-tail {
+  display: block;
+  font-family: var(--font-body);
+  font-size: clamp(.72rem, 1.45vw, .92rem);
+  font-weight: 600; letter-spacing: .13em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .8);
+  margin-top: .6rem; line-height: 1.45;
+  max-width: 30em;
+}
+.hero-show {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 2.2vw, 1.5rem);
+  font-weight: 800; letter-spacing: .3em;
+  text-transform: uppercase; color: rgba(255, 255, 255, .9);
+  margin-bottom: 1.1rem;
+}
+.hero-sub { font-size: 1.02rem; color: rgba(255, 255, 255, .78); max-width: 480px; margin-bottom: 2rem; }
+.hero-cta { display: flex; gap: .9rem; flex-wrap: wrap; }
+.hero-cta .btn-outline-light {
+  --bs-btn-border-color: rgba(255,255,255,.65);
+  --bs-btn-color: #fff;
+  --bs-btn-hover-bg: #fff;
+  --bs-btn-hover-color: var(--ac-navy);
+  --bs-btn-hover-border-color: #fff;
+  border-radius: var(--btn-radius);
+  font-family: var(--font-display);
+  font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: .7rem 1.7rem; font-size: .84rem;
+}
+
+/* ---------- Hero: Swiper pagination (品牌橙) ---------- */
+.hero-slider .swiper-pagination {
+  bottom: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.hero-slider .swiper-pagination-bullet {
+  width: 10px; height: 10px;
+  background: rgba(255, 255, 255, .45);
+  opacity: 1;
+  border-radius: 999px;
+  /* 只过渡颜色；active 拉长是状态切换不是动效（Motion 法则禁 width 动画） */
+  transition: background-color .28s ease;
+}
+.hero-slider .swiper-pagination-bullet-active {
+  width: 34px;
+  background: var(--ac-beacon);
+}
+
+/* ---------- Hero: Swiper arrows ---------- */
+.hero-slider .swiper-button-prev,
+.hero-slider .swiper-button-next {
+  width: 50px; height: 50px;
+  top: 50%; margin-top: -25px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, .1);
+  border: 1px solid rgba(255, 255, 255, .28);
+  background-size: 22px 22px;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-color .2s ease, border-color .2s ease, opacity .2s ease;
+}
+.hero-slider .swiper-button-prev {
+  left: 28px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m14 6-6 6 6 6'/%3E%3C/svg%3E");
+}
+.hero-slider .swiper-button-next {
+  right: 28px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m10 6 6 6-6 6'/%3E%3C/svg%3E");
+}
+.hero-slider .swiper-button-prev:hover,
+.hero-slider .swiper-button-next:hover {
+  background-color: var(--ac-beacon);
+  border-color: var(--ac-beacon);
+}
+.hero-slider .swiper-button-disabled { opacity: .25; cursor: default; }
+.hero-slider .swiper-button-disabled:hover { background-color: rgba(255,255,255,.1); border-color: rgba(255,255,255,.28); }
+/* Swiper 11 会给箭头注入 ::after{content:'next'|'prev'}（依赖 swiper-icons 字体）。
+   本站箭头是自绘 SVG 背景，字体未加载时会退化成字面 "next/prev" 文字。 */
+.hero-slider .swiper-button-prev::after,
+.hero-slider .swiper-button-next::after { content: none; }
+
+/* ---------- Hero: autoplay 暂停/播放（WCAG 2.2.2，与箭头同视觉语言） ---------- */
+.hero-autoplay-toggle {
+  position: absolute; right: 28px; bottom: 20px; z-index: 10;
+  width: 44px; height: 44px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: #fff; cursor: pointer;
+  background-color: rgba(255, 255, 255, .1);
+  border: 1px solid rgba(255, 255, 255, .28);
+  transition: background-color .2s ease, border-color .2s ease;
+}
+.hero-autoplay-toggle:hover { background-color: var(--ac-beacon); border-color: var(--ac-beacon); }
+.hero-autoplay-toggle svg { width: 20px; height: 20px; }
+.hero-autoplay-toggle .ico-play { display: none; }
+.hero-autoplay-toggle[aria-pressed="true"] .ico-pause { display: none; }
+.hero-autoplay-toggle[aria-pressed="true"] .ico-play { display: block; }
+
+/* ---------- Service strip ---------- */
+.service-strip {
+  background: var(--ac-mist);
+  border-bottom: 1px solid var(--ac-line);
+  padding: 1.6rem 0;
+}
+.service-item {
+  display: flex; align-items: center; gap: .85rem;
+  background: #fff; border: 1px solid var(--ac-line);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.1rem; height: 100%;
+  transition: box-shadow .2s ease, transform .2s ease;
+}
+.service-item:hover { box-shadow: var(--shadow-sm); transform: translateY(-2px); }
+.service-item img { width: 42px; height: 42px; object-fit: contain; flex: none; }
+/* flex 子项默认 min-width:auto：320px 档「10-Year Warranty」长词把文字区撑出卡片 3px */
+.service-item > div { min-width: 0; }
+.service-item h3 {
+  font-size: .88rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .05em; margin: 0 0 .15rem;
+}
+.service-item p { font-size: .78rem; color: var(--ac-slate); margin: 0; }
+
+/* ---------- Category tiles ---------- */
+.category-explore { background: var(--ac-white); }
+.cat-tile {
+  position: relative; display: block; overflow: hidden;
+  border-radius: var(--radius-lg);
+  aspect-ratio: 16 / 10;
+  box-shadow: var(--shadow-sm);
+}
+.cat-tile img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .5s ease;
+}
+.cat-tile:hover img { transform: scale(1.06); }
+.cat-tile-overlay {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 1.3rem;
+  /* 只罩底部文字区，上半幅保持原图饱和度；底stop实底保橙字 4.63 */
+  background: linear-gradient(180deg, rgba(5,28,44,0) 52%, var(--ac-navy) 80%);
+  color: #fff;
+}
+.cat-tile-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+  font-weight: 800; text-transform: uppercase; letter-spacing: .06em;
+  color: #fff; margin: 0;
+}
+.cat-tile-cta {
+  font-size: .76rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ac-beacon);
+  display: inline-flex; align-items: center; gap: .4rem;
+  margin-top: .3rem;
+  transition: gap .2s ease;
+}
+.cat-tile:hover .cat-tile-cta { gap: .7rem; }
+
+/* ---------- Featured ---------- */
+.featured { background: var(--ac-mist); }
+
+/* ---------- Technology band ---------- */
+.tech-band {
+  /* 左橙右蓝：文字列落在纯蓝侧保对比度；橙色作为图形大色块恢复饱和度 */
+  background: linear-gradient(90deg, var(--ac-beacon) 0%, var(--ac-beacon-text) 22%, var(--ac-navy) 48%);
+  color: rgba(255, 255, 255, .85);
+}
+@media (max-width: 991.98px) {
+  /* 堆叠后文字占满整行，横向渐变会让白字落上橙侧 */
+  .tech-band { background: var(--ac-navy); }
+}
+.tech-band .eyebrow { color: var(--ac-beacon); }
+.tech-band .eyebrow::before { background: var(--ac-beacon); }
+.tech-visual {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(5, 28, 44, .4); /* 夜航蓝着色阴影，禁纯黑（Elevation 契约） */
+  border: 1px solid rgba(255, 255, 255, .12);
+}
+.tech-visual img { width: 100%; display: block; }
+.tech-title { color: #fff; font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 800; text-transform: uppercase; margin-bottom: 1.1rem; }
+.tech-lead { color: rgba(255, 255, 255, .72); font-size: 1.02rem; margin-bottom: 1.8rem; }
+.tech-list { list-style: none; padding: 0; margin: 0 0 2rem; display: grid; gap: .4rem; }
+.tech-list li {
+  display: flex; gap: 1rem; align-items: flex-start;
+  padding: .7rem 0; border-bottom: 1px dashed rgba(255,255,255,.14);
+}
+.tech-list li:last-child { border-bottom: none; }
+.tech-ico {
+  flex: none; width: 34px; height: 34px; border-radius: 10px;
+  background: rgba(230,83,0,.18); color: var(--ac-beacon);
+  font-family: var(--font-display); font-weight: 800; font-size: .9rem;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.tech-list strong { display: block; color: #fff; font-family: var(--font-display); font-size: .92rem; letter-spacing: .03em; }
+.tech-list p { margin: .15rem 0 0; color: rgba(255,255,255,.62); font-size: .84rem; }
+
+/* ---------- News ---------- */
+.news-section { background: var(--ac-white); }
+.news-card {
+  background: #fff; border: 1px solid var(--ac-line);
+  border-radius: var(--radius-lg); overflow: hidden; height: 100%;
+  display: flex; flex-direction: column;
+  transition: box-shadow .22s ease, transform .22s ease;
+}
+.news-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+.news-media { display: block; aspect-ratio: 16 / 10; overflow: hidden; }
+.news-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .45s ease; }
+.news-card:hover .news-media img { transform: scale(1.05); }
+.news-body { padding: 1.1rem 1.2rem 1.3rem; display: flex; flex-direction: column; gap: .4rem; flex: 1; }
+.news-body time {
+  font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ac-beacon-text); font-weight: 700;
+}
+.news-body h3 { font-size: .98rem; font-weight: 700; line-height: 1.4; margin: 0; }
+.news-body h3 a { color: var(--ac-ink); }
+.news-body h3 a:hover { color: var(--ac-beacon-text); }
+.news-body p { font-size: .84rem; color: var(--ac-slate); margin: 0; }
+
+/* ---------- Blog ---------- */
+.blog-section { background: var(--ac-mist); }
+.blog-card {
+  background: #fff; border: 1px solid var(--ac-line);
+  border-radius: var(--radius-lg); overflow: hidden;
+  display: flex; height: 100%;
+  transition: box-shadow .22s ease;
+}
+.blog-card:hover { box-shadow: var(--shadow-md); }
+.blog-media { width: 42%; flex: none; overflow: hidden; }
+.blog-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .45s ease; }
+.blog-card:hover .blog-media img { transform: scale(1.05); }
+.blog-content { padding: 1.4rem 1.5rem; display: flex; flex-direction: column; gap: .5rem; }
+.blog-cat {
+  align-self: flex-start;
+  font-family: var(--font-display); font-size: .64rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ac-beacon-text); background: var(--ac-beacon-soft);
+  border-radius: 999px; padding: .28rem .75rem;
+}
+.blog-content h3 { font-size: 1.08rem; font-weight: 800; line-height: 1.4; margin: 0; }
+.blog-content h3 a { color: var(--ac-ink); }
+.blog-content h3 a:hover { color: var(--ac-beacon-text); }
+.blog-content p { font-size: .86rem; color: var(--ac-slate); margin: 0; }
+.blog-more {
+  margin-top: auto; font-weight: 700; font-size: .84rem;
+  display: inline-flex; align-items: center; gap: .4rem;
+  color: var(--ac-beacon-text);
+}
+.blog-more:hover { gap: .7rem; color: var(--ac-beacon-text-dark); }
+
+/* ---------- Review band ---------- */
+.review-band { background: var(--ac-navy); }
+.review-band .section-head h2 { color: #fff; }
+/* eyebrow 在深蓝底上：文字版橙 #c24700 压 navy 只有 3.47，品牌橙 #e65300 反而 4.66 达标 */
+.review-band .section-head .eyebrow { color: var(--ac-beacon); }
+.review-band .section-desc { color: rgba(255,255,255,.6); }
+.review-card {
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: var(--radius-lg);
+  padding: 1.6rem 1.5rem; margin: 0; height: 100%;
+  display: flex; flex-direction: column;
+}
+.review-card blockquote {
+  margin: 0 0 1.2rem; font-size: .95rem; line-height: 1.7;
+  color: rgba(255, 255, 255, .85); font-style: italic;
+}
+.review-card figcaption {
+  margin-top: auto; font-weight: 700; color: #fff; font-size: .88rem;
+}
+.review-card figcaption span { color: rgba(255,255,255,.5); font-weight: 400; font-size: .76rem; margin-left: .4rem; }
+/* 演示数据标注：首页评价带与 product-detail.html 的口径一致 —— 这些是排版样例，
+   不是真实买家评价（PRODUCT.md「演示/未经证实内容不得当作真实证据」）。
+   底色 navy 上 .6 白与既有 .section-desc 同档，实测 ≥4.5。 */
+.review-note {
+  margin: 1.6rem 0 0; text-align: center;
+  font-size: .78rem; color: rgba(255, 255, 255, .6);
+}
+
+/* ---------- Distributor band ----------
+   样式已抽到 common.css（首页与详情页共用），此处不再重复定义 */
+
+/* ---------- Responsive ---------- */
+@media (max-width: 767.98px) {
+  /* 窄屏高度改由文案撑开：320px 档文案实测 595px，旧固定 460px 会把 CTA 裁掉上下两截。
+     min-height 保住英雄区体量；caption 底部留白给分页/暂停钮让出通道，不再压按钮。
+     dvh 跟随移动端地址栏收放；不支持的老浏览器该声明失效，由文案高度兜底。 */
+  .hero-slider .swiper {
+    height: auto;
+    min-height: clamp(460px, 68dvh, 560px);
+  }
+  .hero-caption { padding-block: 2.6rem 4.8rem; }
+  .hero-slider .swiper-button-prev { left: 14px; }
+  .hero-slider .swiper-button-next { right: 14px; }
+  .hero-slider .swiper-button-prev,
+  .hero-slider .swiper-button-next { width: 42px; height: 42px; margin-top: -21px; background-size: 18px 18px; }
+  .blog-card { flex-direction: column; }
+  .blog-media { width: 100%; aspect-ratio: 16 / 9; }
+  .service-item { padding: .85rem .9rem; }
+  .service-item img { width: 34px; height: 34px; }
+}
+@media (max-width: 575.98px) {
+  .hero-slider .swiper-button-prev,
+  .hero-slider .swiper-button-next { display: none; } /* 手机端保留滑动+分页，隐藏箭头 */
+  .hero-slider .swiper-pagination { bottom: 18px; }
+}

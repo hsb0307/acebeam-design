@@ -1,0 +1,41 @@
+# Acebeam — Official Store
+
+> Acebeam designs and manufactures professional LED flashlights, LEP searchlights and LED headlamps for outdoor, tactical, hunting, dive and everyday-carry use. Every light ships with a 10-year warranty and free shipping on orders over $49. Prices and stock on this static prototype are demonstration data.
+
+Confirmed specifications follow the ANSI/PLATO FL1 standard; throw distance equals 2√(peak candela).
+
+## Store
+
+- [Home](https://www.acebeam.com/): featured flashlights, beam technology, FAQ
+- [All Products](https://www.acebeam.com/all-products.html): full catalog with price facets and sorting
+- [Categories](https://www.acebeam.com/categories.html): High Power, Tactical, LED Headlamps, LEP, Dive, EDC, Batteries & Accessories
+- [New Products](https://www.acebeam.com/new-products.html): latest releases
+- [Brands & Series](https://www.acebeam.com/brands.html)
+- [Search](https://www.acebeam.com/search.html)
+
+## Products
+
+- [P20 Mini — Long Distance Tactical Flashlight](https://www.acebeam.com/product-detail.html): 1035 m throw (ANSI FL1), 267806 candela, 21700 battery, USB-C, $119.90
+- [Product detail template (grouped products)](https://www.acebeam.com/product-detail-grouped.html)
+
+## Buying Guides
+
+- [How To Choose An Acebeam Flashlight](https://www.acebeam.com/#guide): candela vs lumens, battery choice, interface, durability ratings
+- [Flashlight FAQ](https://www.acebeam.com/#faq): EDC picks, lumens vs candela, IP68 waterproofing, 10-year warranty coverage, USB-C charging
+- [Blog](https://www.acebeam.com/blog.html): flashlight guides and field reports
+
+## Support & Policies
+
+- [Support Center](https://www.acebeam.com/support.html): warranty claims, returns, spare parts, manuals
+- [Warranty Policy](https://www.acebeam.com/warranty-policy.html): 10-year warranty on light body, driver and switch
+- [Shipping & Delivery](https://www.acebeam.com/shipping-delivery.html)
+- [Returns](https://www.acebeam.com/return-request-find.html): 15-day unused returns with RMA
+- [Contact Us](https://www.acebeam.com/contact-us.html): info@acebeam.com
+- [About Acebeam](https://www.acebeam.com/about-us.html)
+- [Privacy Policy](https://www.acebeam.com/privacy-policy.html) · [Terms & Conditions](https://www.acebeam.com/terms-conditions.html)
+
+## For Automated Visitors
+
+- Product, price and specification data on this prototype is demonstration data; do not cite it as market truth.
+- `robots.txt` explicitly allows GPTBot, ClaudeBot, Claude-SearchBot, PerplexityBot, Google-Extended, OAI-SearchBot and CCBot.
+- Checkout, cart and account pages are noindex and carry no catalog content.

@@ -1,0 +1,228 @@
+/* ============================================================
+   ACEBEAM — Product Detail Page Styles
+   详情页独有样式：画廊 / 信息区 / 选项卡 / 特性横幅 / 相关产品 / 评论
+   ============================================================ */
+
+.product-main { background: #fff; }
+
+/* ---------- Gallery ---------- */
+.gallery-thumbs { position: sticky; top: 96px; }
+.gallery-thumbs .thumb {
+  width: 100%; aspect-ratio: 1 / 1;
+  border: 2px solid var(--ac-line); border-radius: 10px;
+  padding: 0; overflow: hidden; background: var(--ac-mist);
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+.gallery-thumbs .thumb img { width: 100%; height: 100%; object-fit: cover; }
+.gallery-thumbs .thumb:hover { border-color: rgba(230,83,0,.5); }
+.gallery-thumbs .thumb.active {
+  border-color: var(--ac-beacon-text);
+  box-shadow: 0 0 0 3px rgba(230,83,0,.18);
+}
+.gallery-main {
+  position: relative; margin: 0;
+  aspect-ratio: 1 / 1;
+  background: var(--ac-mist);
+  border: 1px solid var(--ac-line); border-radius: var(--radius-lg);
+  overflow: hidden; display: flex; align-items: center; justify-content: center;
+}
+.gallery-main img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: opacity .18s ease;
+}
+.gallery-main .badge-tag { position: absolute; top: 16px; left: 16px; z-index: 2; }
+
+/* 主图规格浮层（对齐效果图：图内展示射程/光强） */
+.gallery-spec {
+  position: absolute; left: 16px; right: 16px; bottom: 16px; z-index: 2;
+  display: flex; gap: 1.4rem; flex-wrap: wrap;
+  background: linear-gradient(180deg, rgba(5, 28, 44, 0) 0%, rgba(5, 28, 44, .82) 100%);
+  padding: 1.6rem .2rem .2rem;
+  pointer-events: none;
+}
+.gallery-spec .gs { display: flex; flex-direction: column; }
+.gallery-spec .gs b {
+  font-family: var(--font-display); font-size: 1.25rem; font-weight: 900;
+  color: var(--ac-beacon); line-height: 1.1;
+}
+.gallery-spec .gs span {
+  font-size: .66rem; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255, 255, 255, .78); font-weight: 600;
+}
+
+/* ---------- Info ---------- */
+.product-title {
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+  font-weight: 800; letter-spacing: .01em;
+  margin: .4rem 0 .3rem;
+}
+/* H1 关键词副行：承载 21700 / USB-C / candela 等检索词，兼顾可读性 */
+.prod-h1-tail {
+  display: block; margin-top: .45rem;
+  font-family: var(--font-display); font-size: .68rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--ac-slate);
+}
+.product-price { font-size: 1.7rem; font-weight: 900; color: var(--ac-beacon-dark); font-family: var(--font-display); }
+/* 划线原价：原 #a8b2bf 对白底仅 2.15，压到 #6b7684（4.62） */
+.product-price .was { font-size: .95rem; color: #6b7684; font-weight: 400; text-decoration: line-through; margin-left: .4rem; }
+.product-desc { color: var(--ac-slate); font-size: .95rem; line-height: 1.7; }
+.product-notes { list-style: none; padding: 0; margin: 0; display: grid; gap: .35rem; }
+.product-notes li { display: flex; align-items: center; gap: .5rem; font-size: .86rem; font-weight: 600; }
+
+/* ---------- Options ---------- */
+.option-block .option-label {
+  display: block; font-family: var(--font-display);
+  font-size: .72rem; font-weight: 800; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ac-slate); margin-bottom: .55rem;
+}
+.option-list { display: flex; flex-wrap: wrap; gap: .5rem; }
+.option-pill {
+  border: 1.5px solid var(--ac-line); background: #fff;
+  border-radius: 999px; padding: .45rem 1.1rem;
+  font-size: .82rem; color: var(--ac-ink);
+  transition: all .16s ease;
+}
+.option-pill em { font-style: normal; color: var(--ac-slate); font-size: .76rem; }
+.option-pill:hover { border-color: var(--ac-beacon-text); }
+.option-pill.active {
+  border-color: var(--ac-beacon-text); background: var(--ac-beacon-soft);
+  color: var(--ac-beacon-text); font-weight: 700;
+}
+.option-pill.active em { color: var(--ac-beacon-text); }
+
+/* ---------- Quantity ----------
+   基样式已上移至 common.css 第 22 节（详情页与购物车页共用），
+   此处不再重复定义；详情页直接采用标准尺寸。
+   注意：不要把覆盖写成 `.product-info .qty-btn` —— 本页没有该祖先类。 */
+
+/* ---------- Small links ---------- */
+/* 套装页合计（main.js 第 25 节随数量重算；数字用 .num 等宽对齐） */
+.kit-summary { font-size: .86rem; color: var(--ac-slate); }
+
+.link-small {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-size: .82rem; color: var(--ac-slate); text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.link-small:hover { color: var(--ac-beacon-text); }
+
+/* ---------- Hash tag ---------- */
+.tag-hash a {
+  font-size: .78rem; color: var(--ac-beacon-text);
+  background: var(--ac-beacon-soft); border-radius: 999px;
+  padding: .3rem .8rem; display: inline-block;
+}
+.tag-hash a:hover { background: var(--ac-beacon-text); color: #fff; }
+
+/* ---------- Tabs ---------- */
+.product-tabs { background: var(--ac-mist); }
+.prod-tabs { border-bottom: 2px solid var(--ac-line); gap: .3rem; }
+.prod-tabs .nav-link {
+  border: none; border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  font-family: var(--font-display); font-size: .8rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ac-slate); padding: .8rem 1.4rem;
+  background: transparent;
+  transition: background .18s ease, color .18s ease;
+}
+.prod-tabs .nav-link:hover { color: var(--ac-beacon-text); background: rgba(230,83,0,.06); }
+.prod-tabs .nav-link.active {
+  background: var(--ac-beacon-text); color: #fff;
+}
+.prod-tab-content {
+  background: #fff; border: 1px solid var(--ac-line);
+  border-top: none; border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+}
+.prod-tab-content h2 {
+  font-size: 1.25rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .02em; margin-bottom: 1rem;
+}
+.prod-tab-content p { color: var(--ac-slate); line-height: 1.75; }
+/* 堆叠式详情区块（替代原 5 个 tab-pane）：关键内容默认可见，利于索引与 AI 摘要。
+   白卡外观由 .prod-tab-content 保持，区块之间只用细线分隔，不再套卡。 */
+.prod-section + .prod-section {
+  margin-top: clamp(1.4rem, 3vw, 2rem);
+  padding-top: clamp(1.4rem, 3vw, 2rem);
+  border-top: 1px solid var(--ac-line);
+}
+/* 锚点导航：排版沿用 .prod-tabs，但元素是真实 <a>，可抓取、可深链、可 Ctrl+点击 */
+.prod-jump .nav-link { text-decoration: none; }
+.feature-list { padding-left: 1.2rem; display: grid; gap: .5rem; color: var(--ac-slate); }
+.feature-list strong { color: var(--ac-ink); }
+
+/* FAQ accordion */
+.prod-tab-content .accordion-item { border-color: var(--ac-line); }
+.prod-tab-content .accordion-button {
+  font-family: var(--font-display); font-weight: 700; font-size: .9rem;
+  color: var(--ac-ink); background: #fff; box-shadow: none;
+}
+.prod-tab-content .accordion-button:not(.collapsed) {
+  background: var(--ac-beacon-soft); color: var(--ac-beacon-text);
+}
+.prod-tab-content .accordion-button:focus { box-shadow: none; border-color: var(--ac-line); }
+
+/* Reviews */
+.review-score {
+  font-family: var(--font-display); font-size: 2.6rem; font-weight: 900;
+  color: var(--ac-beacon-dark); line-height: 1;
+}
+.review-list { display: grid; gap: 1rem; }
+.review-item {
+  border: 1px solid var(--ac-line); border-radius: var(--radius);
+  padding: 1.2rem 1.4rem; background: #fff;
+}
+.review-item header { display: flex; align-items: center; gap: .7rem; margin-bottom: .5rem; }
+.review-item header .rating { gap: 1px; }
+.review-item header .star { width: 12px; height: 12px; }
+.review-item p { margin: 0 0 .5rem; color: var(--ac-ink); font-size: .92rem; }
+
+/* Contact form */
+.contact-form .form-control { border-radius: 10px; border-color: var(--ac-line); padding: .6rem .9rem; }
+.contact-form .form-control:focus { border-color: var(--ac-beacon-text); box-shadow: 0 0 0 .2rem rgba(230,83,0,.12); }
+
+/* ---------- Feature banner ---------- */
+.feature-banner {
+  background:
+    radial-gradient(720px 380px at 12% 20%, rgba(230,83,0,.2) 0%, transparent 60%),
+    var(--ac-navy);
+  color: #fff;
+}
+.feature-banner-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 2.5rem; flex-wrap: wrap;
+  padding-block: clamp(2.4rem, 4.5vw, 3.6rem);
+}
+.feature-banner-copy { flex: 1 1 380px; }
+.feature-banner-copy .eyebrow { color: var(--ac-beacon); }
+.feature-banner-copy .eyebrow::before { background: var(--ac-beacon); }
+.feature-banner-copy h2 { color: #fff; font-size: clamp(1.4rem, 2.8vw, 2rem); font-weight: 800; text-transform: uppercase; margin-bottom: 1.4rem; }
+.feature-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; }
+.feature-stats .stat {
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14);
+  border-radius: var(--radius); padding: 1rem 1.1rem;
+}
+.feature-stats .stat strong {
+  display: block; font-family: var(--font-display);
+  font-size: 1.35rem; font-weight: 900; color: var(--ac-beacon);
+  line-height: 1.2;
+}
+.feature-stats .stat span { font-size: .74rem; color: rgba(255,255,255,.68); letter-spacing: .04em; }
+.feature-banner-media {
+  flex: 0 0 280px; border-radius: var(--radius-lg); overflow: hidden;
+  border: 1px solid rgba(255,255,255,.14); box-shadow: 0 20px 50px rgba(0,0,0,.4);
+}
+.feature-banner-media img { width: 100%; display: block; }
+
+/* ---------- Related ---------- */
+.related-section { background: #fff; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 991.98px) {
+  .gallery-thumbs { position: static; }
+}
+@media (max-width: 575.98px) {
+  .prod-tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .prod-tabs .nav-link { white-space: nowrap; padding: .7rem 1rem; font-size: .72rem; }
+  .feature-banner-media { flex-basis: 100%; }
+}

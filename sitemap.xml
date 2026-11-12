@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Acebeam Official Store — XML sitemap with image extensions.
+  Cart / checkout / account URLs are intentionally excluded (noindex + no search value).
+  compare-products.html is the exception: its table is a static, citable spec comparison
+  (values come from assets/js/products.js), so it ships index,follow + this entry.
+  Last reviewed: 2026-10-31
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <url>
+    <loc>https://www.acebeam.com/</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.acebeam.com/assets/img/slider01.webp</image:loc>
+      <image:title>Acebeam P20 Mini long distance tactical flashlight</image:title>
+      <image:caption>Acebeam P20 Mini long distance tactical flashlight</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.acebeam.com/assets/img/catprod-x35.webp</image:loc>
+      <image:title>Acebeam X35 multi-light high power flashlight</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.acebeam.com/categories.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.acebeam.com/assets/img/cat-tactical.webp</image:loc>
+      <image:title>Acebeam tactical flashlight category</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.acebeam.com/assets/img/cat-led-headlamps.webp</image:loc>
+      <image:title>Acebeam LED headlamp category</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.acebeam.com/all-products.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.acebeam.com/assets/img/catprod-p20mini.webp</image:loc>
+      <image:title>P20 Mini long distance tactical flashlight</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.acebeam.com/assets/img/catprod-t29.webp</image:loc>
+      <image:title>T29 ultra long range hunting flashlight</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.acebeam.com/product-detail.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.acebeam.com/assets/img/catprod-p20mini.webp</image:loc>
+      <image:title>Acebeam P20 Mini Long Distance Tactical Flashlight</image:title>
+      <image:caption>1035 meter throw, 267806 candela, 21700 battery flashlight with USB-C charging</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.acebeam.com/assets/img/catprod-battery5000.webp</image:loc>
+      <image:title>Acebeam 21700 5000mAh USB-C rechargeable battery</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.acebeam.com/new-products.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.acebeam.com/assets/img/catprod-terminator-m1.webp</image:loc>
+      <image:title>Acebeam Terminator M1 LEP and LED dual-source flashlight</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.acebeam.com/product-detail-grouped.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://www.acebeam.com/assets/img/catprod-p20mini.webp</image:loc>
+      <image:title>Acebeam P20 Mini Tactical Kit grouped product</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.acebeam.com/compare-products.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.acebeam.com/blog.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://www.acebeam.com/assets/img/blog-1.webp</image:loc>
+      <image:title>Acebeam constant-current driver technology article</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.acebeam.com/blog-post.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://www.acebeam.com/assets/img/news-2.webp</image:loc>
+      <image:title>Headlamp used hands-free at night</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.acebeam.com/about-us.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://www.acebeam.com/assets/img/proud.webp</image:loc>
+      <image:title>Acebeam memberships and certifications</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.acebeam.com/contact-us.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- P1 批次（2026-09-23）：品牌 / 站点地图 / 6 个话题页 -->
+  <url>
+    <loc>https://www.acebeam.com/brands.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://www.acebeam.com/assets/img/cat-tactical.webp</image:loc>
+      <image:title>Acebeam tactical flashlight series</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.acebeam.com/sitemap-page.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://www.acebeam.com/shipping-delivery.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://www.acebeam.com/warranty-policy.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://www.acebeam.com/assets/img/proud.webp</image:loc>
+      <image:title>Acebeam memberships and certifications</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.acebeam.com/faq.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.acebeam.com/support.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://www.acebeam.com/assets/img/svc-support.webp</image:loc>
+      <image:title>Acebeam customer support</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.acebeam.com/privacy-policy.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://www.acebeam.com/user-agreement.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://www.acebeam.com/terms-conditions.html</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>

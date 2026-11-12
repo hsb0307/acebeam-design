@@ -1,0 +1,1330 @@
+/* ============================================================
+   ACEBEAM — Common Styles
+   品牌电商公共样式：设计变量 / 顶部通知栏 / 主导航 / 页脚 / 通用组件
+   ============================================================ */
+
+/* ---------- 1. Design Tokens ---------- */
+:root {
+  /* ---------- 主橙（品牌色 #e65300 + 文字安全档 #c24700）----------
+     --ac-beacon 只用于图形/装饰/边框/焦点环（非文字，WCAG 1.4.11 要求 3:1，实测白底 3.75）。
+     任何承载文字的场景——橙字铺浅底、白字铺橙底——一律用 --ac-beacon-text。
+     依据：#e65300 白字 3.75:1，而按钮实算 13.12px/700 不构成 WCAG「大号字」（需 ≥18.66px 粗体
+     或 ≥24px），故 3.0 门槛不适用，必须走正文 4.5:1。#c24700 与 #e65300 同色相(22°)同饱和(100%)，
+     仅降明度 45%→38%，白字 5.01、铺 mist/soft 浅底 4.52+，全部达 AA。 */
+  --ac-beacon: #e65300;        /* 品牌主橙（图形专用） */
+  --ac-beacon-dark: #d04a00;   /* 主橙 hover（更深的对比度改善版） */
+  --ac-beacon-text: #c24700;   /* 文字版橙：AA 达标（白字 5.01 / 浅底橙字 4.52+） */
+  --ac-beacon-text-dark: #ad4000; /* 文字版橙的 hover/active（白字 5.98） */
+  --ac-beacon-soft: #fff1e6;   /* 主橙浅底 */
+  --ac-navy: #051c2c;          /* 通知栏/页脚深蓝 */
+  --ac-navy-2: #0d2438;        /* 深蓝次级（渐变过渡用） */
+  --ac-navy-soft: #12293f;     /* 深蓝 hover */
+  --ac-ink: #1a2230;           /* 主文字 */
+  --ac-slate: #5c6b7f;         /* 次级文字 */
+  --ac-mist: #f2f4f7;          /* 浅灰底 */
+  --ac-line: #e3e7ee;          /* 边框 */
+  --ac-white: #fffdfb;         /* 暖白（避免纯白） */
+  --ac-gold: #ab7d08;          /* 星级：白底 3.70（图形门槛 3.0）、深蓝底 4.69 */
+  /* 成功色当前无引用；警示红改为 #c93b3b —— 白字角标需 ≥4.5（原 #d64545 仅 4.38） */
+  --ac-green: #2fa15c;         /* 成功/在售 */
+  --ac-red: #c93b3b;           /* 警示 */
+  /* 失败态在深蓝页脚里要用「反向色」：--ac-red 铺 --ac-navy 只有 3.45，达不到文字 4.5。
+     以下三档实测（页脚底 #051c2c）：文字 #ffb3a4 = 10.12 ✅、边框 #ff8d78 = 7.72 ✅（非文字 3.0）、
+     焦点环 rgba(255,141,120,.24) 与 --ac-beacon 焦点环同深度。较浅的 #0d2438 上仍为 9.22 / 7.04。 */
+  --ac-danger-inv: #ffb3a4;    /* 深蓝底上的错误文字 */
+  --ac-danger-inv-line: #ff8d78; /* 深蓝底上的错误边框/焦点环基色 */
+  --ac-danger-inv-ring: rgba(255, 141, 120, .24);
+  --ac-danger-soft-bg: #fff7f7; /* 失败态底色：只承载 --ac-ink（15.13）与 --ac-slate（5.15），均 AA */
+
+  --font-display: "Archivo", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-body: "Source Sans 3", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+
+  --sp-1: .25rem;
+  --sp-2: .5rem;
+  --sp-3: 1rem;
+  --sp-4: 1.5rem;
+  --sp-5: 2.5rem;
+  --sp-6: 4rem;
+
+  /* 语义化纵向节奏（D1 收口）：区块「宽松分组」从此只有一个出处，页面不再各自
+     硬编码 clamp()。数值即 DESIGN.md 的区块纵向呼吸；--section-y 的上下界落在
+     --sp-5..6 区间内（2.6 → 4.4rem），改节奏只改这里 —— 这才是「间距刻度真正被使用」。 */
+  --section-y: clamp(2.6rem, 5vw, 4.4rem);
+  --section-y-sm: clamp(2rem, 3.5vw, 3rem);
+
+  --shadow-sm: 0 2px 10px rgba(5, 28, 44, .06);
+  --shadow-md: 0 8px 28px rgba(5, 28, 44, .10);
+  --radius-sm: 4px;
+  /* 按钮：参照效果图为直角微圆角，非胶囊 */
+  --btn-radius: 3px;
+  --radius: 10px;
+  --radius-lg: 16px;
+
+  /* ---------- 字号刻度（D1 收敛第一步）----------
+     8 档 token。与现有值完全一致的声明优先改引 token；
+     近似值（.80/.84/.86…）待视觉走查后逐档归并，不做无 QA 的批量替换。 */
+  --fs-2xs: .68rem;    /* 角标 / 法务脚注 */
+  --fs-xs: .72rem;     /* 眉标 / 微铭牌 / topbar */
+  --fs-sm: .82rem;     /* 按钮 / 导航 / 辅助说明 */
+  --fs-md: .88rem;     /* 侧栏列表 / 卡片辅助文本 */
+  --fs-base: 1rem;     /* 正文 */
+  --fs-lg: 1.2rem;     /* 商品卡价格 */
+  --fs-xl: 1.55rem;    /* 品牌铭牌 */
+  --fs-display: clamp(1.4rem, 2.6vw, 2rem);  /* 区块标题 */
+  --fs-page-title: clamp(1.5rem, 3vw, 2.2rem); /* 页面 H1 */
+}
+
+/* ---------- 2. Base ---------- */
+/* clip 不产生滚动容器，sticky 头部不受影响；挡住 320px 档 3px 的横向溢出 */
+html { scroll-behavior: smooth; overflow-x: clip; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--ac-ink);
+  background: var(--ac-white);
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: .01em;
+  color: var(--ac-ink);
+}
+
+a { color: var(--ac-beacon-text); text-decoration: none; transition: color .18s ease; }
+a:hover { color: var(--ac-beacon-text-dark); }
+
+img { max-width: 100%; height: auto; }
+
+/* 数字读数等宽：价格、规格、表格列的右端才对齐（此前全站 0 处 tabular-nums） */
+.num, .price, .prod-price, .product-price, .ci-price, .ci-total,
+.hub-count, .brand-count, .side-list .cnt, .pagination .page-link, .qty-input,
+.data-table td.num, .order-next-foot .num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 2c. 数据表（共享组件）----------
+   原定义在 account.css，但 10 个页面在用，其中 all-products.html 只加载
+   common.css + categories.css（拿不到 account.css）—— 与 §14.9 的 .link-strong
+   同类问题，故基样式提升到此处；account.css 只保留 .table-foot / .pick-table
+   这类页面级扩展。 */
+.data-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.data-table {
+  width: 100%; min-width: 620px;
+  border-collapse: collapse;
+  font-size: .88rem;
+}
+.data-table thead th {
+  font-family: var(--font-display);
+  font-size: .7rem; font-weight: 800; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ac-slate);
+  text-align: left;
+  padding: .7rem .9rem;
+  background: var(--ac-mist);
+  border-bottom: 1px solid var(--ac-line);
+  white-space: nowrap;
+}
+.data-table tbody td {
+  padding: .8rem .9rem;
+  border-bottom: 1px solid var(--ac-line);
+  vertical-align: middle;
+  color: var(--ac-ink);
+}
+.data-table tbody tr:last-child td { border-bottom: 0; }
+.data-table tbody tr:hover { background: #fffaf5; }
+.data-table .num {
+  font-family: var(--font-display); font-weight: 700;
+  white-space: nowrap;
+}
+.data-table .cell-actions { text-align: right; white-space: nowrap; }
+/* 对比表首列（型号）在横向滚动时保持可读的分隔感 */
+.data-table tbody th {
+  padding: .8rem .9rem;
+  border-bottom: 1px solid var(--ac-line);
+  vertical-align: middle;
+  text-align: left;
+  font-weight: 600;
+  color: var(--ac-ink);
+}
+.data-table tbody tr:last-child th { border-bottom: 0; }
+.data-table caption {
+  caption-side: bottom;
+  padding: .7rem .9rem 0;
+  font-size: .78rem; color: var(--ac-slate);
+  text-align: left;
+}
+
+:focus-visible {
+  outline: 3px solid var(--ac-beacon);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---------- 2b. 质感增强（全站小细节） ---------- */
+/* 选中文本：品牌橙浅底 */
+::selection { background: rgba(230, 83, 0, .2); color: inherit; }
+/* 细滚动条：桌面 WebKit（Chrome/Edge）与 Firefox */
+* { scrollbar-width: thin; scrollbar-color: rgba(5, 28, 44, .32) transparent; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(5, 28, 44, .32);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(230, 83, 0, .55); background-clip: content-box; border: 2px solid transparent; }
+/* 尊重「减少动效」偏好：关闭平滑滚动与全部动画/过渡 */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* ---------- 3. Top Notice Bar ---------- */
+.topbar {
+  background: var(--ac-navy);
+  color: rgba(255, 255, 255, .88);
+  font-size: .78rem;
+  letter-spacing: .04em;
+}
+.topbar .topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 38px;
+  gap: var(--sp-3);
+}
+.topbar a { color: rgba(255, 255, 255, .88); }
+.topbar a:hover { color: #fff; }
+.topbar .topbar-social,
+.topbar .topbar-social li { list-style: none; }
+.topbar .topbar-social { display: flex; gap: .55rem; align-items: center; margin: 0; padding: 0; }
+.topbar .topbar-social a {
+  width: 20px; height: 20px;
+  display: inline-flex; align-items: center; justify-content: center;
+  opacity: .75; transition: opacity .18s ease;
+}
+.topbar .topbar-social a:hover { opacity: 1; }
+.topbar .topbar-social img { width: 16px; height: 16px; object-fit: contain; }
+.topbar .topbar-extra {
+  display: flex; align-items: center; gap: .7rem;
+}
+.topbar .topbar-sep {
+  width: 1px; height: 14px; background: rgba(255,255,255,.28);
+  display: inline-block;
+}
+.topbar .topbar-lang {
+  font-family: var(--font-display); font-size: .72rem; font-weight: 700;
+  letter-spacing: .1em;
+  /* WCAG 2.2 AA 2.5.8 Target Size：独立控件的点击目标须 ≥24×24，实测 "EN" 只有 19×18。
+     用 padding 把目标撑到 35×28，再用等量负 margin 抵消，flex 排布与 38px 顶栏高度不变
+     （.topbar overflow 为 visible，放大后的热区不会被裁掉）。 */
+  padding: .3rem .5rem; margin: -.3rem -.5rem;
+}
+.topbar .topbar-extra .currency {
+  display: inline-flex; align-items: center; gap: .35rem;
+}
+.topbar .topbar-extra .currency img { width: 16px; height: auto; border-radius: 2px; }
+
+/* ---------- 4. Main Header / Nav ---------- */
+.site-header {
+  /* 吸顶头整条铺橙 + 白字导航：必须用文字版橙（白字 5.01），品牌橙只有 3.75 */
+  background: var(--ac-beacon-text);
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  box-shadow: 0 3px 14px rgba(208, 74, 0, .28);
+}
+.site-header .navbar { padding-block: .6rem; }
+.site-header .navbar-brand {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.55rem;
+  letter-spacing: .12em;
+  color: #fff;
+  display: flex; align-items: center; gap: .5rem;
+  flex-shrink: 0; /* lg~xl 之间导航内容多，防止 brand 被 flex 压缩成空铭牌 */
+  /* NOTE 2026-09-23 铭牌改为「通栏深蓝块」：去圆角、背景 --ac-navy #051c2c 不变；
+     用负 margin 抵消 .navbar 的 padding-block(.6rem) 与 container 左 gutter(.75rem)，
+     使铭牌顶天立地贯穿整条橙底导航条（等高 ≈59px），logo 垂直居中，
+     不再是从橙条上浮起的圆角贴纸 */
+  background: var(--ac-navy);
+  padding: 0 1.5rem;
+  border-radius: 0;
+  align-self: stretch;
+  margin-block: calc(-1 * .6rem);
+  margin-left: calc(-1 * .75rem);
+}
+.site-header .navbar-brand img { height: 30px; width: auto; }
+/* hover 只压 logo 图，不整块变透明（否则底衬透出橙色发脏） */
+.site-header .navbar-brand:hover { color: #fff; }
+.site-header .navbar-brand:hover img { opacity: .88; }
+.site-header .navbar-brand:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+.site-header .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, .95);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .8rem;
+  letter-spacing: .1em;
+  padding: .55rem .85rem;
+  text-transform: uppercase;
+  position: relative;
+}
+.site-header .navbar-nav .nav-link::after {
+  content: "";
+  position: absolute;
+  left: .85rem; right: .85rem; bottom: .25rem;
+  height: 2px; background: #fff;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .22s ease;
+}
+.site-header .navbar-nav .nav-link:hover::after,
+.site-header .navbar-nav .nav-link.active::after { transform: scaleX(1); }
+.site-header .navbar-nav .nav-link:hover,
+.site-header .navbar-nav .nav-link.active { color: #fff; }
+
+/* 导航工具按钮（搜索/账户/购物车） */
+.nav-actions { display: flex; align-items: center; gap: .4rem; }
+.nav-actions .icon-btn {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: #fff; background: transparent;
+  border: none; position: relative;
+  transition: background .18s ease;
+}
+.nav-actions .icon-btn:hover { background: rgba(255, 255, 255, .18); }
+.nav-actions .icon-btn svg { width: 20px; height: 20px; }
+.nav-actions .cart-count {
+  position: absolute; top: 2px; right: -2px;
+  min-width: 17px; height: 17px; padding: 0 4px;
+  background: var(--ac-navy); color: #fff;
+  font-size: .66rem; font-weight: 700; line-height: 17px;
+  border-radius: 999px; text-align: center;
+  border: 1.5px solid var(--ac-beacon);
+}
+/* 导航内搜索框（桌面） */
+.nav-search { position: relative; width: 220px; }
+.nav-search .form-control {
+  border: none; border-radius: var(--radius-sm);
+  background: #fff;
+  padding: .45rem 2.5rem .45rem 1rem;
+  /* 16px 下限：iOS Safari 会对 <16px 的输入框聚焦时强制放大页面（Interaction Contracts） */
+  font-size: 1rem;
+}
+.nav-search .form-control::placeholder { color: #6b7684; }
+.nav-search .search-submit {
+  position: absolute; right: 2px; top: 50%; transform: translateY(-50%);
+  border: none; background: transparent; color: var(--ac-ink);
+  width: 32px; height: 30px; border-radius: var(--radius-sm);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.nav-search .search-submit svg { width: 16px; height: 16px; }
+
+/* 下拉菜单（白色） */
+.site-header .dropdown-menu {
+  border: none; border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  padding: .5rem;
+  min-width: 230px;
+}
+.site-header .dropdown-menu .dropdown-item {
+  font-size: .85rem; border-radius: 8px; padding: .5rem .75rem;
+  color: var(--ac-ink);
+}
+.site-header .dropdown-menu .dropdown-item:hover { background: var(--ac-beacon-soft); color: var(--ac-beacon-text); }
+.site-header .dropdown-menu .dropdown-header {
+  font-family: var(--font-display); font-size: .72rem;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--ac-slate);
+}
+
+/* ---------- 5. Page Title band（浅色页头，对齐效果图） ---------- */
+.page-band {
+  background: var(--ac-white);
+  color: var(--ac-ink);
+  padding: 2rem 0 1.7rem;
+  border-bottom: 1px solid var(--ac-line);
+}
+.page-band .page-band-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem 2rem; flex-wrap: wrap;
+}
+.page-band .page-band-copy { flex: 1 1 460px; min-width: 0; }
+.page-band h1 {
+  color: var(--ac-ink);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 800; letter-spacing: .01em;
+  margin: 0;
+}
+.page-band .page-band-desc {
+  color: var(--ac-slate); max-width: 760px;
+  margin: .5rem 0 0; font-size: .95rem;
+}
+/* 页头右侧内联面包屑（效果图中位于标题同一行、以竖线分隔） */
+.page-band .breadcrumb-inline {
+  flex: none; margin: 0; padding-left: 1.4rem;
+  border-left: 1px solid var(--ac-line);
+  font-size: .82rem;
+}
+.page-band .breadcrumb-inline .breadcrumb { margin: 0; }
+@media (max-width: 767.98px) {
+  .page-band { padding: 1.5rem 0 1.3rem; }
+  .page-band .breadcrumb-inline {
+    padding-left: 0; border-left: none; align-self: flex-start;
+  }
+}
+
+/* ---------- 6. Breadcrumb ---------- */
+.breadcrumb-band { background: var(--ac-mist); border-bottom: 1px solid var(--ac-line); }
+.breadcrumb-band .breadcrumb { margin: 0; padding: .8rem 0; font-size: .82rem; }
+.breadcrumb-band .breadcrumb-item a { color: var(--ac-slate); }
+.breadcrumb-band .breadcrumb-item a:hover { color: var(--ac-beacon-text); }
+.breadcrumb-band .breadcrumb-item.active { color: var(--ac-ink); font-weight: 600; }
+.breadcrumb-band .breadcrumb-item + .breadcrumb-item::before { color: #b6c0cc; }
+
+/* ---------- 7. Buttons ---------- */
+.btn-accent {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--ac-beacon-text);
+  --bs-btn-border-color: var(--ac-beacon-text);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--ac-beacon-text-dark);
+  --bs-btn-hover-border-color: var(--ac-beacon-text-dark);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--ac-beacon-text-dark);
+  --bs-btn-active-border-color: var(--ac-beacon-text-dark);
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border-radius: var(--btn-radius);
+}
+.btn-outline-accent {
+  --bs-btn-color: var(--ac-beacon-text);
+  --bs-btn-border-color: var(--ac-beacon-text);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--ac-beacon-text);
+  --bs-btn-hover-border-color: var(--ac-beacon-text);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--ac-beacon-text-dark);
+  --bs-btn-active-border-color: var(--ac-beacon-text-dark);
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border-radius: var(--btn-radius);
+}
+.btn-navy {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--ac-navy);
+  --bs-btn-border-color: var(--ac-navy);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--ac-navy-2);
+  --bs-btn-hover-border-color: var(--ac-navy-2);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--ac-navy-2);
+  --bs-btn-active-border-color: var(--ac-navy-2);
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border-radius: var(--btn-radius);
+}
+
+/* 尺寸档：默认值改用 Bootstrap 变量承载，并用 :not() 让开 .btn-sm / .btn-lg
+   （原先在 .btn-accent 上写死 padding/font-size，特异性相同又晚加载，把两档全部打死，
+     全站 117 处 btn-accent/btn-outline-accent + btn-sm/btn-lg 组合失效） */
+.btn-accent:not(.btn-sm, .btn-lg),
+.btn-outline-accent:not(.btn-sm, .btn-lg),
+.btn-navy:not(.btn-sm, .btn-lg) {
+  --bs-btn-padding-y: .65rem;
+  --bs-btn-padding-x: 1.6rem;
+  --bs-btn-font-size: .82rem;
+}
+.btn-accent.btn-sm,
+.btn-outline-accent.btn-sm,
+.btn-navy.btn-sm {
+  --bs-btn-padding-y: .4rem;
+  --bs-btn-padding-x: 1rem;
+  --bs-btn-font-size: .74rem;
+}
+.btn-accent.btn-lg,
+.btn-outline-accent.btn-lg,
+.btn-navy.btn-lg {
+  --bs-btn-padding-y: .8rem;
+  --bs-btn-padding-x: 2rem;
+  --bs-btn-font-size: 1rem;
+}
+
+/* 焦点环：Bootstrap 的 .btn:focus-visible{outline:0;box-shadow:…}（0,2,0）压掉了全局
+   :focus-visible（0,1,0），而 --bs-btn-focus-box-shadow 对我们自定义的三档变体是未定义值，
+   实测按钮 outlineStyle:none → 键盘用户看不到焦点。这里用同特异性 + 后加载恢复实体环。 */
+.btn:focus-visible {
+  outline: 3px solid var(--ac-beacon);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+/* 深色底上橙色环与底色分离度不足，改用暖白描边 */
+.hero :focus-visible,
+.site-footer :focus-visible,
+.page-band :focus-visible {
+  outline-color: var(--ac-white);
+}
+
+/* ---------- 8. Badges & Tags ---------- */
+/* 白字角标：底色必须是文字版橙 / 达标红 / 达标紫（原 #8b5cf6 白字仅 4.23） */
+.tag-new { background: var(--ac-beacon-text); }
+.tag-hot { background: var(--ac-red); }
+.tag-anniv { background: var(--ac-navy); }
+.tag-soon { background: #7c4ddb; }
+.tag-limited { background: #b45309; }
+.badge-tag {
+  color: #fff; font-family: var(--font-display);
+  font-size: .64rem; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; border-radius: 999px;
+  padding: .3rem .7rem;
+}
+/* 商品卡片角标 */
+.product-card .badge-tag { position: absolute; top: 12px; left: 12px; z-index: 2; box-shadow: 0 2px 8px rgba(5,28,44,.2); }
+
+/* 标签云 */
+.tag-cloud { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.tag-cloud .cloud-item {
+  font-size: .75rem; color: var(--ac-slate);
+  background: var(--ac-mist); border: 1px solid var(--ac-line);
+  border-radius: 999px; padding: .32rem .85rem;
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease;
+}
+.tag-cloud .cloud-item:hover {
+  background: var(--ac-beacon-soft); border-color: var(--ac-beacon-text);
+  color: var(--ac-beacon-text);
+}
+
+/* ---------- 9. Star rating ---------- */
+.rating { display: inline-flex; gap: 2px; color: var(--ac-gold); }
+.rating .star { width: 14px; height: 14px; fill: currentColor; }
+/* 空心星：原 #d7dde6 对白底仅 1.37，图形门槛是 3.0，压深到 #7d8896（3.60） */
+.rating .star.off { color: #7d8896; }
+.rating-text { font-size: .78rem; color: var(--ac-slate); margin-left: .35rem; }
+
+/* ---------- 10. Product Card ---------- */
+.product-card {
+  background: #fff; border: 1px solid var(--ac-line);
+  border-radius: var(--radius-lg);
+  overflow: hidden; position: relative;
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  height: 100%;
+  display: flex; flex-direction: column;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(230,83,0,.45);
+}
+.product-card .card-media {
+  aspect-ratio: 1 / 1; overflow: hidden;
+  background: var(--ac-mist);
+  display: flex; align-items: center; justify-content: center;
+}
+.product-card .card-media img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .4s ease;
+}
+.product-card:hover .card-media img { transform: scale(1.05); }
+/* 内容区改用 grid（此前是 flex 列向）：
+   - 第 3 行 = 列 1 价格 / 列 2 评分，两者同处一行。
+     注意：原 .prod-price/.rating 上的 grid-column 是**死代码** —— 父级当时是
+     flex 容器，这两条声明完全不生效，评分被迫独占一行且排在价格上方。
+   - 第 4 行取 1fr，把 CTA 顶到卡片底部；同行卡片高度不一时按钮也能对齐。 */
+.product-card .card-body {
+  padding: 1.1rem 1.2rem 1.3rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto auto auto 1fr;
+  gap: .5rem .75rem;
+  flex: 1;
+}
+/* 规格行：卡片内外都用（详情页信息区也有 .prod-spec），故基样式不加 .product-card 前缀 */
+.prod-spec {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  gap: .25rem .6rem;
+  font-size: .8rem; color: var(--ac-slate);
+  letter-spacing: .03em; font-weight: 600;
+}
+.prod-spec b { color: var(--ac-ink); font-weight: 800; }
+/* .spec-seg 此前全站没有任何样式定义，两段规格会直接粘连成
+   "1454 Meters528529 Candela"。这里补上圆点分隔符。 */
+.prod-spec .spec-seg { display: inline-flex; align-items: baseline; gap: .25rem; }
+.prod-spec .spec-seg + .spec-seg::before {
+  content: ""; flex: none;
+  width: 3px; height: 3px; border-radius: 50%;
+  background: #c3cbd6; align-self: center;
+}
+/* 射程标尺：main.js §25 注入，占满规格行下方一整行。
+   数据仍以文本为准（标尺 aria-hidden），宽度 = 本卡射程 / 本页最大射程，
+   同页卡片可横向比较；无动画，reduced-motion 下无需处理。 */
+.prod-spec .range-scale {
+  flex-basis: 100%; height: 3px; margin-top: .3rem;
+  background: var(--ac-line); border-radius: 999px; overflow: hidden;
+}
+.prod-spec .range-scale-fill {
+  display: block; height: 100%;
+  background: var(--ac-beacon); border-radius: 999px;
+}
+.product-card .prod-spec { grid-column: 1 / -1; }
+.product-card .prod-name {
+  font-family: var(--font-display);
+  font-size: .92rem; font-weight: 700; line-height: 1.35;
+  color: var(--ac-ink);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden; min-height: 2.6em;
+  grid-column: 1 / -1;
+}
+.product-card .prod-name a { color: inherit; }
+.product-card .prod-name a:hover { color: var(--ac-beacon-text); }
+.product-card .prod-price {
+  grid-column: 1; grid-row: 3; align-self: center;
+  font-family: var(--font-display);
+  font-size: 1.2rem; font-weight: 900; color: var(--ac-ink);
+  line-height: 1.2;
+}
+.product-card .prod-price .was { color: var(--ac-beacon-text); font-weight: 500; font-size: .82rem; text-decoration: line-through; margin-left: .4rem; }
+/* 评分与价格同行、右对齐（此前只有 grid-column，缺 grid-row 与 justify-self） */
+.product-card .rating { grid-column: 2; grid-row: 3; justify-self: end; align-self: center; }
+.product-card .card-foot { grid-column: 1 / -1; grid-row: 4; align-self: end; padding-top: .35rem; }
+
+/* 悬停整卡时，底部 CTA 同步点亮 —— 明示卡片可点，无需用户先找到按钮 */
+.product-card:hover .card-foot .btn {
+  --bs-btn-bg: var(--ac-beacon-soft);
+  --bs-btn-color: var(--ac-beacon-text);
+  --bs-btn-border-color: var(--ac-beacon-text);
+}
+
+/* ---------- 11. Section headings (通用区块标题) ---------- */
+.section-head { margin-bottom: 2.2rem; }
+.section-head .eyebrow {
+  font-family: var(--font-display);
+  font-size: .72rem; font-weight: 700; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--ac-beacon-text);
+  display: inline-flex; align-items: center; gap: .6rem;
+  margin-bottom: .5rem;
+}
+.section-head .eyebrow::before { content: ""; width: 28px; height: 2px; background: var(--ac-beacon); display: inline-block; }
+.section-head h2 {
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  font-weight: 800; letter-spacing: .01em; margin: 0;
+  text-transform: uppercase;
+}
+.section-head .section-desc { color: var(--ac-slate); margin-top: .6rem; max-width: 620px; }
+
+/* ---------- 12. Sidebar (分类/商品页) ---------- */
+.sidebar-card {
+  background: #fff; border: 1px solid var(--ac-line);
+  border-radius: var(--radius-lg); padding: 1.4rem 1.4rem 1.1rem;
+  margin-bottom: 1.4rem;
+}
+.sidebar-card .side-title {
+  font-family: var(--font-display);
+  font-size: .78rem; font-weight: 800; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ac-ink);
+  margin-bottom: 1rem; padding-bottom: .8rem;
+  border-bottom: 2px solid var(--ac-beacon);
+  display: flex; align-items: center; gap: .5rem;
+}
+.sidebar-card .side-title::before { content: ""; width: 8px; height: 8px; background: var(--ac-beacon); border-radius: 2px; display: inline-block; }
+.side-list { list-style: none; margin: 0; padding: 0; }
+.side-list li { margin-bottom: .15rem; }
+.side-list a {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .55rem .6rem; border-radius: 8px;
+  color: var(--ac-ink); font-size: .88rem;
+  transition: background .16s ease, color .16s ease;
+}
+.side-list a:hover { background: var(--ac-beacon-soft); color: var(--ac-beacon-text); }
+.side-list a.active { background: var(--ac-beacon-text); color: #fff; font-weight: 700; }
+.side-list a .cnt { font-size: .74rem; color: var(--ac-slate); }
+.side-list a.active .cnt { color: rgba(255,255,255,.95); }
+/* 零计数分面：既不可点也不像可点（search.html 价格桶空态） */
+.side-list a[aria-disabled="true"] { opacity: .45; pointer-events: none; }
+.side-list a .icon { width: 22px; height: 22px; object-fit: contain; margin-right: .55rem; }
+.side-list a .side-label { display: inline-flex; align-items: center; }
+/* 分面筛空后的提示（main.js 注入 .row）：作为 flex item 需要独占一行 */
+.shelf-empty {
+  flex: 0 0 100%; max-width: 100%;
+  margin: 0; padding: 1.1rem 0 0;
+  font-size: .86rem; color: var(--ac-slate);
+}
+
+/* 活动筛选条：让用户随时看见「当前被什么筛着」并一键撤掉（main.js §23 注入） */
+.active-filters {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: .45rem; margin: -0.7rem 0 1.4rem;
+}
+.active-filters[hidden] { display: none; }
+.af-label {
+  font-size: .7rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--ac-slate);
+}
+.filter-chip {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .28rem .35rem .28rem .7rem;
+  border: 1px solid var(--ac-line); border-radius: 999px;
+  background: #fff; color: var(--ac-ink);
+  font-size: .78rem; line-height: 1.4;
+}
+.filter-chip button {
+  width: 26px; height: 26px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 0; border-radius: 50%; background: var(--ac-mist);
+  color: var(--ac-slate); font-size: .95rem; line-height: 1; cursor: pointer;
+}
+.filter-chip button:hover { background: var(--ac-beacon-soft); color: var(--ac-beacon-text); }
+
+/* ---------- 13. Pagination ---------- */
+.pagination { gap: .35rem; }
+.pagination .page-link {
+  border: 1px solid var(--ac-line); border-radius: 8px !important;
+  color: var(--ac-ink); font-family: var(--font-display); font-size: .82rem;
+  min-width: 38px; text-align: center;
+  padding: .5rem .7rem;
+}
+.pagination .page-link:hover { background: var(--ac-beacon-soft); border-color: var(--ac-beacon-text); color: var(--ac-beacon-text); }
+.pagination .page-item.active .page-link {
+  background: var(--ac-beacon-text); border-color: var(--ac-beacon-text); color: #fff; font-weight: 700;
+}
+.pagination .page-item.disabled .page-link { color: #c3cbd6; background: var(--ac-mist); }
+/* 省略号是「还有更多页」的提示，不是禁用控件：#c3cbd6 压 mist 仅 1.49，改用次级文字色（4.93） */
+.pagination .page-item.page-gap .page-link { color: var(--ac-slate); }
+
+/* ---------- 14. Toolbar (排序/视图切换) ---------- */
+.list-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap; margin-bottom: 1.6rem;
+}
+.list-toolbar .result-count { font-size: .85rem; color: var(--ac-slate); }
+.list-toolbar .form-select {
+  width: auto; border-radius: 999px; border-color: var(--ac-line);
+  font-size: .84rem; padding: .4rem 2.4rem .4rem 1rem;
+}
+.list-toolbar .view-switch { display: inline-flex; gap: 4px; }
+.list-toolbar .view-switch .btn {
+  border: 1px solid var(--ac-line); border-radius: 8px;
+  color: var(--ac-slate); padding: .4rem .6rem; line-height: 1;
+  background: #fff;
+}
+.list-toolbar .view-switch .btn.active { background: var(--ac-navy); border-color: var(--ac-navy); color: #fff; }
+.list-toolbar .view-switch svg { width: 16px; height: 16px; }
+
+/* ---------- 15. Footer ---------- */
+.site-footer { background: var(--ac-navy); color: rgba(255,255,255,.78); font-size: .88rem; }
+.site-footer a { color: rgba(255,255,255,.72); }
+.site-footer a:hover { color: var(--ac-beacon); }
+.site-footer .footer-top { padding: 3.4rem 0 2.4rem; }
+.site-footer .footer-brand .navbar-brand {
+  font-family: var(--font-display); font-weight: 900;
+  font-size: 1.5rem; letter-spacing: .12em; color: #fff; margin-bottom: 1rem;
+  display: inline-flex; align-items: center; gap: .5rem;
+}
+.site-footer .footer-brand .navbar-brand img { height: 30px; }
+.site-footer .contact-list { list-style: none; padding: 0; margin: 1.1rem 0 0; display: grid; gap: .55rem; }
+.site-footer .contact-list li { display: flex; gap: .6rem; align-items: flex-start; }
+.site-footer .contact-list svg { width: 15px; height: 15px; flex: none; margin-top: 3px; color: var(--ac-beacon); }
+.site-footer .member-badges { display: flex; gap: .5rem; margin-top: 1.1rem; }
+.site-footer .member-badges span {
+  font-family: var(--font-display); font-size: .64rem; font-weight: 700;
+  letter-spacing: .08em; border: 1px solid rgba(255,255,255,.28);
+  border-radius: 6px; padding: .28rem .6rem; color: rgba(255,255,255,.82);
+}
+.site-footer .footer-col h3.footer-title {
+  font-family: var(--font-display); font-size: .78rem; font-weight: 800;
+  letter-spacing: .16em; text-transform: uppercase; color: #fff;
+  margin: 0 0 1.1rem; position: relative; padding-bottom: .65rem;
+}
+.site-footer .footer-col h3.footer-title::after {
+  content: ""; position: absolute; left: 0; bottom: 0;
+  width: 26px; height: 2px; background: var(--ac-beacon);
+}
+.site-footer .footer-col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: .5rem; }
+.site-footer .footer-col ul a { font-size: .86rem; transition: padding-left .18s ease, color .18s ease; }
+.site-footer .footer-col ul a:hover { padding-left: 4px; }
+/* 边框 .45 白压 navy 4.41:1、压输入框底 3.55:1（图形门槛 3.0，原 .18 只有 1.74）；
+   placeholder .55 白压框底 4.80:1（正文门槛 4.5，原 .5 只有 4.15） */
+.site-footer .newsletter-form .form-control {
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.45);
+  color: #fff; border-radius: 999px; padding: .55rem 1.1rem; font-size: .85rem;
+}
+.site-footer .newsletter-form .form-control::placeholder { color: rgba(255,255,255,.55); }
+.site-footer .newsletter-form .btn { border-radius: 999px; }
+.site-footer .footer-col ul.footer-social { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1.2rem; margin-bottom: 0; }
+.site-footer .footer-col ul.footer-social a {
+  width: 34px; height: 34px; border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.22);
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background .18s ease, border-color .18s ease;
+}
+.site-footer .footer-col ul.footer-social a:hover { background: var(--ac-beacon); border-color: var(--ac-beacon); padding-left: 0; }
+.site-footer .footer-col ul.footer-social a:hover img { filter: brightness(0) invert(1); }
+.site-footer .footer-col ul.footer-social img { width: 18px; height: 18px; object-fit: contain; transition: filter .18s ease; }
+.site-footer .footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.1);
+  padding: 1.2rem 0; font-size: .8rem;
+}
+.site-footer .footer-bottom .payments { display: inline-flex; gap: .4rem; align-items: center; }
+.site-footer .footer-bottom .payments img { height: 22px; width: auto; opacity: .85; }
+.site-footer .vat-note { color: rgba(255,255,255,.5); font-size: .76rem; }
+
+/* ---------- 16. 回到顶部 ---------- */
+.back-to-top {
+  position: fixed; right: 22px; bottom: 22px; z-index: 1040;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--ac-beacon-text); color: #fff; border: none;
+  box-shadow: var(--shadow-md);
+  display: inline-flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden; transform: translateY(10px);
+  transition: opacity .25s ease, transform .25s ease, visibility .25s ease, background-color .25s ease;
+}
+.back-to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+.back-to-top:hover { background: var(--ac-beacon-text-dark); color: #fff; }
+.back-to-top svg { width: 18px; height: 18px; }
+
+/* ---------- 17. 通用小工具 ---------- */
+.text-accent { color: var(--ac-beacon-text) !important; }
+.bg-mist { background: var(--ac-mist) !important; }
+.section-pad { padding-block: var(--section-y); }
+.section-pad-sm { padding-block: var(--section-y-sm); }
+
+/* 列表视图（商品页视图切换） */
+.products-view.list-view .product-card { flex-direction: row; }
+.products-view.list-view .card-media { width: 200px; flex: none; aspect-ratio: auto; }
+.products-view.list-view .prod-name { -webkit-line-clamp: 1; }
+
+/* 表单动作行：账户/结账/联系/套装页共用（原先只在 account.css 里，
+   contact-us.html 与 product-detail-grouped.html 不加载它 → 按钮排布失守） */
+.form-actions {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .75rem;
+  margin-top: 1.25rem;
+}
+
+/* ---------- 17.2 表单控件基样式（从 account.css §4 提级） ----------
+   判定与 §17.1 相同：contact-us / product-detail-grouped 等页不加载
+   account.css，表单会退回 Bootstrap 默认蓝（圆角 .375rem、#ced4da、
+   #86b7fe 焦点光晕）。数值原样搬运，未改设计值。 */
+.field { margin-bottom: 1rem; }
+.field:last-child { margin-bottom: 0; }
+.field-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 var(--sp-3);
+}
+.form-label {
+  display: block;
+  font-size: .78rem; font-weight: 700; letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--ac-slate);
+  margin-bottom: .35rem;
+}
+.form-label .req { color: var(--ac-beacon-text); margin-left: .15rem; }
+.form-control,
+.form-select {
+  width: 100%;
+  border: 1px solid var(--ac-line);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  padding: .55rem .75rem;
+  font-size: .92rem;
+  color: var(--ac-ink);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.form-control::placeholder { color: #9aa5b5; }
+.form-control:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--ac-beacon-text);
+  box-shadow: 0 0 0 .2rem rgba(230, 83, 0, .12);
+}
+textarea.form-control { min-height: 120px; resize: vertical; }
+.form-hint {
+  display: block;
+  font-size: .76rem; color: var(--ac-slate);
+  margin-top: .3rem;
+}
+.form-check-line {
+  display: flex; align-items: flex-start; gap: .5rem;
+  font-size: .86rem; color: var(--ac-slate);
+}
+.form-check-line input { margin-top: .2rem; accent-color: var(--ac-beacon-text); }
+
+/* 校验失败态：品牌红 --ac-red 铺暖白 4.96、铺最浅的 --ac-mist 也有 4.57（文字 AA ≥4.5），错误文案进
+   aria-describedby，键盘与读屏都能定位到「哪一栏、为什么」。 */
+.form-control.is-invalid,
+.form-select.is-invalid,
+.form-control[aria-invalid="true"],
+.form-select[aria-invalid="true"] {
+  border-color: var(--ac-red);
+  background-color: var(--ac-danger-soft-bg);
+}
+.form-control.is-invalid:focus,
+.form-select.is-invalid:focus,
+.form-control[aria-invalid="true"]:focus,
+.form-select[aria-invalid="true"]:focus {
+  border-color: var(--ac-red);
+  box-shadow: 0 0 0 .2rem rgba(201, 59, 59, .16);
+}
+.form-check-input.is-invalid { border-color: var(--ac-red); }
+.invalid-feedback {
+  display: none;
+  margin-top: .3rem;
+  font-size: .78rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--ac-red);
+}
+.form-control.is-invalid ~ .invalid-feedback,
+.form-select.is-invalid ~ .invalid-feedback,
+.form-check-input.is-invalid ~ .invalid-feedback,
+.invalid-feedback.is-shown { display: block; }
+/* 深色页脚（--ac-navy #051c2c）里 --ac-red 只有 3.45，达不到文字 AA，改用浅珊瑚档（见 :root 台账）。 */
+.site-footer .invalid-feedback { color: var(--ac-danger-inv); }
+.site-footer .form-control.is-invalid,
+.site-footer .form-select.is-invalid,
+.site-footer .form-control[aria-invalid="true"],
+.site-footer .form-select[aria-invalid="true"] { border-color: var(--ac-danger-inv-line); }
+.site-footer .form-control.is-invalid:focus,
+.site-footer .form-select.is-invalid:focus,
+.site-footer .form-control[aria-invalid="true"]:focus,
+.site-footer .form-select[aria-invalid="true"]:focus { box-shadow: 0 0 0 .2rem var(--ac-danger-inv-ring); }
+
+/* ---------- 17.3 商品卡快捷加购（由 main.js 注入，无 JS 时保留 More Info） ---------- */
+.card-foot { display: flex; align-items: stretch; gap: .5rem; }
+/* 44px 的快捷加购会把 More Info 拉伸到同高；.btn 默认是 block 盒，行盒贴在内容区顶部
+   （实测上留白 3.96px / 下留白 15.64px，文字看着偏上），改成 flex 居中让标签落回视觉中线。 */
+.card-foot > .btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  flex: 1 1 auto;
+}
+.quick-add {
+  flex: 0 0 44px;
+  min-height: 44px;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0;
+  border: 1px solid var(--ac-line);
+  border-radius: var(--btn-radius);
+  background: #fff;
+  color: var(--ac-beacon-text);
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+.quick-add svg { width: 17px; height: 17px; }
+.quick-add:hover { background: var(--ac-beacon-soft); border-color: var(--ac-beacon-text); }
+.quick-add:active { background: #ffe2cc; }
+.quick-add.is-added { background: var(--ac-navy); border-color: var(--ac-navy); color: #fff; }
+
+/* ---------- 17.4 详情页移动端粘性购买条（由 main.js 注入） ----------
+   只在原购买区滚出视口后出现，避免与页内按钮重复；桌面端不显示。 */
+.pdp-buybar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 1035;
+  display: none; align-items: center; gap: .75rem;
+  padding: .6rem .9rem calc(.6rem + env(safe-area-inset-bottom, 0px));
+  background: #fff;
+  border-top: 1px solid var(--ac-line);
+  box-shadow: 0 -8px 24px rgba(5, 28, 44, .12);
+  transform: translateY(110%);
+  transition: transform .22s ease-out;
+}
+.pdp-buybar.show { display: flex; transform: translateY(0); }
+.pdp-buybar .pb-price {
+  flex: 0 0 auto;
+  font-family: var(--font-display);
+  font-size: 1.05rem; font-weight: 900;
+  color: var(--ac-ink);
+  font-variant-numeric: tabular-nums;
+}
+.pdp-buybar .btn { flex: 1 1 auto; }
+@media (min-width: 768px) { .pdp-buybar { display: none !important; } }
+@media (max-width: 767.98px) {
+  /* 条本身的内边距含 env(safe-area-inset-bottom)，预留高度必须跟着长，
+     否则带 34px 缺口的机型上条高约 86px，页面底部会被压住 2px。 */
+  body.pdp-buybar-on { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+  /* 回顶按钮 z-index 高于购买条，不抬高会压住 Buy Now */
+  body.pdp-buybar-on .back-to-top { bottom: calc(84px + 10px + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* ---------- 17.1 跨家族共享组件（从 account.css / cart.css 提级） ----------
+   判定口径：`grep -l 'class="…<cls>' *.html` 里多数页面并不加载原表，说明它不是
+   那个家族的私有组件。下列五条原本在定义表之外**完全不生效**（`/d/tmp/cssmismatch.js`
+   复扫），数值一律原样搬运，没有顺手改设计值——改值属令牌失守项（审计 #12）。 */
+
+/* 内容页白底分区：18 页在用，原先只有 account.css 定义（0 个消费者加载它） */
+.content-section { background: #fff; }
+
+/* 白卡容器：37 页在用，含 contact-us.html 与 product-detail-grouped.html */
+.panel {
+  background: #fff;
+  border: 1px solid var(--ac-line);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+.panel + .panel { margin-top: 1.25rem; }
+.panel-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem; font-weight: 800; letter-spacing: -.01em;
+  margin: 0 0 .35rem;
+  color: var(--ac-ink);
+}
+.panel-desc {
+  font-size: .88rem; color: var(--ac-slate);
+  margin: 0 0 1.15rem;
+}
+.panel-head {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  justify-content: space-between; gap: .5rem;
+  padding-bottom: .9rem; margin-bottom: 1.1rem;
+  border-bottom: 1px solid var(--ac-line);
+}
+
+/* 支付/安全说明行：9 页在用，原先只有 cart.css 定义 → 8 个结账页拿不到样式 */
+.secure-note {
+  display: flex; align-items: center; justify-content: center; gap: .45rem;
+  font-size: .76rem; color: var(--ac-slate);
+}
+
+/* 提示条：19 页在用，原先只有 account.css 定义（contact-us 等 3 页拿不到） */
+.note-bar {
+  display: flex; gap: .65rem; align-items: flex-start;
+  background: var(--ac-beacon-soft);
+  border-left: 3px solid var(--ac-beacon);
+  border-radius: var(--radius-sm);
+  padding: .85rem 1rem;
+  font-size: .86rem; color: var(--ac-ink);
+}
+.note-bar svg { flex: 0 0 auto; margin-top: .15rem; color: var(--ac-beacon-text); }
+
+/* 强调文字链 / 伪装成链接的按钮（复制运单号等 JS 控件） */
+.link-strong { color: var(--ac-ink); font-weight: 700; text-decoration: none; }
+.link-strong:hover { color: var(--ac-beacon-text); }
+/* 演示数据没有真实承运商查询页，「Track on the carrier's site」不是链接而是复制到剪贴板的按钮 */
+button.link-strong {
+  background: none; border: 0; padding: 0; font: inherit; cursor: pointer;
+}
+
+/* 无障碍：跳过链接。用 transform 藏到视口上方，不用 left:-999px——
+   后者会把布局撑出屏幕 999px，只靠页面 clip 兜底（审计 34）。聚焦即现，无过渡。 */
+.skip-link {
+  position: absolute; left: 0; top: 0; z-index: 2000;
+  transform: translateY(-120%);
+  background: var(--ac-beacon-text); color: #fff; padding: .6rem 1.2rem;
+  border-radius: 0 0 8px 0; font-weight: 700;
+}
+.skip-link:focus { transform: translateY(0); color: #fff; }
+
+/* ---------- 18. 导航下拉箭头（nav-link::after 已用于下划线，故用 ::before 画箭头） ---------- */
+.site-header .navbar-nav .nav-link.dropdown-toggle::before {
+  content: ""; display: inline-block;
+  width: 0; height: 0; margin-right: .42rem;
+  border-left: 3.5px solid transparent;
+  border-right: 3.5px solid transparent;
+  border-top: 4px solid currentColor;
+  vertical-align: middle;
+}
+
+/* ---------- 19. 内容区块：导语 / 选购指南 / FAQ / 信任条 / 进场动画 ---------- */
+/* 导语段落：行长按 DESIGN.md「<80 字符」契约收口。
+   ch 以「0」宽计，Source Sans 3 平均字宽更窄：76ch 实测约 105 字符/行、
+   68ch 仍 86，压到 62ch 才落进 80 以内（浏览器实测）。 */
+.seo-intro { max-width: 62ch; }
+.seo-intro p { color: var(--ac-slate); line-height: 1.8; margin-bottom: .85rem; font-size: .95rem; }
+.seo-intro p:last-child { margin-bottom: 0; }
+.seo-intro strong, .seo-intro a { color: var(--ac-ink); }
+.seo-intro a { text-decoration: underline; text-underline-offset: 3px; }
+
+.content-band { background: #fff; }
+.content-band-alt { background: var(--ac-mist); }
+
+.guide-grid {
+  display: grid; gap: 1.15rem;
+  grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+}
+.guide-card {
+  background: #fff; border: 1px solid var(--ac-line);
+  border-top: 3px solid var(--ac-beacon);
+  border-radius: var(--radius-sm) var(--radius-sm) var(--radius-lg) var(--radius-lg);
+  padding: 1.35rem 1.35rem 1.45rem;
+}
+.guide-card h3 { font-size: .95rem; font-weight: 800; letter-spacing: .01em; margin: 0 0 .5rem; }
+.guide-card p { font-size: .88rem; color: var(--ac-slate); margin: 0; line-height: 1.7; }
+
+.faq-block { max-width: 900px; }
+/* FAQ 双列网格（仅首页 index.html 使用）：放宽到整列宽；移动端堆叠时两列间留间距 */
+.faq-grid { margin-top: 0; }
+.faq-grid .faq-block { max-width: none; }
+@media (max-width: 991.98px) {
+  .faq-grid .col-lg-6 + .col-lg-6 { margin-top: 1.25rem; }
+}
+.faq-block .accordion-item { border-color: var(--ac-line); background: #fff; }
+.faq-block .accordion-item:first-of-type { border-top-left-radius: var(--radius); border-top-right-radius: var(--radius); }
+.faq-block .accordion-item:last-of-type { border-bottom-left-radius: var(--radius); border-bottom-right-radius: var(--radius); }
+.faq-block .accordion-button {
+  font-family: var(--font-display); font-weight: 700; font-size: .92rem;
+  color: var(--ac-ink); background: #fff; box-shadow: none;
+  padding: 1rem 1.15rem;
+}
+.faq-block .accordion-button:not(.collapsed) { background: var(--ac-beacon-soft); color: var(--ac-beacon-text); }
+.faq-block .accordion-button:focus { box-shadow: none; border-color: var(--ac-line); }
+.faq-block .accordion-body { color: var(--ac-slate); font-size: .9rem; line-height: 1.75; }
+
+.trust-strip {
+  display: grid; gap: 1.1rem 1.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+}
+.trust-item { display: flex; gap: .75rem; align-items: flex-start; }
+.trust-item svg { flex: none; width: 20px; height: 20px; color: var(--ac-beacon-text); margin-top: 2px; }
+.trust-item h3 {
+  font-size: .82rem; font-weight: 800; margin: 0 0 .25rem;
+  text-transform: uppercase; letter-spacing: .06em;
+}
+.trust-item p { font-size: .82rem; color: var(--ac-slate); margin: 0; line-height: 1.65; }
+
+/* 逐节滚动 fade-up 已按 DESIGN.md Motion 契约移除：动效只允许一次编排好的
+   Hero 入场。内容默认可见，不再依赖 IntersectionObserver。 */
+
+/* 锚点定位偏移（避免被 sticky 头部遮挡） */
+[id] { scroll-margin-top: 96px; }
+
+/* ---------- 21. Distributor / 合作横幅（效果图为居中深蓝） ----------
+   辉光放底部：顶部 radial 会把橙色 eyebrow 压到 4.05:1（<4.5），
+   移到底部后 eyebrow 落在纯 navy 上，实测 4.63:1。 */
+.distributor-band {
+  background:
+    radial-gradient(760px 400px at 50% 100%, rgba(230, 83, 0, .16) 0%, transparent 62%),
+    var(--ac-navy);
+  color: #fff; text-align: center;
+}
+.distributor-inner { padding-block: clamp(2.6rem, 5vw, 4rem); }
+.distributor-inner .eyebrow {
+  color: var(--ac-beacon); justify-content: center; margin-bottom: .7rem;
+}
+.distributor-inner .eyebrow::before { background: var(--ac-beacon); }
+.distributor-inner h2 {
+  color: #fff; font-size: clamp(1.4rem, 3vw, 2.1rem); font-weight: 900;
+  text-transform: uppercase; letter-spacing: .04em; margin: 0 0 .85rem;
+}
+.distributor-inner p {
+  color: rgba(255, 255, 255, .74); max-width: 62ch;
+  margin: 0 auto 1.7rem; font-size: .96rem; line-height: 1.8;
+}
+
+/* ---------- 20. 响应式微调 ---------- */
+/* lg（992–1199）容器仅 960px：压缩导航字号/间距与搜索框，防溢出视口。
+   实测原值（.5rem/165px）在 992px 仍溢出 30px、1024px 溢出 14px —— 购物车角标被推出屏幕，
+   故再收紧一档（.4rem/132px，约省 52px）。 */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .site-header .navbar-nav .nav-link { padding-inline: .4rem; font-size: .73rem; letter-spacing: .05em; }
+  .site-header .navbar-nav .nav-link::after { left: .4rem; right: .4rem; }
+  .nav-search { width: 132px; }
+  .site-header .navbar-brand { padding: 0 1rem; }
+  .site-header .navbar-brand img { height: 26px; }
+  .nav-actions { gap: .1rem; }
+}
+/* xl（1200–1399）容器 1140px，但未压缩的导航整行需 ~1223px：实测 1200px 溢出 55px、
+   1280px 溢出 15px（购物车角标被推出屏幕）。原先的压缩只覆盖到 1199.98，这一段是空的，
+   所以在这里沿用紧凑档；1400px 起容器升到 1320px 才放得下完整尺寸。 */
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+  .site-header .navbar-nav .nav-link { padding-inline: .5rem; font-size: .74rem; letter-spacing: .06em; }
+  .site-header .navbar-nav .nav-link::after { left: .5rem; right: .5rem; }
+  .nav-search { width: 165px; }
+  .site-header .navbar-brand { padding: 0 1.1rem; }
+  .site-header .navbar-brand img { height: 27px; }
+  .nav-actions { gap: .1rem; }
+}
+@media (max-width: 991.98px) {
+  .site-header .navbar-collapse {
+    background: var(--ac-beacon-text);
+    margin: .6rem -0.75rem -0.6rem;
+    padding: .6rem 1rem 1rem;
+    border-radius: 0 0 var(--radius) var(--radius);
+  }
+  .site-header .navbar-nav .nav-link { padding-block: .7rem; border-bottom: 1px solid rgba(255,255,255,.12); }
+  .site-header .navbar-nav .nav-link::after { display: none; }
+  /* 移动端：搜索框与账户/购物车图标改为整行排布，保留站内搜索能力 */
+  .site-header .navbar-collapse > .d-flex {
+    flex-direction: column; align-items: stretch;
+    gap: .6rem; margin-top: .7rem;
+  }
+  .nav-search { width: 100%; }
+  .nav-search .form-control { padding-block: .6rem; }
+  .nav-actions { justify-content: flex-end; }
+  .topbar .topbar-social { display: none; }
+}
+@media (max-width: 575.98px) {
+  .field-row { grid-template-columns: 1fr; }
+  .topbar .topbar-inner { justify-content: center; text-align: center; }
+  .topbar .topbar-extra { display: none; }
+  .section-head h2 { font-size: 1.35rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+
+/* ============================================================
+   21. 宽屏容器放宽（全站，>=1580px）
+   ------------------------------------------------------------
+   Bootstrap 的容器阶梯以「最大匹配断点胜出」：
+     576->540 / 768->720 / 992->960 / 1200->1140 / 1400->1320
+   本站在 xxl(1400px) 档封顶 1320px，宽屏下两侧留白偏大。
+   这里在 1580px 起把上限放宽到 1560px，让商品栅格 / 分类瓦片
+   拿到更多横向空间。
+   阈值取 1580 而非 1400，是为了避开 1400-1579px 区间：该区间内
+   max-width 会大于视口，.container 被 width:100% 顶满、退化成
+   贴边全宽（1366 / 1440px 笔记本正好落在这一区间）。
+   阈值再取 1580 而非 1560：**原值 1560 漏算了纵向滚动条**——桌面端
+   1560px 的窗口实际可用宽度只有 ~1550px（10px 滚动条），容器被钉成
+   1560px 反而超出可用宽度，Bootstrap `.row` 的负外边距把沟槽漏到
+   容器外，实测在 1560px 出现 2px 横向滚动条。留 20px 余量后，
+   1580px 及以上才能真正容下 1560px 容器。
+   ============================================================ */
+@media (min-width: 1580px) {
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl,
+  .container-xxl {
+    max-width: 1560px;
+  }
+}
+
+/* ============================================================
+   22. 数量步进器（详情页 + 购物车页共用）
+   ------------------------------------------------------------
+   基样式必须放 common.css：cart.html 只加载 common.css + cart.css，
+   并不加载 product-detail.css。此前基样式全写在 product-detail.css，
+   导致购物车页的 <button> 退回浏览器原生外观、<input type="number">
+   露出原生上下箭头。
+   结构：.qty-control > .qty-btn[data-qty-minus] + .qty-input + .qty-btn[data-qty-plus]
+   ============================================================ */
+.qty-control {
+  display: inline-flex; align-items: stretch;
+  border: 1px solid var(--ac-line);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  overflow: hidden;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.qty-control:hover { border-color: #cdd5e0; }
+.qty-control:focus-within {
+  border-color: var(--ac-beacon-text);
+  box-shadow: 0 0 0 3px rgba(230, 83, 0, .14);
+}
+
+/* 字符 − / + 在浏览器里字重与垂直重心并不一致，故字号归零，
+   改用伪元素画等粗等长的横杠与竖杠，拼出光学校正过的加号 */
+.qty-btn {
+  position: relative; flex: none;
+  width: 44px; height: 48px;
+  display: inline-flex; align-items: center; justify-content: center;
+  margin: 0; padding: 0;
+  border: 0; background: transparent;
+  font-size: 0; line-height: 0;
+  color: var(--ac-ink);
+  cursor: pointer;
+  transition: background .15s ease, color .15s ease;
+}
+.qty-btn::before,
+.qty-btn::after {
+  content: ""; position: absolute; left: 50%; top: 50%;
+  background: currentColor; border-radius: 1px;
+  transform: translate(-50%, -50%);
+  transition: opacity .15s ease;
+}
+.qty-btn::before { width: 14px; height: 2px; }
+.qty-btn::after { width: 2px; height: 14px; }
+.qty-btn[data-qty-minus]::after { opacity: 0; }
+.qty-btn:hover { background: var(--ac-beacon-soft); color: var(--ac-beacon-text); }
+.qty-btn:active { background: #ffe2cc; }
+.qty-btn:focus-visible { outline: 2px solid var(--ac-beacon); outline-offset: -2px; }
+.qty-btn:disabled,
+.qty-btn[aria-disabled="true"] {
+  color: #c3cad6; cursor: not-allowed; background: transparent;
+}
+.qty-btn:disabled:hover { background: transparent; color: #c3cad6; }
+
+/* 数值框：左右各一道分隔线 + 浅灰内凹底，形成清晰的三段式分段控件 */
+.qty-input {
+  width: 60px; min-width: 0;
+  border: 0;
+  border-left: 1px solid var(--ac-line);
+  border-right: 1px solid var(--ac-line);
+  border-radius: 0;
+  background: var(--ac-mist);
+  padding: 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1rem; font-weight: 700;
+  color: var(--ac-ink);
+  appearance: textfield; -moz-appearance: textfield;
+  transition: background .15s ease;
+}
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.qty-input:focus { outline: none; background: #fff; }
+
+/* ---------- 23. 结账步骤条（箭头形分段进度条） ----------
+   共用页面：cart / checkout / checkout-completed
+   从 cart.css 下沉到这里，避免结账系列页面加载不到基样式。 */
+.checkout-steps {
+  background: #fff; border-bottom: 1px solid var(--ac-line);
+  padding: 1.1rem 0;
+}
+.steps {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; align-items: stretch; gap: 4px;
+}
+.step {
+  flex: 1 1 0; min-width: 0;
+  display: flex; align-items: center; justify-content: center; gap: .25rem;
+  background: var(--ac-mist); color: var(--ac-slate);
+  padding: .72rem 1.5rem .72rem 1.7rem;
+  font-family: var(--font-display);
+  font-size: .72rem; font-weight: 700; letter-spacing: .09em;
+  text-transform: uppercase; white-space: nowrap;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%, 14px 50%);
+}
+.step:first-child {
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%);
+}
+.step:last-child {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 14px 50%);
+}
+.step-num { font-weight: 800; }
+.step-num::after { content: "."; }
+.step.active { background: var(--ac-beacon-text); color: #fff; }
+.step.done { background: var(--ac-navy); color: #fff; }
+.step.done .step-num::after { content: "·"; }
+
+/* 窄屏：步骤名收起，只留序号（整条仍可见，不横向滚动） */
+@media (max-width: 767.98px) {
+  .step { padding: .6rem .5rem; letter-spacing: .04em; }
+  .step .step-name { display: none; }
+  .step:first-child .step-name,
+  .step.active .step-name { display: inline; }
+}
+
+/* ---------- 24. 汇总栏的运费方式（随结账页单选实时变化） ---------- */
+.ship-eta {
+  display: block; font-size: .78rem; font-weight: 400; letter-spacing: 0;
+  text-transform: none; color: var(--ac-slate);
+}

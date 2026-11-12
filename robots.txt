@@ -1,0 +1,63 @@
+# robots.txt — Acebeam Official Store
+# Last reviewed: 2026-10-31 (AI search-crawler pairing added)
+#
+# Everything is crawlable except filtered/sorted/search permutations of the
+# catalogue, which would only generate thin or duplicate results.
+#
+# Checkout and account flows carry no indexable content but are deliberately NOT
+# disallowed: /cart.html, /checkout* and /account* each ship a "noindex, follow"
+# meta tag, and a crawler cannot read a noindex on a URL that robots.txt blocks —
+# it would still discover those URLs from the header link on every page and could
+# list the bare URL. Allowing the crawl is what actually lets the noindex take effect.
+
+User-agent: *
+Allow: /
+
+# Filter / sort / search permutations of the catalogue.
+# These MUST live inside the "User-agent: *" group: robots.txt rules bind only to
+# the User-agent block they immediately follow, with no inheritance in or out.
+# (Review 2026-10-31: this block used to float underneath the AI-crawler group, so
+# it only constrained GPTBot & friends while leaving Googlebot free to crawl every
+# ?q= / ?sort= / ?page= permutation — the exact opposite of the intent above.)
+Disallow: /*?q=
+Disallow: /*?sort=
+Disallow: /*?page=
+Disallow: /*?view=
+Disallow: /*?price=
+
+# Generative-engine (AI) crawlers — explicitly allow so answer engines
+# (ChatGPT, Gemini, Perplexity, Claude, etc.) may cite and summarise our content.
+# The permutation rules are repeated here on purpose: because this group names its
+# own User-agents, the "*" group above does not apply to them.
+#
+# IMPORTANT PAIRING (reviewed 2026-10-31): a vendor's "training" crawler and its
+# "search / answer" crawler are different tokens. GPTBot and ClaudeBot only govern
+# TRAINING; what makes a page citable in ChatGPT Search / Claude search is
+# OAI-SearchBot and Claude-SearchBot respectively. Listing only the training bots
+# (as this file used to) leaves the search-citability decision to the default
+# "*" group, which is not the explicit allow we intend.
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: Google-Extended
+User-agent: CCBot
+User-agent: PerplexityBot
+User-agent: Bytespider
+Allow: /
+Disallow: /*?q=
+Disallow: /*?sort=
+Disallow: /*?page=
+Disallow: /*?view=
+Disallow: /*?price=
+
+# Aggressive SEO crawlers that send no traffic back.
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+Sitemap: https://www.acebeam.com/sitemap.xml
