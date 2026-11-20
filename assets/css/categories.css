@@ -47,6 +47,16 @@
   .list-toolbar .d-flex { width: 100%; justify-content: space-between; }
 }
 
+/* ---------- 目录分页（2026-11-20） ---------- */
+.catalog-pagination { margin-top: var(--sp-4); }
+.catalog-note {
+  margin: .8rem auto 0; max-width: 62ch; text-align: center;
+  font-size: .78rem; color: var(--ac-slate);
+}
+@media (max-width: 575.98px) {
+  .catalog-pagination .page-link { min-width: 34px; padding-inline: .55rem; }
+}
+
 /* ============================================================
    分类中心页（categories.html）：分类瓦片 + 内容区块
    ============================================================ */

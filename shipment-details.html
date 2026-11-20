@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261031">
 
   <link rel="stylesheet" href="assets/vendors/bootstrap-5.3.8/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/css/common.css?v=20261031k">
+  <link rel="stylesheet" href="assets/css/common.css?v=20261120a">
   <link rel="stylesheet" href="assets/css/account.css?v=20261031c">
   <link rel="stylesheet" href="assets/css/content.css?v=20261031b">
 
@@ -89,22 +89,31 @@
         </button>
         <div class="collapse navbar-collapse" id="mainNav">
           <ul class="navbar-nav mx-auto">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="all-products.html" id="navProducts" role="button" data-bs-toggle="dropdown" aria-expanded="false">All Products</a>
-              <ul class="dropdown-menu" aria-labelledby="navProducts">
-                <li><a class="dropdown-item" href="all-products.html">Every Flashlight</a></li>
-                <li><a class="dropdown-item" href="categories.html">Shop by Category</a></li>
-                <li><a class="dropdown-item" href="product-detail.html">P20 Mini Tactical Flashlight</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="all-products.html#new">New Arrivals</a></li>
-                <li><a class="dropdown-item" href="categories.html#batteries">Batteries &amp; Accessories</a></li>
-                <li><a class="dropdown-item" href="index.html#technology">Beam Technology</a></li>
-              </ul>
+            <li class="nav-item nav-item-mega">
+              <a class="nav-link dropdown-toggle" href="all-products.html" id="navProducts" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">All Products</a>
+              <div class="dropdown-menu mega-menu" aria-labelledby="navProducts">
+                <div class="mega-menu-head">
+                  <span class="mega-menu-kicker">Shop by category</span>
+                  <a class="mega-menu-all" href="all-products.html">View all products <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="mega-menu-grid">
+                <a class="mega-menu-item" href="categories.html#edc"><span class="mega-menu-index" aria-hidden="true">01</span><span class="mega-menu-label">EDC Flashlights</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                <a class="mega-menu-item" href="categories.html#tactical"><span class="mega-menu-index" aria-hidden="true">02</span><span class="mega-menu-label">Tactical Flashlights</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                <a class="mega-menu-item" href="categories.html#headlamps"><span class="mega-menu-index" aria-hidden="true">03</span><span class="mega-menu-label">LED Headlamps</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                <a class="mega-menu-item" href="categories.html#high-power"><span class="mega-menu-index" aria-hidden="true">04</span><span class="mega-menu-label">High Power Flashlights</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                <a class="mega-menu-item" href="categories.html#lep"><span class="mega-menu-index" aria-hidden="true">05</span><span class="mega-menu-label">LEP Flashlights</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                <a class="mega-menu-item" href="categories.html#rail-mounted"><span class="mega-menu-index" aria-hidden="true">06</span><span class="mega-menu-label">Rail-Mounted Lights</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                <a class="mega-menu-item" href="categories.html#dive"><span class="mega-menu-index" aria-hidden="true">07</span><span class="mega-menu-label">Dive Lights</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                <a class="mega-menu-item" href="categories.html#accessories"><span class="mega-menu-index" aria-hidden="true">08</span><span class="mega-menu-label">Accessories</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                </div>
+              </div>
             </li>
-            <li class="nav-item"><a class="nav-link" href="all-products.html#new">New</a></li>
-            <li class="nav-item"><a class="nav-link" href="categories.html">Categories</a></li>
+            <li class="nav-item"><a class="nav-link" href="new-products.html">New</a></li>
+            <li class="nav-item"><a class="nav-link" href="shipping-delivery.html">Warehouse</a></li>
+            <li class="nav-item"><a class="nav-link" href="all-products.html">Holiday</a></li>
             <li class="nav-item"><a class="nav-link" href="index.html#technology">Technology</a></li>
             <li class="nav-item"><a class="nav-link" href="index.html#reviews">Reviews</a></li>
+            <li class="nav-item"><a class="nav-link" href="blog.html">EXPLORE</a></li>
             <li class="nav-item"><a class="nav-link" href="index.html#explore">Affiliate</a></li>
           </ul>
           <div class="d-flex align-items-center gap-2">
@@ -332,6 +341,6 @@
   </button>
 
   <script src="assets/vendors/bootstrap-5.3.8/js/bootstrap.bundle.min.js" defer></script>
-  <script src="assets/js/main.js?v=20261031f" defer></script>
+  <script src="assets/js/main.js?v=20261120a" defer></script>
 </body>
 </html>

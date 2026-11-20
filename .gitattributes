@@ -1,0 +1,39 @@
+# .gitattributes · nop50-acebeam 根级
+# ─────────────────────────────────────────────────────────────────────────────
+# 行尾策略（2026-11-08 起全仓统一）：
+#   所有文本文件：仓库存 LF，工作区检出也为 LF（* text=auto eol=lf）。
+#   core.autocrlf 不再起作用（gitattributes 属性优先）。
+# ⚠️ 与线上镜像做文件夹级比对时，比对工具须开启「忽略行尾差异」
+#   （镜像源机经 VS 保存的文件可能仍是 CRLF；git 层 blob 本就存 LF，不受影响）。
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── 文本：仓库与工作区统一 LF ──
+* text=auto eol=lf
+
+# ── 二进制资产：禁止文本转换（含 NUL 字节，误当文本会损坏）──
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.avif binary
+*.ico binary
+*.bmp binary
+*.tif binary
+*.tiff binary
+*.psd binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.eot binary
+*.pdf binary
+*.zip binary
+*.7z binary
+*.gz binary
+*.mmdb binary
+*.dll binary
+*.pdb binary
+
+# ── 设计稿资源（acebeam-design 的图片同时保留 .jpg/.png 原图作重编码来源）──
+assets/img/** binary

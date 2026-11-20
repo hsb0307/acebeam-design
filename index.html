@@ -43,14 +43,15 @@
   <!-- Styles -->
   <link rel="stylesheet" href="assets/vendors/bootstrap-5.3.8/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/vendors/swiper-11.1.14/swiper-bundle.min.css">
-  <link rel="stylesheet" href="assets/css/common.css?v=20261031k">
-  <link rel="stylesheet" href="assets/css/home.css?v=20261031b">
+  <link rel="stylesheet" href="assets/css/common.css?v=20261120a">
+  <link rel="stylesheet" href="assets/css/home.css?v=20261120a">
 
   <!-- Structured Data: Organization + WebSite + Product list -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://www.acebeam.com/#organization",
     "name": "Acebeam",
     "url": "https://www.acebeam.com/",
     "logo": "https://www.acebeam.com/assets/img/logo.webp",
@@ -82,10 +83,10 @@
     "name": "Acebeam Featured Flashlights",
     "numberOfItems": 4,
     "itemListElement": [
-      {"@type": "Product", "position": 1, "name": "P20 Mini Long Distance Tactical Flashlight", "sku": "ACEBEAM-P20MINI", "brand": {"@type": "Brand", "name": "Acebeam"}, "url": "https://www.acebeam.com/product-detail.html", "image": "https://www.acebeam.com/assets/img/catprod-p20mini.webp", "offers": {"@type": "Offer", "price": "119.90", "priceCurrency": "USD"}},
-      {"@type": "Product", "position": 2, "name": "X35 Multi-Light Powerful Searching Flashlight", "sku": "ACEBEAM-X35", "brand": {"@type": "Brand", "name": "Acebeam"}, "url": "https://www.acebeam.com/product-detail.html", "image": "https://www.acebeam.com/assets/img/catprod-x35.webp", "offers": {"@type": "Offer", "price": "229.90", "priceCurrency": "USD"}},
-      {"@type": "Product", "position": 3, "name": "Terminator M1 LEP & LED Dual-Source Flashlight", "sku": "ACEBEAM-M1", "brand": {"@type": "Brand", "name": "Acebeam"}, "url": "https://www.acebeam.com/product-detail.html", "image": "https://www.acebeam.com/assets/img/catprod-terminator-m1.webp", "offers": {"@type": "Offer", "price": "279.90", "priceCurrency": "USD"}},
-      {"@type": "Product", "position": 4, "name": "T29 Ultra Long Range Hunting Flashlight", "sku": "ACEBEAM-T29", "brand": {"@type": "Brand", "name": "Acebeam"}, "url": "https://www.acebeam.com/product-detail.html", "image": "https://www.acebeam.com/assets/img/catprod-t29.webp", "offers": {"@type": "Offer", "price": "109.90", "priceCurrency": "USD"}}
+      {"@type": "Product", "position": 1, "name": "P20 Mini Long Distance Tactical Flashlight", "additionalProperty": [{"@type":"PropertyValue","name":"Peak beam intensity","value":267806,"unitText":"candela"},{"@type":"PropertyValue","name":"Beam distance","value":1035,"unitText":"meters"},{"@type":"PropertyValue","name":"Luminous flux","value":1800,"unitText":"lumens"},{"@type":"PropertyValue","name":"Battery","value":"1 × 21700"},{"@type":"PropertyValue","name":"Charging","value":"USB-C"},{"@type":"PropertyValue","name":"Ingress protection","value":"IP68"}], "sku": "ACEBEAM-P20MINI", "brand": {"@type": "Brand", "name": "Acebeam"}, "url": "https://www.acebeam.com/product-detail.html", "image": "https://www.acebeam.com/assets/img/catprod-p20mini.webp", "offers": {"@type": "Offer", "price": "119.90", "priceCurrency": "USD"}},
+      {"@type": "Product", "position": 2, "name": "X35 Multi-Light Powerful Searching Flashlight", "additionalProperty": [{"@type":"PropertyValue","name":"Peak beam intensity","value":7225,"unitText":"candela"},{"@type":"PropertyValue","name":"Beam distance","value":170,"unitText":"meters"},{"@type":"PropertyValue","name":"Luminous flux","value":2600,"unitText":"lumens"},{"@type":"PropertyValue","name":"Battery","value":"3 × 21700"},{"@type":"PropertyValue","name":"Charging","value":"USB-C"},{"@type":"PropertyValue","name":"Ingress protection","value":"IP68"}], "sku": "ACEBEAM-X35", "brand": {"@type": "Brand", "name": "Acebeam"}, "url": "https://www.acebeam.com/product-detail.html", "image": "https://www.acebeam.com/assets/img/catprod-x35.webp", "offers": {"@type": "Offer", "price": "229.90", "priceCurrency": "USD"}},
+      {"@type": "Product", "position": 3, "name": "Terminator M1 LEP & LED Dual-Source Flashlight", "additionalProperty": [{"@type":"PropertyValue","name":"Peak beam intensity","value":562500,"unitText":"candela"},{"@type":"PropertyValue","name":"Beam distance","value":1500,"unitText":"meters"},{"@type":"PropertyValue","name":"Luminous flux","value":2300,"unitText":"lumens"},{"@type":"PropertyValue","name":"Battery","value":"1 × 21700"},{"@type":"PropertyValue","name":"Charging","value":"USB-C"},{"@type":"PropertyValue","name":"Ingress protection","value":"IP68"}], "sku": "ACEBEAM-M1", "brand": {"@type": "Brand", "name": "Acebeam"}, "url": "https://www.acebeam.com/product-detail.html", "image": "https://www.acebeam.com/assets/img/catprod-terminator-m1.webp", "offers": {"@type": "Offer", "price": "279.90", "priceCurrency": "USD"}},
+      {"@type": "Product", "position": 4, "name": "T29 Ultra Long Range Hunting Flashlight", "additionalProperty": [{"@type":"PropertyValue","name":"Peak beam intensity","value":2560000,"unitText":"candela"},{"@type":"PropertyValue","name":"Beam distance","value":3200,"unitText":"meters"},{"@type":"PropertyValue","name":"Charging","value":"USB-C"},{"@type":"PropertyValue","name":"Ingress protection","value":"IP68"}], "sku": "ACEBEAM-T29", "brand": {"@type": "Brand", "name": "Acebeam"}, "url": "https://www.acebeam.com/product-detail.html", "image": "https://www.acebeam.com/assets/img/catprod-t29.webp", "offers": {"@type": "Offer", "price": "109.90", "priceCurrency": "USD"}}
     ]
   }
   </script>
@@ -164,22 +165,31 @@
         </button>
         <div class="collapse navbar-collapse" id="mainNav">
           <ul class="navbar-nav mx-auto">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="all-products.html" id="navProducts" role="button" data-bs-toggle="dropdown" aria-expanded="false">All Products</a>
-              <ul class="dropdown-menu" aria-labelledby="navProducts">
-                <li><a class="dropdown-item" href="all-products.html">Every Flashlight</a></li>
-                <li><a class="dropdown-item" href="categories.html">Shop by Category</a></li>
-                <li><a class="dropdown-item" href="product-detail.html">P20 Mini Tactical Flashlight</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="all-products.html#new">New Arrivals</a></li>
-                <li><a class="dropdown-item" href="categories.html#batteries">Batteries &amp; Accessories</a></li>
-                <li><a class="dropdown-item" href="index.html#technology">Beam Technology</a></li>
-              </ul>
+            <li class="nav-item nav-item-mega">
+              <a class="nav-link dropdown-toggle" href="all-products.html" id="navProducts" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">All Products</a>
+              <div class="dropdown-menu mega-menu" aria-labelledby="navProducts">
+                <div class="mega-menu-head">
+                  <span class="mega-menu-kicker">Shop by category</span>
+                  <a class="mega-menu-all" href="all-products.html">View all products <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="mega-menu-grid">
+                <a class="mega-menu-item" href="categories.html#edc"><span class="mega-menu-index" aria-hidden="true">01</span><span class="mega-menu-label">EDC Flashlights</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                <a class="mega-menu-item" href="categories.html#tactical"><span class="mega-menu-index" aria-hidden="true">02</span><span class="mega-menu-label">Tactical Flashlights</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                <a class="mega-menu-item" href="categories.html#headlamps"><span class="mega-menu-index" aria-hidden="true">03</span><span class="mega-menu-label">LED Headlamps</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                <a class="mega-menu-item" href="categories.html#high-power"><span class="mega-menu-index" aria-hidden="true">04</span><span class="mega-menu-label">High Power Flashlights</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                <a class="mega-menu-item" href="categories.html#lep"><span class="mega-menu-index" aria-hidden="true">05</span><span class="mega-menu-label">LEP Flashlights</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                <a class="mega-menu-item" href="categories.html#rail-mounted"><span class="mega-menu-index" aria-hidden="true">06</span><span class="mega-menu-label">Rail-Mounted Lights</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                <a class="mega-menu-item" href="categories.html#dive"><span class="mega-menu-index" aria-hidden="true">07</span><span class="mega-menu-label">Dive Lights</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                <a class="mega-menu-item" href="categories.html#accessories"><span class="mega-menu-index" aria-hidden="true">08</span><span class="mega-menu-label">Accessories</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                </div>
+              </div>
             </li>
-            <li class="nav-item"><a class="nav-link" href="all-products.html#new">New</a></li>
-            <li class="nav-item"><a class="nav-link" href="categories.html">Categories</a></li>
+            <li class="nav-item"><a class="nav-link" href="new-products.html">New</a></li>
+            <li class="nav-item"><a class="nav-link" href="shipping-delivery.html">Warehouse</a></li>
+            <li class="nav-item"><a class="nav-link" href="all-products.html">Holiday</a></li>
             <li class="nav-item"><a class="nav-link" href="index.html#technology">Technology</a></li>
             <li class="nav-item"><a class="nav-link" href="index.html#reviews">Reviews</a></li>
+            <li class="nav-item"><a class="nav-link" href="blog.html">EXPLORE</a></li>
             <li class="nav-item"><a class="nav-link" href="index.html#explore">Affiliate</a></li>
           </ul>
           <div class="d-flex align-items-center gap-2">
@@ -295,72 +305,56 @@
       </div>
     </section>
 
-    <!-- ======= Category Explorer ======= -->
+    <!-- ======= Category Explorer（同步 beacon 首页 6 卡非对称 mosaic） ======= -->
     <section class="section-pad category-explore" aria-labelledby="catHeading">
       <div class="container">
         <div class="section-head text-center">
-          <span class="eyebrow justify-content-center">Shop by Category</span>
-          <h2 id="catHeading">Explore Acebeam Flashlights</h2>
-          <p class="section-desc mx-auto">From pocket EDC lights to extreme-range searchlights: find the beam that fits your mission.</p>
+          <h2 id="catHeading">Discover Your <span class="cat-title-accent">Lighting Tools</span></h2>
+          <p class="section-desc mx-auto">Whether you need portable EDC lights, high-performance flashlights to illuminate the entire venue, tactical lights for law enforcement, or professional headlamps for cave exploration, we can meet your needs.</p>
         </div>
-        <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-lg-3">
-          <div class="col">
-            <a class="cat-tile" href="categories.html#high-power">
-              <img src="assets/img/cat-high-power.webp" alt="High power flashlights with extreme lumen output" width="600" height="375" loading="lazy" decoding="async">
-              <span class="cat-tile-overlay">
-                <h3 class="cat-tile-name">High Power Flashlights</h3>
-                <span class="cat-tile-cta">Shop Now <span aria-hidden="true">→</span></span>
-              </span>
-            </a>
-          </div>
-          <div class="col">
-            <a class="cat-tile" href="categories.html#tactical">
-              <img src="assets/img/cat-tactical.webp" alt="Tactical flashlights for duty and hunting" width="600" height="375" loading="lazy" decoding="async">
-              <span class="cat-tile-overlay">
-                <h3 class="cat-tile-name">Tactical Flashlights</h3>
-                <span class="cat-tile-cta">Shop Now <span aria-hidden="true">→</span></span>
-              </span>
-            </a>
-          </div>
-          <div class="col">
-            <a class="cat-tile" href="categories.html#headlamps">
-              <img src="assets/img/cat-led-headlamps.webp" alt="LED headlamps for hands-free illumination" width="600" height="375" loading="lazy" decoding="async">
-              <span class="cat-tile-overlay">
-                <h3 class="cat-tile-name">LED Headlamps</h3>
-                <span class="cat-tile-cta">Shop Now <span aria-hidden="true">→</span></span>
-              </span>
-            </a>
-          </div>
-          <div class="col">
-            <a class="cat-tile" href="categories.html#lep">
-              <img src="assets/img/cat-lep.webp" alt="LEP flashlights with laser-excited phosphor optics" width="600" height="375" loading="lazy" decoding="async">
-              <span class="cat-tile-overlay">
-                <h3 class="cat-tile-name">LEP Flashlights</h3>
-                <span class="cat-tile-cta">Shop Now <span aria-hidden="true">→</span></span>
-              </span>
-            </a>
-          </div>
-          <div class="col">
-            <a class="cat-tile" href="categories.html#dive">
-              <img src="assets/img/cat-dive.webp" alt="Dive flashlights rated for underwater use" width="600" height="375" loading="lazy" decoding="async">
-              <span class="cat-tile-overlay">
-                <h3 class="cat-tile-name">Dive Flashlights</h3>
-                <span class="cat-tile-cta">Shop Now <span aria-hidden="true">→</span></span>
-              </span>
-            </a>
-          </div>
-          <div class="col">
-            <a class="cat-tile" href="categories.html#edc">
-              <img src="assets/img/cat-everyday-carry.webp" alt="Everyday carry EDC flashlights" width="600" height="375" loading="lazy" decoding="async">
-              <span class="cat-tile-overlay">
-                <h3 class="cat-tile-name">EDC Flashlights</h3>
-                <span class="cat-tile-cta">Shop Now <span aria-hidden="true">→</span></span>
-              </span>
-            </a>
-          </div>
-          <div class="col-12 text-center mt-4">
-            <a class="btn btn-outline-accent" href="categories.html">Browse All Categories</a>
-          </div>
+        <div class="cat-mosaic">
+          <a class="cat-tile" href="categories.html#high-power" aria-label="High Power">
+            <img src="assets/img/cat-high-power.webp" alt="High Power" width="800" height="500" loading="lazy" decoding="async">
+            <span class="cat-tile-overlay">
+              <h3 class="cat-tile-name">High Power</h3>
+              <span class="cat-tile-cta">Shop Now <span aria-hidden="true">→</span></span>
+            </span>
+          </a>
+          <a class="cat-tile" href="categories.html#tactical" aria-label="Tactical">
+            <img src="assets/img/cat-tactical.webp" alt="Tactical" width="800" height="500" loading="lazy" decoding="async">
+            <span class="cat-tile-overlay">
+              <h3 class="cat-tile-name">Tactical</h3>
+              <span class="cat-tile-cta">Shop Now <span aria-hidden="true">→</span></span>
+            </span>
+          </a>
+          <a class="cat-tile" href="categories.html#edc" aria-label="Everyday Carry">
+            <img src="assets/img/cat-everyday-carry.webp" alt="Everyday Carry" width="800" height="500" loading="lazy" decoding="async">
+            <span class="cat-tile-overlay">
+              <h3 class="cat-tile-name">Everyday Carry</h3>
+              <span class="cat-tile-cta">Shop Now <span aria-hidden="true">→</span></span>
+            </span>
+          </a>
+          <a class="cat-tile" href="categories.html#headlamps" aria-label="LED Headlamps">
+            <img src="assets/img/cat-led-headlamps.webp" alt="LED Headlamps" width="800" height="500" loading="lazy" decoding="async">
+            <span class="cat-tile-overlay">
+              <h3 class="cat-tile-name">LED Headlamps</h3>
+              <span class="cat-tile-cta">Shop Now <span aria-hidden="true">→</span></span>
+            </span>
+          </a>
+          <a class="cat-tile" href="categories.html#lep" aria-label="LEP">
+            <img src="assets/img/cat-lep.webp" alt="LEP" width="800" height="500" loading="lazy" decoding="async">
+            <span class="cat-tile-overlay">
+              <h3 class="cat-tile-name">LEP</h3>
+              <span class="cat-tile-cta">Shop Now <span aria-hidden="true">→</span></span>
+            </span>
+          </a>
+          <a class="cat-tile" href="categories.html#dive" aria-label="Dive">
+            <img src="assets/img/cat-dive.webp" alt="Dive" width="800" height="500" loading="lazy" decoding="async">
+            <span class="cat-tile-overlay">
+              <h3 class="cat-tile-name">Dive</h3>
+              <span class="cat-tile-cta">Shop Now <span aria-hidden="true">→</span></span>
+            </span>
+          </a>
         </div>
       </div>
     </section>
@@ -535,36 +529,57 @@
       </div>
     </section>
 
-    <!-- ======= Blog ======= -->
+    <!-- ======= Blog（同步 beacon 首页「Our Latest Blog」4 卡竖排） ======= -->
     <section class="section-pad-sm blog-section" id="blog" aria-labelledby="blogHeading">
       <div class="container">
-        <div class="section-head">
-          <span class="eyebrow">From The Blog</span>
-          <h2 id="blogHeading">Guides &amp; Stories</h2>
+        <div class="section-head text-center">
+          <h2 id="blogHeading"><a class="blog-heading-link" href="blog.html">Our Latest <span class="blog-title-accent">Blog</span></a></h2>
         </div>
-        <div class="row g-4 row-cols-1 row-cols-md-2">
-          <div class="col">
-            <article class="blog-card">
-              <div class="blog-media"><img width="500" height="275" decoding="async" src="assets/img/blog-1.webp" alt="Guide to choosing the right tactical flashlight" loading="lazy"></div>
-              <div class="blog-content">
-                <span class="blog-cat">Buying Guide</span>
-                <h3><a href="blog-post.html">How to Choose a Tactical Flashlight in 2026</a></h3>
-                <p>Lumens vs candela, UI, battery and durability: everything to check before you buy.</p>
-                <a class="blog-more" href="blog-post.html">Read More <span aria-hidden="true">→</span></a>
-              </div>
-            </article>
-          </div>
-          <div class="col">
-            <article class="blog-card">
-              <div class="blog-media"><img width="1920" height="960" decoding="async" src="assets/img/blog-2.webp" alt="Night hiking with Acebeam headlamp" loading="lazy"></div>
-              <div class="blog-content">
-                <span class="blog-cat">Field Report</span>
-                <h3><a href="blog-post.html">Night Hiking With An 1100-Lumen Headlamp</a></h3>
-                <p>Three weekends, four trails, one headlamp: what we learned about light in the backcountry.</p>
-                <a class="blog-more" href="blog-post.html">Read More <span aria-hidden="true">→</span></a>
-              </div>
-            </article>
-          </div>
+        <div class="blog-grid">
+          <article class="blog-card">
+            <a class="blog-media" href="blog-post.html" tabindex="-1" aria-hidden="true">
+              <img src="assets/img/blog-1.webp" alt="The Non-PWM Advantage: Why ACEBEAM Engineers a True Constant-Current Driver" width="640" height="400" loading="lazy" decoding="async">
+            </a>
+            <div class="blog-body">
+              <time datetime="2026-08-08">Saturday, August 8, 2026</time>
+              <h3><a href="blog-post.html">The Non-PWM Advantage: Why ACEBEAM Engineers a True Constant-Current Driver</a></h3>
+              <p>Most budget lights dim by pulsing the LED thousands of times a second. Acebeam drives its emitters with a true constant-current circuit instead.</p>
+              <a class="btn btn-accent btn-sm blog-more" href="blog-post.html">More Info</a>
+            </div>
+          </article>
+          <article class="blog-card">
+            <a class="blog-media" href="blog-post.html" tabindex="-1" aria-hidden="true">
+              <img src="assets/img/blog-2.webp" alt="Best Flashlights for Nighttime Dog Walking" width="640" height="400" loading="lazy" decoding="async">
+            </a>
+            <div class="blog-body">
+              <time datetime="2026-05-16">Saturday, May 16, 2026</time>
+              <h3><a href="blog-post.html">Best Flashlights for Nighttime Dog Walking</a></h3>
+              <p>Acebeam guide to the best dog walking flashlights: high visibility, durability and hands-free operation for night walks.</p>
+              <a class="btn btn-accent btn-sm blog-more" href="blog-post.html">More Info</a>
+            </div>
+          </article>
+          <article class="blog-card">
+            <a class="blog-media" href="blog-post.html" tabindex="-1" aria-hidden="true">
+              <img src="assets/img/news-1.webp" alt="The L35 2.0: Why It Is The Definitive First Acebeam For Newcomers" width="640" height="400" loading="lazy" decoding="async">
+            </a>
+            <div class="blog-body">
+              <time datetime="2026-05-15">Friday, May 15, 2026</time>
+              <h3><a href="blog-post.html">The L35 2.0: Why It Is The Definitive First Acebeam For Newcomers</a></h3>
+              <p>A 20-year SAR veteran explains why the L35 2.0 is the ultimate starter tool: balanced TIR beam, dual-fuel and a 10-year warranty.</p>
+              <a class="btn btn-accent btn-sm blog-more" href="blog-post.html">More Info</a>
+            </div>
+          </article>
+          <article class="blog-card">
+            <a class="blog-media" href="blog-post.html" tabindex="-1" aria-hidden="true">
+              <img src="assets/img/news-2.webp" alt="10 Reasons Why a Headlamp is the Ultimate Hands-Free Upgrade" width="640" height="400" loading="lazy" decoding="async">
+            </a>
+            <div class="blog-body">
+              <time datetime="2026-05-08">Friday, May 8, 2026</time>
+              <h3><a href="blog-post.html">10 Reasons Why a Headlamp is the Ultimate Hands-Free Upgrade</a></h3>
+              <p>By freeing your hands and projecting light exactly where you look, a headlamp is the ultimate tool for safety and efficiency at night.</p>
+              <a class="btn btn-accent btn-sm blog-more" href="blog-post.html">More Info</a>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -840,6 +855,6 @@
 
   <script src="assets/vendors/bootstrap-5.3.8/js/bootstrap.bundle.min.js" defer></script>
   <script src="assets/vendors/swiper-11.1.14/swiper-bundle.min.js" defer></script>
-  <script src="assets/js/main.js?v=20261108b" defer></script>
+  <script src="assets/js/main.js?v=20261120a" defer></script>
 </body>
 </html>

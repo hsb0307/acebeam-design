@@ -228,6 +228,18 @@ Bootstrap 5 栅格之上的宽场布局：标准容器阶梯（540/720/960/1140/
 - **Style:** 吸顶整条信标橙；品牌铭牌为通栏深蓝色块（负 margin 顶天立地贯穿橙条，高≈59px，无圆角——不是贴纸）。导航项 Archivo 600 .8rem 大写 +.1em 白字，hover/active 底部 2px 白杠 scaleX 展开。
 - **Dropdown:** 白底 10px 圆角 + shadow-md；项 hover 橙浅底橙字。
 - **Mobile:** ≤991px 折叠为橙底手风琴面板，搜索框整行，工具钮右对齐。
+- **8 项一级导航（2026-11-20）**：`All Products · New · Warehouse · Holiday · Technology · Reviews · EXPLORE · Affiliate`。项数从 6 增到 8 后，未压缩尺寸（.8rem/.5rem padding + 220px 搜索框）在容器 1320px 内放不下，故按容器阶梯分三档压缩，全部实测「购物车角标不出容器」：992–1199（.68rem/.24rem、搜索 100→112px、brand img 24px）、1200–1399（.7rem/.38rem、搜索 145px）、1400–1579（.72rem/.44rem、搜索 165px——容器仍是 1320，未压缩会溢出 111px）；≥1580 容器升到 1560px 才回到未压缩尺寸。
+- **All Products mega menu（自研 DOM，非复用线上 ec-category-menu）**：`.nav-item-mega > .mega-menu`，白底 + 顶部 4px 信标橙 + shadow-md，宽 `min(660px, 100vw-2rem)`；头部一行 `SHOP BY CATEGORY` + `VIEW ALL PRODUCTS →`，下接 2×4 网格，8 项走「序号 01–08 / 大写标签 / 右侧箭头」三栏。**展开三态**：`:hover`、`:focus-within`（键盘 Tab 进面板不塌）、`.mega-menu.show`（Bootstrap 把 `.show` 加在菜单元素上，不是 `<li>` —— 只写 `.nav-item-mega.show > .mega-menu` 永远不命中，触屏点击展不开）。≤991.98px 面板改为静态单列白卡，靠 `.show` 展开。
+
+### 分类浏览（左右两栏，2026-11-20）
+
+布局蓝图 `docs/themes/categories-navigation.html`：`aside.col-lg-3`（一级分类）+ `col-lg-9`（当前分类商品列表），左栏点选或 URL hash 切换右栏，列表前端分页。
+
+- **左栏**：`.sidebar-card > .side-list`，9 项 = All Products + 8 个一级分类，每项 `a[data-cat]` 且 `li` 自带 `id`（`#edc`/`#tactical`/`#rail-mounted`…），顶部 All Products 子菜单即用这些锚点落位。
+- **右栏**：`.list-toolbar`（计数 + 排序 + 视图切换）→ `[data-shelf][data-page-size="6"]` → `[data-catalog-pagination]` → `.catalog-note` 脚注。
+- **分页**：每页 6 张，切页后计数改写成「Showing 7–12 of 12 loaded lights」，末页 Next 置灰；页数 ≤1 时整个分页条不渲染。空结果写成「No loaded unit in this selection」，**不写 Showing 0–0 of 0**。
+- **空态说真话**：该分类没有已加载样机时，点名「No demo unit is loaded for LED Headlamps in this prototype — the full catalogue lists 7 of them.」，不造卡片、不写「加载中」。
+- **带 hash 直进**：浏览器原生锚点会把页面滚到左栏那个 `<li>`，标题与计数行被留在视口外 ⇒ deferred 脚本在 `load` + rAF 之后按「sticky 头高度 + 8px」把区块顶对齐。
 
 ### 首页 Hero 与深色带（2026-11-08 效果图批次）
 
@@ -247,6 +259,13 @@ Bootstrap 5 栅格之上的宽场布局：标准容器阶梯（540/720/960/1140/
 
 ### 侧栏卡
 白底 16px 圆角；标题微铭牌 + 左侧 8px 橙方块 + 底部 2px 橙杠；列表项 8px 圆角 hover 橙浅底，active 橙底白字。
+
+### 首页分类 mosaic 与博客 4 卡（2026-11-20，对齐 beacon 主题）
+
+权威源是 `nop50-lts` 的 `beacon` 主题首页（`Themes/beacon/Views/Home/Index.cshtml` + `HomepageCategories/Default.cshtml` + `_HomepageBlogGrid.cshtml`），本目录按它回同步；数值以 `http://localhost:52124/` 实测为准。
+
+- **分类区**：`.section-pad.category-explore` 包 `h2#catHeading` + `<span class="cat-title-accent">` 双色标题 + `.section-desc.mx-auto`，主体是 6 卡非对称 CSS Grid（`.cat-mosaic`，`grid-template-areas`：`hp hp hp tac tac tac` / `hp hp hp edc edc edc` / `hd hd lep lep dv dv`），顺序 high-power → tactical → edc → headlamps → lep → dive。效果图无 eyebrow / Browse All，**不要加回来**。
+- **博客区**：`.blog-section`（暖白底）→ `.section-head.text-center` 里 h2 内嵌 `.blog-heading-link`（整标题即链接）+ `.blog-title-accent` → `.blog-grid` 4 列竖卡。单卡结构 `article.blog-card > a.blog-media + div.blog-body`，body 依次是 `<time>`（长日期，如 `Saturday, August 8, 2026`）、`h3 > a`（2 行截断）、`p`（2 行截断）、`a.btn.btn-accent.btn-sm.blog-more`（文案 `More Info`，与 beacon 的 `Acebeam.Home.Blog.MoreInfo` 同值，居中约 62% 宽）。实测列宽 309px、卡高 390px、区底 `rgb(255,253,251)`，与 beacon 一致；≤1199.98px 转 2 列，≤575.98px 转 1 列。
 
 ## Do's and Don'ts
 

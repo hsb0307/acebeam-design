@@ -351,6 +351,93 @@ img { max-width: 100%; height: auto; }
   letter-spacing: .08em; text-transform: uppercase; color: var(--ac-slate);
 }
 
+/* ---------- 4b. All Products mega menu（2026-11-20） ----------
+   8 个一级分类用两列面板重排，不复用线上 ec-category-menu 的 DOM。
+   桌面 hover / focus-within 打开；触屏走 Bootstrap .show，移动端改为静态列表。 */
+.site-header .nav-item-mega { position: relative; }
+.site-header .mega-menu {
+  top: 100%; left: 0;
+  width: min(660px, calc(100vw - 2rem));
+  min-width: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #fff;
+  border-top: 4px solid var(--ac-beacon);
+  box-shadow: var(--shadow-md);
+  z-index: 1040;
+  display: none;
+}
+.site-header .mega-menu-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: .9rem 1.1rem .65rem;
+  border-bottom: 1px solid var(--ac-line);
+}
+.site-header .mega-menu-kicker {
+  font-family: var(--font-display); font-size: .68rem; font-weight: 800;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--ac-slate);
+}
+.site-header .mega-menu-all {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-family: var(--font-display); font-size: .7rem; font-weight: 800;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--ac-beacon-text);
+}
+.site-header .mega-menu-all:hover { color: var(--ac-beacon-text-dark); }
+.site-header .mega-menu-grid {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .25rem; padding: .65rem;
+}
+.site-header .mega-menu-item {
+  display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto;
+  align-items: center; gap: .6rem;
+  padding: .7rem .75rem; border-radius: 8px;
+  color: var(--ac-ink);
+  font-family: var(--font-display); font-size: .78rem; font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase;
+  transition: background .18s ease, color .18s ease;
+}
+.site-header .mega-menu-item:hover,
+.site-header .mega-menu-item:focus-visible { background: var(--ac-beacon-soft); color: var(--ac-beacon-text); }
+.site-header .mega-menu-index {
+  font-size: .62rem; letter-spacing: .12em; color: var(--ac-slate);
+}
+.site-header .mega-menu-item:hover .mega-menu-index { color: var(--ac-beacon-text); }
+.site-header .mega-menu-arrow {
+  /* Archivo 的 → 字头细，缩进 340px 宽的列里读成一根横线；
+     改用 CSS 折角箭头（两笔 45° 旋转），小尺寸下仍是箭头。 */
+  display: inline-block; width: .52rem; height: .52rem;
+  font-size: 0; line-height: 1;
+  border-top: 1.6px solid currentColor; border-right: 1.6px solid currentColor;
+  color: var(--ac-beacon-text); opacity: .7;
+  transform: rotate(45deg);
+  transition: transform .18s ease, opacity .18s ease;
+}
+.site-header .mega-menu-item:hover .mega-menu-arrow {
+  transform: translateX(2px) rotate(45deg); opacity: 1;
+}
+/* 面板头部「VIEW ALL PRODUCTS」的箭头同样处理，免得两个位置一个像箭头一个像横杠 */
+.site-header .mega-menu-all > span {
+  display: inline-block; width: .46rem; height: .46rem;
+  font-size: 0; line-height: 1;
+  border-top: 1.5px solid currentColor; border-right: 1.5px solid currentColor;
+  transform: rotate(45deg);
+}
+
+@media (min-width: 992px) {
+  .site-header .nav-item-mega:hover > .mega-menu,
+  .site-header .nav-item-mega:focus-within > .mega-menu,
+  /* Bootstrap 把 .show 加在菜单元素上（不是 <li>），必须按 .mega-menu.show 命中，
+     否则触屏/点击展开会被上面的 display:none 压掉。 */
+  .site-header .mega-menu.show { display: block; }
+}
+@media (max-width: 991.98px) {
+  .site-header .mega-menu {
+    position: static; width: 100%; margin-top: .35rem;
+    border-top: 0; box-shadow: none; background: #fff;
+  }
+  .site-header .mega-menu.show { display: block; }
+  .site-header .mega-menu-grid { grid-template-columns: 1fr; }
+}
+
 /* ---------- 5. Page Title band（浅色页头，对齐效果图） ---------- */
 .page-band {
   background: var(--ac-white);
@@ -1131,23 +1218,40 @@ button.link-strong {
    实测原值（.5rem/165px）在 992px 仍溢出 30px、1024px 溢出 14px —— 购物车角标被推出屏幕，
    故再收紧一档（.4rem/132px，约省 52px）。 */
 @media (min-width: 992px) and (max-width: 1199.98px) {
-  .site-header .navbar-nav .nav-link { padding-inline: .4rem; font-size: .73rem; letter-spacing: .05em; }
-  .site-header .navbar-nav .nav-link::after { left: .4rem; right: .4rem; }
-  .nav-search { width: 132px; }
-  .site-header .navbar-brand { padding: 0 1rem; }
-  .site-header .navbar-brand img { height: 26px; }
-  .nav-actions { gap: .1rem; }
+  /* 2026-11-20 菜单由 6 项增至 8 项，旧 .4rem/.73rem 在 992px 会挤出购物车；
+     再收紧一档，并同步缩短搜索框。 */
+  .site-header .navbar-nav .nav-link { padding-inline: .24rem; font-size: .68rem; letter-spacing: .03em; }
+  .site-header .navbar-nav .nav-link::after { left: .24rem; right: .24rem; }
+  /* 8 项导航把整行顶到溢出容器 3px（购物车角标被裁）。这里不靠继续压搜索框
+     （压到 100px 时占位符只剩 "Sear" 半截），改为缩 2px 的 logo 让出宽度：
+     brand img 26→24px 省 13px、brand padding .9→.8rem 省 3px，搜索框保持 112px。 */
+  .nav-search { width: 112px; margin-inline-start: .5rem; }
+  .site-header .navbar-brand { padding: 0 .8rem; }
+  .site-header .navbar-brand img { height: 24px; }
+  .nav-actions { gap: 0; }
 }
 /* xl（1200–1399）容器 1140px，但未压缩的导航整行需 ~1223px：实测 1200px 溢出 55px、
    1280px 溢出 15px（购物车角标被推出屏幕）。原先的压缩只覆盖到 1199.98，这一段是空的，
    所以在这里沿用紧凑档；1400px 起容器升到 1320px 才放得下完整尺寸。 */
 @media (min-width: 1200px) and (max-width: 1399.98px) {
-  .site-header .navbar-nav .nav-link { padding-inline: .5rem; font-size: .74rem; letter-spacing: .06em; }
-  .site-header .navbar-nav .nav-link::after { left: .5rem; right: .5rem; }
-  .nav-search { width: 165px; }
+  /* 8 项导航同样需要比旧 6 项更紧的档位。 */
+  .site-header .navbar-nav .nav-link { padding-inline: .38rem; font-size: .7rem; letter-spacing: .04em; }
+  .site-header .navbar-nav .nav-link::after { left: .38rem; right: .38rem; }
+  .nav-search { width: 145px; }
   .site-header .navbar-brand { padding: 0 1.1rem; }
   .site-header .navbar-brand img { height: 27px; }
   .nav-actions { gap: .1rem; }
+}
+/* 1400–1579（容器仍是 1320px）：8 项导航换成未压缩尺寸会超出容器 ——
+   实测 1440px 下购物车图标被推出容器 111px（溢出到容器外被裁掉）。
+   这一段沿用紧凑档、但比 1200–1399 略放宽；1580px 起容器升到 1560px，
+   未压缩尺寸才真正放得下。 */
+@media (min-width: 1400px) and (max-width: 1579.98px) {
+  .site-header .navbar-nav .nav-link { padding-inline: .44rem; font-size: .72rem; letter-spacing: .035em; }
+  .site-header .navbar-nav .nav-link::after { left: .44rem; right: .44rem; }
+  .nav-search { width: 165px; }
+  .site-header .navbar-brand { padding: 0 .9rem; }
+  .site-header .navbar-brand img { height: 28px; }
 }
 @media (max-width: 991.98px) {
   .site-header .navbar-collapse {

@@ -808,6 +808,19 @@
     var facets = document.querySelector("[data-price-facets]");
     var termEl = document.querySelector("[data-search-term]");
     var total = items.length;
+    /* 2026-11-20 目录页分页：每页 6 张，只对带 data-page-size 的货架生效；
+       搜索页没有分页容器，继续走原来的「全部结果」计数。 */
+    var pageSize = parseInt(grid.getAttribute("data-page-size"), 10) || 0;
+    var paginationEl = document.querySelector("[data-catalog-pagination]");
+    var currentPage = 1;
+    /* 2026-11-20 分类浏览（categories.html）：左侧一级分类点选 / hash 切换右侧商品列表。
+       分类写在卡片的 data-cat 上（空格分隔可多值），与 ?q= 查询、价格分面、分页叠加生效。 */
+    var catNav = document.querySelector("[data-cat-nav]");
+    var activeCat = "all";
+    function matchesCat(col) {
+      if (activeCat === "all") return true;
+      return (col.getAttribute("data-cat") || "").split(/\s+/).indexOf(activeCat) > -1;
+    }
 
     function priceOf(col) {
       var el = col.querySelector(".prod-price");
@@ -843,6 +856,7 @@
         });
       }
       activeFacet = null;
+      currentPage = 1;
       paint();
     }
     function removeQuery() {
@@ -853,6 +867,7 @@
         url.searchParams.delete("q");
         history.replaceState(null, "", url.pathname + url.search + url.hash);
       }
+      currentPage = 1;
       paint();
     }
     function chip(label, onClear) {
@@ -870,7 +885,7 @@
       return wrap;
     }
     function renderFilterChips() {
-      filterBar.innerHTML = "";
+      filterBar.replaceChildren();
       var any = false;
       if (q) {
         filterBar.appendChild(chip("Search: “" + q + "”", removeQuery));
@@ -891,19 +906,89 @@
     }
     function matches(col) {
       if (!matchesQuery(col)) return false;
+      if (!matchesCat(col)) return false;
       if (!activeFacet) return true;
       var p = priceOf(col), min = activeFacet.min, max = activeFacet.max;
       return (min == null || p >= min) && (max == null || p < max);
     }
+    function goToPage(page) {
+      currentPage = page;
+      paint();
+      var section = grid.closest(".catalog-section");
+      if (section) section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function makePageItem(label, page, disabled, active, ariaLabel) {
+      var li = document.createElement("li");
+      li.className = "page-item" + (disabled ? " disabled" : "") + (active ? " active" : "");
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "page-link";
+      btn.textContent = label;
+      btn.disabled = disabled;
+      if (ariaLabel) btn.setAttribute("aria-label", ariaLabel);
+      if (active) btn.setAttribute("aria-current", "page");
+      if (!disabled && !active) {
+        btn.addEventListener("click", function () { goToPage(page); });
+      }
+      li.appendChild(btn);
+      return li;
+    }
+
+    function renderPagination(pageCount) {
+      if (!paginationEl) return;
+      paginationEl.replaceChildren();
+      if (pageCount <= 1) return;
+      paginationEl.appendChild(makePageItem("Prev", currentPage - 1, currentPage === 1, false, "Previous page"));
+      for (var i = 1; i <= pageCount; i++) {
+        paginationEl.appendChild(makePageItem(String(i), i, false, i === currentPage, "Page " + i));
+      }
+      paginationEl.appendChild(makePageItem("Next", currentPage + 1, currentPage === pageCount, false, "Next page"));
+    }
+
+    /* 空态说真话：分类下没有已加载的演示机型时，点名「原型未装该分类样机」并带出
+       侧栏的目录总量，不要用「加载中 / 暂无结果」这类含糊说法。 */
+    function emptyStateText() {
+      if (activeCat !== "all" && !q && !activeFacet) {
+        var link = catNav ? catNav.querySelector('a[data-cat="' + activeCat + '"]') : null;
+        var label = link && link.querySelector(".side-label")
+          ? link.querySelector(".side-label").textContent.replace(/\s+/g, " ").trim()
+          : activeCat;
+        var cnt = link && link.querySelector(".cnt")
+          ? link.querySelector(".cnt").textContent.replace(/[()]/g, "").trim()
+          : "";
+        return "No demo unit is loaded for " + label + " in this prototype"
+          + (cnt ? " — the full catalogue lists " + cnt + " of them" : "") + ".";
+      }
+      return "No light matches this filter — clear it to see the full shelf.";
+    }
+
     function paint() {
-      var shown = 0;
-      items.forEach(function (col) {
-        var ok = matches(col);
-        col.classList.toggle("d-none", !ok);
-        if (ok) shown++;
-      });
+      var matched = items.filter(matches);
+      var shown = matched.length;
+      if (pageSize > 0 && paginationEl) {
+        var pageCount = Math.max(1, Math.ceil(shown / pageSize));
+        if (currentPage > pageCount) currentPage = pageCount;
+        if (currentPage < 1) currentPage = 1;
+        var start = (currentPage - 1) * pageSize;
+        items.forEach(function (col) {
+          var idx = matched.indexOf(col);
+          col.classList.toggle("d-none", idx < 0 || idx < start || idx >= start + pageSize);
+        });
+        renderPagination(pageCount);
+      } else {
+        items.forEach(function (col) { col.classList.toggle("d-none", !matches(col)); });
+      }
       if (countEl) {
-        if (termEl) {
+        if (pageSize > 0 && paginationEl) {
+          /* 分页页只报「当前页区间 / 已加载数」，107 的目录总量在分页脚注里说明。
+             空结果不写成「Showing 0–0 of 0」，那句话读起来像坏掉了。 */
+          var from = shown ? (currentPage - 1) * pageSize + 1 : 0;
+          var to = Math.min(currentPage * pageSize, shown);
+          countEl.innerHTML = shown
+            ? "Showing <b>" + from + "–" + to + "</b> of " + shown + " loaded lights"
+            : "No loaded unit in this selection";
+        } else if (termEl) {
           /* 搜索页的整句由真实查询词与真实命中数重写，避免「Results for X」留着
              上一个查询词。静态无 JS 时页面写的是「Showing all 6 demo results」。 */
           countEl.textContent = q ? "Results for “" + q + "”: " : "Showing all ";
@@ -919,15 +1004,69 @@
         }
       }
       var empty = grid.querySelector(".shelf-empty");
-      if (!shown && !empty) {
-        empty = document.createElement("p");
-        empty.className = "shelf-empty";
-        empty.textContent = "No light in this band — click the highlighted price band again to clear the filter.";
-        grid.appendChild(empty);
-      } else if (shown && empty) {
+      if (!shown) {
+        if (!empty) {
+          empty = document.createElement("p");
+          empty.className = "shelf-empty";
+          grid.appendChild(empty);
+        }
+        empty.textContent = emptyStateText();
+      } else if (empty) {
         empty.remove();
       }
       renderFilterChips();
+    }
+
+    /* 分类导航：点选即换列表；hash（顶部菜单 categories.html#edc）与浏览器前进/后退同源处理。 */
+    function selectCat(cat) {
+      activeCat = cat;
+      if (catNav) {
+        Array.prototype.forEach.call(catNav.querySelectorAll("a[data-cat]"), function (a) {
+          var on = a.getAttribute("data-cat") === activeCat;
+          a.classList.toggle("active", on);
+          if (on) a.setAttribute("aria-current", "true");
+          else a.removeAttribute("aria-current");
+        });
+      }
+      currentPage = 1;
+      paint();
+    }
+    if (catNav) {
+      catNav.addEventListener("click", function (e) {
+        var a = e.target.closest ? e.target.closest("a[data-cat]") : null;
+        if (!a) return;
+        e.preventDefault();
+        var cat = a.getAttribute("data-cat");
+        if (history.replaceState) history.replaceState(null, "", a.getAttribute("href") || "#" + cat);
+        selectCat(cat);
+      });
+      var applyHash = function () {
+        var key = (window.location.hash || "").replace("#", "");
+        if (!key) return false;
+        var link = catNav.querySelector('a[data-cat="' + key + '"]');
+        if (!link) return false;
+        selectCat(key);
+        return true;
+      };
+      /* 带 hash 直接进站时，浏览器会把页面滚到左侧那个 <li> 上，标题与计数行被留在视口外；
+         这里在 load 之后再对齐到区块顶部（deferred 脚本执行时样式尚未落位，
+         直接 scrollIntoView 会被随后的原生锚点跳转覆盖）。 */
+      if (applyHash()) {
+        var catSection = grid.closest(".catalog-section");
+        var alignSection = function () {
+          if (!catSection) return;
+          /* 头部是 sticky，偏移要带它的高度，否则标题会钻到橙条下面。 */
+          var head = document.querySelector(".site-header");
+          var gap = (head ? head.getBoundingClientRect().height : 0) + 8;
+          window.scrollTo({
+            top: catSection.getBoundingClientRect().top + window.scrollY - gap,
+            behavior: "instant"
+          });
+        };
+        if (document.readyState === "complete") requestAnimationFrame(alignSection);
+        else window.addEventListener("load", function () { requestAnimationFrame(alignSection); }, { once: true });
+      }
+      window.addEventListener("hashchange", applyHash);
     }
 
     if (facets) {
@@ -959,6 +1098,7 @@
             link.classList.add("active");
             link.setAttribute("aria-current", "true");
           }
+          currentPage = 1;
           paint();
         });
       });
@@ -977,6 +1117,7 @@
         else if (/Z to A/i.test(mode)) sorted.sort(function (a, b) { return nameOf(b).localeCompare(nameOf(a)); });
         if (mode !== pair[1]) sorted.forEach(function (col) { grid.appendChild(col); });
         else items.forEach(function (col) { grid.appendChild(col); });
+        currentPage = 1;
         paint();
       });
     });

@@ -1152,3 +1152,37 @@ checked 11 spec-comparison rows   (exit 0)
 - **AVIF**：`libaom-av1` 可用，但编码慢、且要额外 `<picture>` 多档写法；WebP 已覆盖 2020 年后的全部浏览器，边际收益有限。留作后续可选。
 - **回退格式**：本项目按"2026 年 WebP 事实通用"的假设**只留 `.webp` 一种被引用格式**（原图仅作来源，不参与回退）。若下游需要更宽兼容，可在消费端再补 `<picture>`。
 - **`srcset` 响应式多尺寸**：全站 0 处，属另一个批次（需要为每张图生成多档宽度）。
+
+## 25. 执行记录：8 项导航 + mega menu + 首页分类/博客同步 + 分类浏览两栏（2026-11-20，浏览器实测）
+
+### 25.1 导航从 6 项扩到 8 项
+
+`All Products · New · Warehouse · Holiday · Technology · Reviews · EXPLORE · Affiliate`，59 页统一替换（脚本按页名写 active / aria-current）。首次批量替换留下旧导航残留 `<li>` 与多余 `</ul>`，用 `(<ul class="navbar-nav mx-auto">.*?</ul>)\s*</li>.*?</ul>` 清理，59 文件各命中 1 次，复检旧导航残留 0。
+
+`All Products` 的子菜单是**自研 DOM**（`.mega-menu`），不复用线上 `ec-category-menu`。
+
+### 25.2 三个实测缺陷（都已修）
+
+1. **`.show` 挂错位置**：Bootstrap 把 `.show` 加在 `.dropdown-menu` 上、不是 `<li>`，原先只写 `.nav-item-mega.show > .mega-menu` ⇒ 桌面 hover 能用、**触屏点击展不开**。补 `.site-header .mega-menu.show { display:block }`。
+2. **1400–1579 区间购物车被裁**：8 项未压缩导航在容器 1320px 内溢出 111px（1440px 实测 `actionsRight 1471 > 容器右 1380`）。新增该区间紧凑档（.72rem/.44rem、搜索 165px、brand img 28px），1580px 起容器升到 1560px 才回未压缩尺寸。
+3. **992px 顶到 0 间距 + 溢出 3px**：收 `.24rem` padding、`nav-actions gap 0`、brand img 24px，并把搜索框从 100px 放回 112px（100px 时占位符只剩「Sear」半截）。改后 992px：导航→搜索 8px、右侧余量 8px。
+
+档位实测（1440 视口，`overflowX` 恒为 −10 即无横向滚动）：992 / 1200 / 1366 / 1400 / 1440 / 1579 / 1580 / 1920 全部「8 项单行 + 搜索框 + 账户 + 购物车角标」完整可见。
+
+### 25.3 首页两个区块同步 beacon
+
+分类区 6 卡 mosaic（`hp hp hp / tac tac tac` 三行 grid-areas）+ 博客区 4 卡竖排，与 `localhost:52124` 实测同值：博客 4 卡、列宽 309px、区底 `rgb(255,253,251)`、按钮文案 `More Info`、长日期格式 `D`。
+
+### 25.4 `categories.html` 改左右两栏分类浏览
+
+hub 瓦片区（129 行）替换为 `aside.col-lg-3` + `col-lg-9` 两栏（302 行）：左 9 项一级分类（`a[data-cat]`，`li` 自带 `#edc/#tactical/#rail-mounted/#dive/#accessories` 等锚点），右 12 张演示卡片复用 `all-products.html` 的同一批标记、按分类重排并补 `data-cat`，`data-page-size="6"` 前端分页。
+
+正因替换掉了旧 hub 瓦片，`#batteries` 锚点消失：`search.html` 侧栏（文案本就是 Accessories）改指 `#accessories`；`categories.html` 的 `ItemList` 面包屑 8 项同步成真实分类集（补 Rail-Mounted、把 batteries 并入「Batteries, Mounts & Accessories」）。同时修掉长期缺口：`Rail-Mounted Lights` 不再复用 `#accessories`，59 页共 60 处改指 `#rail-mounted`。
+
+交互实测：EDC 2 张 / Tactical 2 / High Power 2 / Accessories 4 / All 12（分页 Prev·1·2·Next，第 2 页 `Showing 7–12`、Next 置灰）；LED Headlamps、Rail-Mounted 无样机 ⇒ 空态点名「No demo unit is loaded for … the full catalogue lists 7 of them.」且计数行改写成 `No loaded unit in this selection`（不再是 `Showing 0–0 of 0`）；`categories.html#tactical` 直进站点，左栏自动选中 Tactical 并把区块顶端对齐到 sticky 头下 8px。移动端 390px：两栏堆叠、卡片单列、无横向溢出。
+
+### 25.5 门禁与编码
+
+`check-data-source` **0**（52→64 张卡仍全对齐数据源）｜`check-jsonld` **0**｜`check-seo` **0**（blocking 0，INFO 17 条沿用上批）｜`check-css-layers` **0**｜`check-links` **0**（4 989 文件引用 / 1 028 锚点全解析）。
+
+静态资源版本指纹统一升到 `20261120a`：`common.css`（59 页）、`main.js`（59 页）、`categories.css`（6 页）、`home.css`（1 页）。`categories.css` 工作区为既有 CRLF（`i/lf w/crlf`，与本批无关），`git` 会在下次触碰时归一为 LF。

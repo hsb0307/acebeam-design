@@ -1,0 +1,6 @@
+# 根级 EditorConfig：仅统一行尾（2026-11-08 起全仓文本文件 LF），不设其他格式规则。
+# 各有 root=true 的 .editorconfig（阻断继承），行尾规则已在各自文件内同步声明。
+root = true
+
+[*]
+end_of_line = lf

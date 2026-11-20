@@ -38,8 +38,8 @@
   <link rel="stylesheet" href="assets/fonts/fonts.css?v=20261031">
 
   <link rel="stylesheet" href="assets/vendors/bootstrap-5.3.8/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/css/common.css?v=20261031k">
-  <link rel="stylesheet" href="assets/css/categories.css?v=20261031b">
+  <link rel="stylesheet" href="assets/css/common.css?v=20261120a">
+  <link rel="stylesheet" href="assets/css/categories.css?v=20261120a">
 
   <!-- Structured Data: Breadcrumb -->
   <script type="application/ld+json">
@@ -66,9 +66,9 @@
       {"@type": "ListItem", "position": 3, "name": "High Power Flashlights", "url": "https://www.acebeam.com/categories.html#high-power"},
       {"@type": "ListItem", "position": 4, "name": "LEP Flashlights", "url": "https://www.acebeam.com/categories.html#lep"},
       {"@type": "ListItem", "position": 5, "name": "LED Headlamps", "url": "https://www.acebeam.com/categories.html#headlamps"},
-      {"@type": "ListItem", "position": 6, "name": "Dive Lights", "url": "https://www.acebeam.com/categories.html#dive"},
-      {"@type": "ListItem", "position": 7, "name": "Batteries & Chargers", "url": "https://www.acebeam.com/categories.html#batteries"},
-      {"@type": "ListItem", "position": 8, "name": "Mounts & Accessories", "url": "https://www.acebeam.com/categories.html#accessories"}
+      {"@type": "ListItem", "position": 6, "name": "Rail-Mounted Lights", "url": "https://www.acebeam.com/categories.html#rail-mounted"},
+      {"@type": "ListItem", "position": 7, "name": "Dive Lights", "url": "https://www.acebeam.com/categories.html#dive"},
+      {"@type": "ListItem", "position": 8, "name": "Batteries, Mounts & Accessories", "url": "https://www.acebeam.com/categories.html#accessories"}
     ]
   }
   </script>
@@ -138,22 +138,31 @@
         </button>
         <div class="collapse navbar-collapse" id="mainNav">
           <ul class="navbar-nav mx-auto">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="all-products.html" id="navProducts" role="button" data-bs-toggle="dropdown" aria-expanded="false">All Products</a>
-              <ul class="dropdown-menu" aria-labelledby="navProducts">
-                <li><a class="dropdown-item" href="all-products.html">Every Flashlight</a></li>
-                <li><a class="dropdown-item" href="categories.html">Shop by Category</a></li>
-                <li><a class="dropdown-item" href="product-detail.html">P20 Mini Tactical Flashlight</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="all-products.html#new">New Arrivals</a></li>
-                <li><a class="dropdown-item" href="categories.html#batteries">Batteries &amp; Accessories</a></li>
-                <li><a class="dropdown-item" href="index.html#technology">Beam Technology</a></li>
-              </ul>
+            <li class="nav-item nav-item-mega">
+              <a class="nav-link dropdown-toggle active" href="all-products.html" id="navProducts" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-current="page">All Products</a>
+              <div class="dropdown-menu mega-menu" aria-labelledby="navProducts">
+                <div class="mega-menu-head">
+                  <span class="mega-menu-kicker">Shop by category</span>
+                  <a class="mega-menu-all" href="all-products.html">View all products <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="mega-menu-grid">
+                <a class="mega-menu-item" href="categories.html#edc"><span class="mega-menu-index" aria-hidden="true">01</span><span class="mega-menu-label">EDC Flashlights</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                <a class="mega-menu-item" href="categories.html#tactical"><span class="mega-menu-index" aria-hidden="true">02</span><span class="mega-menu-label">Tactical Flashlights</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                <a class="mega-menu-item" href="categories.html#headlamps"><span class="mega-menu-index" aria-hidden="true">03</span><span class="mega-menu-label">LED Headlamps</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                <a class="mega-menu-item" href="categories.html#high-power"><span class="mega-menu-index" aria-hidden="true">04</span><span class="mega-menu-label">High Power Flashlights</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                <a class="mega-menu-item" href="categories.html#lep"><span class="mega-menu-index" aria-hidden="true">05</span><span class="mega-menu-label">LEP Flashlights</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                <a class="mega-menu-item" href="categories.html#rail-mounted"><span class="mega-menu-index" aria-hidden="true">06</span><span class="mega-menu-label">Rail-Mounted Lights</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                <a class="mega-menu-item" href="categories.html#dive"><span class="mega-menu-index" aria-hidden="true">07</span><span class="mega-menu-label">Dive Lights</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                <a class="mega-menu-item" href="categories.html#accessories"><span class="mega-menu-index" aria-hidden="true">08</span><span class="mega-menu-label">Accessories</span><span class="mega-menu-arrow" aria-hidden="true">→</span></a>
+                </div>
+              </div>
             </li>
-            <li class="nav-item"><a class="nav-link" href="all-products.html#new">New</a></li>
-            <li class="nav-item"><a class="nav-link active" aria-current="page" href="categories.html">Categories</a></li>
+            <li class="nav-item"><a class="nav-link" href="new-products.html">New</a></li>
+            <li class="nav-item"><a class="nav-link" href="shipping-delivery.html">Warehouse</a></li>
+            <li class="nav-item"><a class="nav-link" href="all-products.html">Holiday</a></li>
             <li class="nav-item"><a class="nav-link" href="index.html#technology">Technology</a></li>
             <li class="nav-item"><a class="nav-link" href="index.html#reviews">Reviews</a></li>
+            <li class="nav-item"><a class="nav-link" href="blog.html">EXPLORE</a></li>
             <li class="nav-item"><a class="nav-link" href="index.html#explore">Affiliate</a></li>
           </ul>
           <div class="d-flex align-items-center gap-2">
@@ -196,132 +205,305 @@
       </div>
     </section>
 
-    <!-- ======= Category hub ======= -->
-    <section class="section-pad hub-section" aria-labelledby="hubHeading">
+    <!-- ======= Category browser =======
+         布局蓝图：docs/themes/categories-navigation.html（左一级分类 / 右当前分类商品列表）。
+         左栏 a[data-cat] 点选或 URL hash（顶部菜单 categories.html#edc 等）切换右栏，
+         分页与 ?q= 查询、价格分面在 main.js §23 的 shelf 里叠加生效。 -->
+    <section class="section-pad-sm catalog-section" id="browse" aria-labelledby="browseHeading">
       <div class="container">
         <div class="section-head">
-          <span class="eyebrow">Shop By Category</span>
-          <h2 id="hubHeading">Every Beam, One Place</h2>
-          <p class="section-desc">Eight families, one decision: what does the beam have to do? Pick the job and the numbers follow.</p>
+          <h2 id="browseHeading">Browse By Category</h2>
+          <p class="section-desc">Pick a family on the left — the shelf on the right follows. Sidebar counts are the full catalogue; this prototype ships 12 demo units.</p>
         </div>
 
-        <div class="seo-intro mb-4">
-          <p>Acebeam builds lights around purpose rather than a single headline number. The <strong>tactical flashlight</strong> range favours instant tail-switch access, momentary-on and high candela for identification at distance. The <strong>EDC flashlight</strong> range strips the same engineering down to something you forget is in a pocket. <strong>High power flashlights</strong> push total output past 4,000 lumens for search and rescue work, while <strong>LEP flashlights</strong> use laser-excited phosphor optics to throw a tight beam well beyond a kilometre.</p>
-          <p>Alongside those sit <strong>LED headlamps</strong> for hands-free trail and workshop use, dive lights pressure-sealed for submersion, and a full shelf of batteries, chargers, mounts and accessories. Every category below links straight into the catalogue, and every light ships with free delivery over $49 and the 10-year Acebeam warranty.</p>
-        </div>
+        <div class="row g-4">
+          <!-- 一级分类 -->
+          <aside class="col-lg-3" aria-label="Product categories">
+            <div class="sidebar-card">
+              <h2 class="side-title">Categories</h2>
+              <ul class="side-list" data-cat-nav>
+                <li id="all"><a href="#all" class="active" aria-current="true" data-cat="all"><span class="side-label">All Products</span><span class="cnt">(107)</span></a></li>
+                <li id="edc"><a href="#edc" data-cat="edc"><span class="side-label"><img width="110" height="66" decoding="async" loading="lazy" class="icon" src="assets/img/side-edc.webp" alt="EDC Flashlights category icon">EDC Flashlights</span><span class="cnt">(36)</span></a></li>
+                <li id="tactical"><a href="#tactical" data-cat="tactical"><span class="side-label"><img width="110" height="66" decoding="async" loading="lazy" class="icon" src="assets/img/side-tactical.webp" alt="Tactical Flashlights category icon">Tactical Flashlights</span><span class="cnt">(26)</span></a></li>
+                <li id="headlamps"><a href="#headlamps" data-cat="headlamps"><span class="side-label"><img width="110" height="66" decoding="async" loading="lazy" class="icon" src="assets/img/side-headlamps.webp" alt="LED Headlamps category icon">LED Headlamps</span><span class="cnt">(7)</span></a></li>
+                <li id="high-power"><a href="#high-power" data-cat="high-power"><span class="side-label"><img width="110" height="66" decoding="async" loading="lazy" class="icon" src="assets/img/side-highpower.webp" alt="High Power Flashlights category icon">High Power Flashlights</span><span class="cnt">(9)</span></a></li>
+                <li id="lep"><a href="#lep" data-cat="lep"><span class="side-label"><img width="110" height="66" decoding="async" loading="lazy" class="icon" src="assets/img/side-lep.webp" alt="LEP Flashlights category icon">LEP Flashlights</span><span class="cnt">(5)</span></a></li>
+                <li id="rail-mounted"><a href="#rail-mounted" data-cat="rail-mounted"><span class="side-label"><img width="110" height="66" decoding="async" loading="lazy" class="icon" src="assets/img/side-rail.webp" alt="Rail-Mounted Lights category icon">Rail-Mounted Lights</span><span class="cnt">(4)</span></a></li>
+                <li id="dive"><a href="#dive" data-cat="dive"><span class="side-label"><img width="110" height="66" decoding="async" loading="lazy" class="icon" src="assets/img/side-dive.webp" alt="Dive Lights category icon">Dive Lights</span><span class="cnt">(4)</span></a></li>
+                <li id="accessories"><a href="#accessories" data-cat="accessories"><span class="side-label"><img width="110" height="54" decoding="async" loading="lazy" class="icon" src="assets/img/side-accessories.webp" alt="Accessories category icon">Accessories</span><span class="cnt">(12)</span></a></li>
+              </ul>
+              <a class="btn btn-link btn-sm p-0 mt-2 text-accent" href="all-products.html">View all <span aria-hidden="true">→</span></a>
+            </div>
+          </aside>
 
-        <div class="hub-grid">
-          <article class="hub-tile hub-tile-lg" id="tactical">
-            <a class="hub-media" href="all-products.html">
-              <img src="assets/img/cat-tactical.webp" alt="Acebeam tactical flashlights for duty, hunting and search use" width="600" height="375" loading="lazy" decoding="async">
-            </a>
-            <div class="hub-body">
-              <h3><a href="all-products.html">Tactical Flashlights</a></h3>
-              <p>Tail-switch instant strobe, high-candela beams and a strike-ready bezel. Built for duty, hunting and search work where hesitation costs.</p>
-              <div class="hub-meta">
-                <span class="hub-count">26 Models</span>
-                <a class="hub-more" href="all-products.html">Shop <span aria-hidden="true">→</span></a>
+          <!-- 当前分类商品列表 -->
+          <div class="col-lg-9">
+            <div class="list-toolbar">
+              <p class="result-count mb-0" data-shelf-count>Showing <b>1–6</b> of 12 loaded lights</p>
+              <div class="d-flex align-items-center gap-3">
+                <label class="d-flex align-items-center gap-2 text-nowrap small" for="sortSelect">
+                  Sort by
+                  <select class="form-select" id="sortSelect">
+                    <option>Created on</option>
+                    <option>Price: Low to High</option>
+                    <option>Price: High to Low</option>
+                    <option>Name: A to Z</option>
+                    <option>Top Rated</option>
+                  </select>
+                </label>
+                <div class="view-switch" role="group" aria-label="View mode">
+                  <button type="button" class="btn active" data-view="grid" aria-label="Grid view">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                  </button>
+                  <button type="button" class="btn" data-view="list" aria-label="List view">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                  </button>
+                </div>
               </div>
             </div>
-          </article>
 
-          <article class="hub-tile" id="edc">
-            <a class="hub-media" href="all-products.html">
-              <img src="assets/img/cat-everyday-carry.webp" alt="Acebeam EDC everyday carry flashlights with pocket clips" width="600" height="375" loading="lazy" decoding="async">
-            </a>
-            <div class="hub-body">
-              <h3><a href="all-products.html">EDC Flashlights</a></h3>
-              <p>Under 150 grams, USB-C rechargeable and small enough to disappear in a pocket — until you actually need light.</p>
-              <div class="hub-meta">
-                <span class="hub-count">36 Models</span>
-                <a class="hub-more" href="all-products.html">Shop <span aria-hidden="true">→</span></a>
+            <div class="products-view" id="productsGrid">
+              <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-xl-3" data-shelf data-page-size="6">
+                <!-- 1 -->
+                <div class="col" data-cat="edc">
+                  <article class="product-card">
+                    <div class="card-media"><a href="product-detail.html"><img width="400" height="400" decoding="async" src="assets/img/catprod-e75.webp" alt="E75 High CRI Nichia 519A EDC Flashlight" loading="eager" fetchpriority="high"></a></div>
+                    <div class="card-body">
+                      <p class="prod-spec mb-0"><span class="spec-seg"><b>4500</b> Lumens</span><span class="spec-seg"><b>20100</b> Candela</span></p>
+                      <h3 class="prod-name mb-0"><a href="product-detail.html">E75 High CRI Nichia 519A EDC Flashlight</a></h3>
+                      <span class="rating" aria-label="Rated 4 out of 5 stars">
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star off" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                      </span>
+                      <p class="prod-price mb-0">$89.90</p>
+                      <div class="card-foot"><a class="btn btn-outline-accent btn-sm w-100" href="product-detail.html">More Info</a></div>
+                    </div>
+                  </article>
+                </div>
+                <!-- 2 -->
+                <div class="col" data-cat="edc">
+                  <article class="product-card">
+                    <span class="badge-tag tag-new">New</span>
+                    <div class="card-media"><a href="product-detail.html"><img width="400" height="400" decoding="async" src="assets/img/catprod-uc3a.webp" alt="UC3A USB-C Rechargeable Flashlight" loading="lazy"></a></div>
+                    <div class="card-body">
+                      <p class="prod-spec mb-0"><span class="spec-seg"><b>1100</b> Lumens</span><span class="spec-seg"><b>4200</b> Candela</span></p>
+                      <h3 class="prod-name mb-0"><a href="product-detail.html">UC3A USB-C Rechargeable Flashlight</a></h3>
+                      <span class="rating" aria-label="Rated 5 out of 5 stars">
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                      </span>
+                      <p class="prod-price mb-0">$39.90</p>
+                      <div class="card-foot"><a class="btn btn-outline-accent btn-sm w-100" href="product-detail.html">More Info</a></div>
+                    </div>
+                  </article>
+                </div>
+                <!-- 3 -->
+                <div class="col" data-cat="tactical">
+                  <article class="product-card">
+                    <span class="badge-tag tag-new">New</span>
+                    <div class="card-media"><a href="product-detail.html"><img width="400" height="400" decoding="async" src="assets/img/catprod-p20mini.webp" alt="P20 Mini Long Distance Tactical Flashlight" loading="lazy"></a></div>
+                    <div class="card-body">
+                      <p class="prod-spec mb-0"><span class="spec-seg"><b>1035</b> Meters</span><span class="spec-seg"><b>267806</b> Candela</span></p>
+                      <h3 class="prod-name mb-0"><a href="product-detail.html">P20 Mini Long Distance Tactical Flashlight</a></h3>
+                      <span class="rating" aria-label="Rated 5 out of 5 stars">
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                      </span>
+                      <p class="prod-price mb-0">$119.90</p>
+                      <div class="card-foot"><a class="btn btn-outline-accent btn-sm w-100" href="product-detail.html">More Info</a></div>
+                    </div>
+                  </article>
+                </div>
+                <!-- 4 -->
+                <div class="col" data-cat="tactical">
+                  <article class="product-card">
+                    <span class="badge-tag tag-hot">Hot</span>
+                    <div class="card-media"><a href="product-detail.html"><img width="400" height="400" decoding="async" src="assets/img/catprod-t29.webp" alt="T29 Ultra Long Range Hunting Flashlight" loading="lazy"></a></div>
+                    <div class="card-body">
+                      <p class="prod-spec mb-0"><span class="spec-seg"><b>3200</b> Meters</span><span class="spec-seg"><b>2560000</b> Candela</span></p>
+                      <h3 class="prod-name mb-0"><a href="product-detail.html">T29 Ultra Long Range Hunting Flashlight</a></h3>
+                      <span class="rating" aria-label="Rated 5 out of 5 stars">
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                      </span>
+                      <p class="prod-price mb-0">$109.90</p>
+                      <div class="card-foot"><a class="btn btn-outline-accent btn-sm w-100" href="product-detail.html">More Info</a></div>
+                    </div>
+                  </article>
+                </div>
+                <!-- 5 -->
+                <div class="col" data-cat="high-power">
+                  <article class="product-card">
+                    <div class="card-media"><a href="product-detail.html"><img width="400" height="400" decoding="async" src="assets/img/catprod-x30.webp" alt="X30 Dual-Source Searching Flashlight" loading="lazy"></a></div>
+                    <div class="card-body">
+                      <p class="prod-spec mb-0"><span class="spec-seg"><b>2200</b> Lumens</span><span class="spec-seg"><b>6800</b> Candela</span></p>
+                      <h3 class="prod-name mb-0"><a href="product-detail.html">X30 Dual-Source Searching Flashlight</a></h3>
+                      <span class="rating" aria-label="Rated 4 out of 5 stars">
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star off" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                      </span>
+                      <p class="prod-price mb-0">$199.90</p>
+                      <div class="card-foot"><a class="btn btn-outline-accent btn-sm w-100" href="product-detail.html">More Info</a></div>
+                    </div>
+                  </article>
+                </div>
+                <!-- 6 -->
+                <div class="col" data-cat="high-power">
+                  <article class="product-card">
+                    <div class="card-media"><a href="product-detail.html"><img width="400" height="400" decoding="async" src="assets/img/catprod-x35.webp" alt="X35 Multi-Light Powerful Searching Flashlight" loading="lazy"></a></div>
+                    <div class="card-body">
+                      <p class="prod-spec mb-0"><span class="spec-seg"><b>2600</b> Lumens</span><span class="spec-seg"><b>7225</b> Candela</span></p>
+                      <h3 class="prod-name mb-0"><a href="product-detail.html">X35 Multi-Light Powerful Searching Flashlight</a></h3>
+                      <span class="rating" aria-label="Rated 5 out of 5 stars">
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                      </span>
+                      <p class="prod-price mb-0">$229.90</p>
+                      <div class="card-foot"><a class="btn btn-outline-accent btn-sm w-100" href="product-detail.html">More Info</a></div>
+                    </div>
+                  </article>
+                </div>
+                <!-- 7 -->
+                <div class="col" data-cat="lep">
+                  <article class="product-card">
+                    <span class="badge-tag tag-anniv">12th Anniversary</span>
+                    <div class="card-media"><a href="product-detail.html"><img width="400" height="400" decoding="async" src="assets/img/catprod-terminator-m1.webp" alt="Terminator M1 LEP &amp; LED Dual-Source Flashlight" loading="lazy"></a></div>
+                    <div class="card-body">
+                      <p class="prod-spec mb-0"><span class="spec-seg"><b>1500</b> Meters</span><span class="spec-seg"><b>562500</b> Candela</span></p>
+                      <h3 class="prod-name mb-0"><a href="product-detail.html">Terminator M1 LEP &amp; LED Dual-Source Flashlight</a></h3>
+                      <span class="rating" aria-label="Rated 4 out of 5 stars">
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star off" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                      </span>
+                      <p class="prod-price mb-0">$279.90</p>
+                      <div class="card-foot"><a class="btn btn-outline-accent btn-sm w-100" href="product-detail.html">More Info</a></div>
+                    </div>
+                  </article>
+                </div>
+                <!-- 8 -->
+                <div class="col" data-cat="lep">
+                  <article class="product-card">
+                    <div class="card-media"><a href="product-detail.html"><img width="400" height="400" decoding="async" src="assets/img/catprod-w20.webp" alt="W20 Long Range LEP Flashlight" loading="lazy"></a></div>
+                    <div class="card-body">
+                      <p class="prod-spec mb-0"><span class="spec-seg"><b>1000</b> Meters</span><span class="spec-seg"><b>250000</b> Candela</span></p>
+                      <h3 class="prod-name mb-0"><a href="product-detail.html">W20 Long Range LEP Flashlight</a></h3>
+                      <span class="rating" aria-label="Rated 5 out of 5 stars">
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                      </span>
+                      <p class="prod-price mb-0">$149.90</p>
+                      <div class="card-foot"><a class="btn btn-outline-accent btn-sm w-100" href="product-detail.html">More Info</a></div>
+                    </div>
+                  </article>
+                </div>
+                <!-- 9 -->
+                <div class="col" data-cat="accessories">
+                  <article class="product-card">
+                    <div class="card-media"><a href="product-detail.html"><img width="400" height="400" decoding="async" src="assets/img/catprod-battery5000.webp" alt="Acebeam 5000mAh USB-C rechargeable 21700 battery" loading="lazy"></a></div>
+                    <div class="card-body">
+                      <p class="prod-spec mb-0"><span class="spec-seg"><b>21700</b> </span><span class="spec-seg"><b>5000</b> mAh</span><span class="spec-seg">USB-C</span></p>
+                      <h3 class="prod-name mb-0"><a href="product-detail.html">Acebeam 21700 5000mAh Full-Tab Battery</a></h3>
+                      <span class="rating" aria-label="Rated 5 out of 5 stars">
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                      </span>
+                      <p class="prod-price mb-0">$19.90</p>
+                      <div class="card-foot"><a class="btn btn-outline-accent btn-sm w-100" href="product-detail.html">More Info</a></div>
+                    </div>
+                  </article>
+                </div>
+                <!-- 10 -->
+                <div class="col" data-cat="accessories">
+                  <article class="product-card">
+                    <div class="card-media"><a href="product-detail.html"><img width="400" height="400" decoding="async" src="assets/img/catprod-battery5600.webp" alt="Acebeam 5600mAh high capacity 21700 battery" loading="lazy"></a></div>
+                    <div class="card-body">
+                      <p class="prod-spec mb-0"><span class="spec-seg"><b>21700</b> </span><span class="spec-seg"><b>5600</b> mAh</span><span class="spec-seg">USB-C</span></p>
+                      <h3 class="prod-name mb-0"><a href="product-detail.html">Acebeam 21700 5600mAh Battery</a></h3>
+                      <span class="rating" aria-label="Rated 5 out of 5 stars">
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                      </span>
+                      <p class="prod-price mb-0">$24.90</p>
+                      <div class="card-foot"><a class="btn btn-outline-accent btn-sm w-100" href="product-detail.html">More Info</a></div>
+                    </div>
+                  </article>
+                </div>
+                <!-- 11 -->
+                <div class="col" data-cat="accessories">
+                  <article class="product-card">
+                    <div class="card-media"><a href="product-detail.html"><img width="400" height="400" decoding="async" src="assets/img/catprod-cap.webp" alt="Acebeam spare tail cap and accessories set" loading="lazy"></a></div>
+                    <div class="card-body">
+                      <p class="prod-spec mb-0"><span class="spec-seg">Accessories</span><span class="spec-seg">OEM</span></p>
+                      <h3 class="prod-name mb-0"><a href="product-detail.html">Spare Tail Cap &amp; Accessory Kit</a></h3>
+                      <span class="rating" aria-label="Rated 4 out of 5 stars">
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star off" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                      </span>
+                      <p class="prod-price mb-0">$9.90</p>
+                      <div class="card-foot"><a class="btn btn-outline-accent btn-sm w-100" href="product-detail.html">More Info</a></div>
+                    </div>
+                  </article>
+                </div>
+                <!-- 12 -->
+                <div class="col" data-cat="accessories">
+                  <article class="product-card">
+                    <div class="card-media"><a href="product-detail.html"><img width="400" height="400" decoding="async" src="assets/img/catprod-coin.webp" alt="Acebeam coin battery replacement kit" loading="lazy"></a></div>
+                    <div class="card-body">
+                      <p class="prod-spec mb-0"><span class="spec-seg">Accessories</span><span class="spec-seg">Coin Cell</span></p>
+                      <h3 class="prod-name mb-0"><a href="product-detail.html">Coin Battery Replacement Kit</a></h3>
+                      <span class="rating" aria-label="Rated 4 out of 5 stars">
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                        <svg class="star off" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 15l-5.2 2.6 1-5.8L1.5 7.7l5.9-.9L10 1.5z"/></svg>
+                      </span>
+                      <p class="prod-price mb-0">$12.90</p>
+                      <div class="card-foot"><a class="btn btn-outline-accent btn-sm w-100" href="product-detail.html">More Info</a></div>
+                    </div>
+                  </article>
+                </div>
               </div>
             </div>
-          </article>
 
-          <article class="hub-tile" id="high-power">
-            <a class="hub-media" href="all-products.html">
-              <img src="assets/img/cat-high-power.webp" alt="Acebeam high power flashlights with extreme lumen output" width="600" height="375" loading="lazy" decoding="async">
-            </a>
-            <div class="hub-body">
-              <h3><a href="all-products.html">High Power Flashlights</a></h3>
-              <p>4,000 lumens and beyond, with active thermal regulation that holds output instead of fading after thirty seconds.</p>
-              <div class="hub-meta">
-                <span class="hub-count">9 Models</span>
-                <a class="hub-more" href="all-products.html">Shop <span aria-hidden="true">→</span></a>
-              </div>
-            </div>
-          </article>
-
-          <article class="hub-tile" id="lep">
-            <a class="hub-media" href="all-products.html">
-              <img src="assets/img/cat-lep.webp" alt="Acebeam LEP flashlights with laser-excited phosphor optics" width="600" height="375" loading="lazy" decoding="async">
-            </a>
-            <div class="hub-body">
-              <h3><a href="all-products.html">LEP Flashlights</a></h3>
-              <p>Laser-excited phosphor optics turn a two-million-candela beam into a genuine one-kilometre light sabre.</p>
-              <div class="hub-meta">
-                <span class="hub-count">5 Models</span>
-                <a class="hub-more" href="all-products.html">Shop <span aria-hidden="true">→</span></a>
-              </div>
-            </div>
-          </article>
-
-          <article class="hub-tile" id="headlamps">
-            <a class="hub-media" href="all-products.html">
-              <img src="assets/img/cat-led-headlamps.webp" alt="Acebeam LED headlamps for hands-free hiking and work" width="600" height="375" loading="lazy" decoding="async">
-            </a>
-            <div class="hub-body">
-              <h3><a href="all-products.html">LED Headlamps</a></h3>
-              <p>Hands stay free for the map, the rope or the wrench. Balanced output for trails, camp set-up and close work.</p>
-              <div class="hub-meta">
-                <span class="hub-count">7 Models</span>
-                <a class="hub-more" href="all-products.html">Shop <span aria-hidden="true">→</span></a>
-              </div>
-            </div>
-          </article>
-
-          <article class="hub-tile" id="dive">
-            <a class="hub-media" href="all-products.html">
-              <img src="assets/img/cat-dive.webp" alt="Acebeam dive lights sealed for underwater use" width="600" height="375" loading="lazy" decoding="async">
-            </a>
-            <div class="hub-body">
-              <h3><a href="all-products.html">Dive Lights</a></h3>
-              <p>Magnetic switching, double O-ring seals and beam patterns tuned for murky water rather than showroom floors.</p>
-              <div class="hub-meta">
-                <span class="hub-count">4 Models</span>
-                <a class="hub-more" href="all-products.html">Shop <span aria-hidden="true">→</span></a>
-              </div>
-            </div>
-          </article>
-
-          <article class="hub-tile" id="batteries">
-            <a class="hub-media" href="all-products.html">
-              <img src="assets/img/catprod-battery5000.webp" alt="Acebeam 21700 USB-C rechargeable lithium-ion batteries" width="600" height="375" loading="lazy" decoding="async">
-            </a>
-            <div class="hub-body">
-              <h3><a href="all-products.html">Batteries &amp; Chargers</a></h3>
-              <p>18650 and 21700 cells with built-in USB-C charging, plus spare chargers so a working light is never out of action.</p>
-              <div class="hub-meta">
-                <span class="hub-count">8 Products</span>
-                <a class="hub-more" href="all-products.html">Shop <span aria-hidden="true">→</span></a>
-              </div>
-            </div>
-          </article>
-
-          <article class="hub-tile" id="accessories">
-            <a class="hub-media" href="all-products.html">
-              <img src="assets/img/catprod-cap.webp" alt="Acebeam flashlight mounts, rails and spare accessories" width="600" height="375" loading="lazy" decoding="async">
-            </a>
-            <div class="hub-body">
-              <h3><a href="all-products.html">Mounts &amp; Accessories</a></h3>
-              <p>Rail mounts, weapon lights, diffusers, filters and spare tail caps — the parts that turn a flashlight into a system.</p>
-              <div class="hub-meta">
-                <span class="hub-count">12 Products</span>
-                <a class="hub-more" href="all-products.html">Shop <span aria-hidden="true">→</span></a>
-              </div>
-            </div>
-          </article>
+            <nav class="catalog-pagination" aria-label="Product pages">
+              <ul class="pagination justify-content-center" data-catalog-pagination></ul>
+            </nav>
+            <p class="catalog-note">Demo preview: 12 products are loaded in this static prototype; the full catalogue is 107 products. Categories without a demo unit say so instead of inventing one.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -615,6 +797,6 @@
   </button>
 
   <script src="assets/vendors/bootstrap-5.3.8/js/bootstrap.bundle.min.js" defer></script>
-  <script src="assets/js/main.js?v=20261031f" defer></script>
+  <script src="assets/js/main.js?v=20261120a" defer></script>
 </body>
 </html>
