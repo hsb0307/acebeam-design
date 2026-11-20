@@ -35,9 +35,9 @@
   --ac-danger-inv-line: #ff8d78; /* 深蓝底上的错误边框/焦点环基色 */
   --ac-danger-inv-ring: rgba(255, 141, 120, .24);
   --ac-danger-soft-bg: #fff7f7; /* 失败态底色：只承载 --ac-ink（15.13）与 --ac-slate（5.15），均 AA */
-
-  --font-display: "Archivo", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-  --font-body: "Source Sans 3", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  /* Archivo → Aldrich  */
+  --font-display: "Aldrich", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-body: "Aldrich", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
 
   --sp-1: .25rem;
   --sp-2: .5rem;
@@ -1129,8 +1129,8 @@ button.link-strong {
 
 /* ---------- 19. 内容区块：导语 / 选购指南 / FAQ / 信任条 / 进场动画 ---------- */
 /* 导语段落：行长按 DESIGN.md「<80 字符」契约收口。
-   ch 以「0」宽计，Source Sans 3 平均字宽更窄：76ch 实测约 105 字符/行、
-   68ch 仍 86，压到 62ch 才落进 80 以内（浏览器实测）。 */
+   ch 以「0」宽计；62ch 是 Source Sans 3 的旧实测值（76ch≈105 字符/行、
+   68ch≈86）。正文已换 Aldrich，字宽不同，本值待浏览器重测后再定。 */
 .seo-intro { max-width: 62ch; }
 .seo-intro p { color: var(--ac-slate); line-height: 1.8; margin-bottom: .85rem; font-size: .95rem; }
 .seo-intro p:last-child { margin-bottom: 0; }

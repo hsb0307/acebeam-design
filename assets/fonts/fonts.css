@@ -16,8 +16,8 @@
   src: url(source-sans-3/SourceSans3.woff2?v=20261031) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-/* Aldrich 全站 0 处引用（--font-display/--font-body 都不指向它），未引用的 @font-face 不会被下载，
-   但留在这里会让「第三个字体家族」混进设计契约。要用它先回 DESIGN.md 明确角色，否则删除本块。 */
+/* Aldrich 自 2026-11-20 起承担正文（--font-body 指向本块，DESIGN.md 已明确角色）。
+   Source Sans 3 的 face 保留为休眠资产：无元素引用 → 网络成本为 0。 */
 @font-face {
   font-family: 'Aldrich';
   font-style: normal;

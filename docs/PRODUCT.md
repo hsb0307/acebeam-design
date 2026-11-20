@@ -44,7 +44,7 @@ Acebeam 官方商城前台的静态设计原型，覆盖完整购物旅程（浏
 
 - 名称：Acebeam（分销带标题使用 Acebeam®）。
 - 品牌色：主橙 `#e65300`（`--ac-beacon`）单色派生全部强调态；深蓝 `#051c2c`（`--ac-navy`）承载通知栏/页脚/技术带/评论带等信任区。设计 token 全部定义在 `common.css :root`（`--ac-*` 变量）。
-- 字体：Aldrich（技术感展示）、Archivo（display）、Source Sans 3（正文），均为自托管 woff2。
+- 字体：Archivo（display）、Aldrich（正文，原休眠资产于 2026-11-20 启用）；Source Sans 3 已退为休眠声明。均为自托管 woff2。
 - 服务承诺（站点既有文案）：10 年保修、满 $49 免邮、IP68 / HAIII / 1.5m 抗跌落。
 - 文案语言：英文面向用户，中文仅用于代码注释。
 

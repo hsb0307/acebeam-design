@@ -28,7 +28,7 @@ typography:
     lineHeight: 1.2
     letterSpacing: "0.01em"
   body:
-    fontFamily: "'Source Sans 3', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif"
+    fontFamily: "'Aldrich', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif"
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.6
@@ -147,17 +147,17 @@ components:
 ## Typography
 
 **Display Font:** Archivo（回退 "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif）
-**Body Font:** Source Sans 3（同一回退栈）
+**Body Font:** Aldrich（同一回退栈）
 **Label Font:** Archivo 微铭牌（大写 + 宽字距），无独立字体
 
-**Character:** 仪器铭牌配工具书正文——Archivo 的硬朗几何承担"设备铭牌"角色（导航/按钮/价格/区块标题/读数），Source Sans 3 的人文灰度承担阅读与说明。全部自托管 woff2，`font-display: swap`。只有这两个家族进入页面；**Aldrich 仅在 fonts.css 声明、从未被引用**（休眠资产——要用就先在本文件明确角色，不要静默混入）。
+**Character:** 仪器铭牌配工具书正文——Archivo 的硬朗几何承担"设备铭牌"角色（导航/按钮/价格/区块标题/读数），Aldrich 承担阅读与说明。全部自托管 woff2，`font-display: swap`。进入页面的是 Archivo（display）与 Aldrich（body）两个家族；Aldrich 原为休眠资产，2026-11-20 启用（仅改 `--font-body`）；Source Sans 3 的 `@font-face` 保留但不再被引用。Aldrich 只有 400 单字重，`strong`/700 由浏览器合成粗体。
 
 ### Hierarchy
 - **Display**（Archivo 800–900, clamp(1.4rem, 2.6vw, 2rem)+, 大写, +.01em）：区块标题、hero 标题、深蓝带标题。
 - **Headline**（Archivo 800, clamp(1.5rem, 3vw, 2.2rem)）：页面 H1（page-band）。
 - **Title**（Archivo 700, .92rem / 1.35）：商品卡标题（两行截断）。
-- **Body**（Source Sans 3 400, 1rem / 1.6）：正文；导语 .95rem/1.8 石板灰；行长上限 <80 字符；H1 与正文比 ≥2.5×，尺度用 `clamp()` 流式。
-  - `ch` 校准（Source Sans 3 实测）：76ch≈105 字符、68ch≈86、62ch≤80——`ch` 是「0 的宽度」不是平均字符宽。`.seo-intro` 与 `.distributor-inner p` 已收至 62ch（实测 79/74 字符/行）；新增阅读列从 62ch 起步，不凭直觉写 70ch+。
+- **Body**（Aldrich 400, 1rem / 1.6）：正文；导语 .95rem/1.8 石板灰；行长上限 <80 字符；H1 与正文比 ≥2.5×，尺度用 `clamp()` 流式。
+  - `ch` 校准：62ch 是 Source Sans 3 旧实测（76ch≈105 字符、68ch≈86、62ch≤80，79/74 字符/行）——`ch` 是「0 的宽度」不是平均字符宽。正文换 Aldrich 后字宽不同，`.seo-intro` 与 `.distributor-inner p` 仍为 62ch，**待浏览器实测复核**；新增阅读列暂从 62ch 起步，不凭直觉写 70ch+。
 - **Label**（Archivo 700, .64–.82rem, +.06em–.22em, 大写）：眉标（.22em）、导航项（.1em）、按钮（.08em）、侧栏标题（.14em）、角标（.08em）。
 
 ### Named Rules
@@ -288,7 +288,7 @@ Bootstrap 5 栅格之上的宽场布局：标准容器阶梯（540/720/960/1140/
 - **Don't** 紧排标题（正字距铭牌感是本系统的字声）。
 - **Don't** 新增区块加眉标签（存量冻结）；不用箭头"→"当按钮后缀（index.html 按效果图存量保留，待拍板，见 Decisions）；不卡片套卡片。
 - **Don't** 臆造规格、SKU、创立年份、目录规模——冲突条目等真人拍板。
-- **Don't** 用系统字体顶替 Archivo/Source Sans 3 的展示角色。
+- **Don't** 用系统字体顶替 Archivo/Aldrich 的展示角色。
 
 ## Motion
 

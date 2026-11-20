@@ -93,7 +93,7 @@
   font-weight: 900; letter-spacing: .02em; line-height: 1.04;
   text-transform: uppercase; color: #fff; margin-bottom: .2rem;
 }
-/* 强调不用斜体：Archivo/Source Sans 3 无真斜体面，font-style:italic 只会得到
+/* 强调不用斜体：Archivo/Aldrich 无真斜体面，font-style:italic 只会得到
    浏览器合成的廉价倾斜（site-audit §假斜体）。铭牌体系的强调 = 色彩 + 字重。 */
 .hero h1 em,
 .hero-slide-title em { font-style: normal; color: var(--ac-beacon); }
